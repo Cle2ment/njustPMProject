@@ -17,7 +17,9 @@ printf("%d\t%d\n", i, j);
 \end{lstlisting}
     \pause
     \begin{alertblock}{解析}
+        \footnotesize
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item j从10递减：10,9,8,7,6→j>5，\texttt{i += 2}，continue跳过
             \item j=5：j>5不满足；j\%2=1为真，\texttt{j-=2}→j=3，break退出
             \item 最终：i = 1 + 2×5 = 11，j = 3
@@ -39,8 +41,9 @@ int main() {
 \end{lstlisting}
     \pause
     \begin{alertblock}{解析}
-        调用 \texttt{f1(y, \&x)} → \texttt{f1(6, \&x)}
+        \footnotesize 调用 \texttt{f1(y, \&x)} → \texttt{f1(6, \&x)}
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item 形参x=6, 形参y指向main的x(值为8)
             \item \texttt{x += *y}：形参x = 6+8 = 14（局部变量，不影响main）
             \item \texttt{*y += x}：main的x = 8+14 = 22
@@ -68,8 +71,9 @@ int main() {
 \end{lstlisting}
     \pause
     \begin{alertblock}{解析}
-        \texttt{f2} 实现\underline{原地反转数组}：
+        \footnotesize \texttt{f2} 实现\underline{原地反转数组}：
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item i=0: 交换a[0]↔a[3] → {8,6,7,5}
             \item i=1: 交换a[1]↔a[2] → {8,7,6,5}
         \end{itemize}
@@ -92,8 +96,9 @@ c[i] = '\0'; puts(c);
 \end{lstlisting}
     \pause
     \begin{alertblock}{解析}
-        逐位比较取较大者，转大写（减32）：
+        \footnotesize 逐位比较取较大者，转大写（减32）：
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item i=0: a[0]='a'(97) ≥ b[0]='a'(97) → c[0]=97-32=65='A'
             \item i=1: a[1]='b'(98) < b[1]='c'(99) → c[1]=99-32=67='C'
             \item i=2: a[2]='t'(116) ≥ b[2]='i'(105) → c[2]=116-32=84='T'
@@ -120,7 +125,9 @@ int main() {
 \end{lstlisting}
     \pause
     \begin{alertblock}{递归展开}
+        \footnotesize
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item Fun(5,4) = Fun(4,2) + 25
             \item Fun(4,2) = Fun(3,0) + 16
             \item Fun(3,0) = 0 \quad (b=0 < 1)

@@ -21,7 +21,9 @@ int main() {
 \end{lstlisting}
     \pause
     \begin{alertblock}{解析}
+        \footnotesize
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item static a 只初始化一次，生命周期贯穿整个程序
             \item 块1：f3(3) → static a从1→2，返回2+3=5，k=5
             \item 块2：f3(a)中a是全局a=1（块1的a已出作用域）\\
@@ -51,8 +53,9 @@ int main() {
 \end{lstlisting}
     \pause
     \begin{alertblock}{解析}
-        myPoint初始 \{x=5, y=12\}：
+        \footnotesize myPoint初始 \{x=5, y=12\}：
         \begin{enumerate}
+            \setlength{\itemsep}{0pt}
             \item 交换：x↔y → \{12, 5\}
             \item 条件运算：x=12>10 → x = 12/2 = 6
         \end{enumerate}
@@ -78,8 +81,9 @@ int main() {
 \end{lstlisting}
     \pause
     \begin{alertblock}{解析}
-        \texttt{func(2, 3)} 计算 $2^3$：
+        \footnotesize \texttt{func(2, 3)} 计算 $2^3$：
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item result = 2
             \item i=1: result *= 2 → 4
             \item i=2: result *= 2 → 8
@@ -102,6 +106,7 @@ printf("sum = %d\n", sum);  // 【9】
 \end{lstlisting}
     \pause
     \begin{alertblock}{解析}
+        \small
         \begin{tabular}{c|c|c|c}
             i & arr[i] & i\%2 & sum变化 \\ \hline
             0 & 1 & 0(偶) & 0+1=1 \\
@@ -110,6 +115,7 @@ printf("sum = %d\n", sum);  // 【9】
             3 & 4 & 1 & 2-4=-2 \\
             4 & 5 & 0 & -2+5=3
         \end{tabular}
+
         偶数下标加，奇数下标减
     \end{alertblock}
 \end{frame}
@@ -124,7 +130,7 @@ printf("a = %d, b = %d\n", a, b);  // 【10】
 \end{lstlisting}
     \pause
     \begin{alertblock}{异或交换法（不借助临时变量）}
-        二进制视角：
+        \small 二进制视角：
         \begin{itemize}
             \item a=5(101), b=3(011)
             \item a=a\^{}b → a=110(6)

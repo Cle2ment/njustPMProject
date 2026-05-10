@@ -16,6 +16,7 @@
     \end{exampleblock}
     \pause
     \begin{alertblock}{解析}
+        \footnotesize
         \begin{itemize}
             \item {\color{highlight}A $\checkmark$：形参可以是任何类型}
             \item B $\times$：void函数可以有形参，如 \texttt{void print(int n);}
@@ -80,6 +81,7 @@
     \end{exampleblock}
     \pause
     \begin{alertblock}{解析}
+        \footnotesize
         \begin{itemize}
             \item \texttt{p} 指向 \texttt{a[5]}（值为6）
             \item \texttt{p[-3] $\equiv$ *(p-3)}，即向低位偏移3个元素
@@ -104,15 +106,16 @@
     \end{exampleblock}
     \pause
     \begin{alertblock}{解析}
+        \small
         \begin{itemize}
             \item union 的大小 = \underline{最大成员的大小}
             \item int: 4字节，float: 4字节，double: 8字节
             \item 最大为 double 的 8 字节
         \end{itemize}
-        \vspace{0.5em}
+        \vspace{0.3em}
         {\color{highlight}对比：} struct 的大小 $\geq$ 各成员大小之和（考虑对齐）
 
-        \vspace{0.5em}
+        \vspace{0.3em}
         {\color{highlight}答案：B（8）}
     \end{alertblock}
 \end{frame}
@@ -122,7 +125,7 @@
     \begin{exampleblock}{题目}
         若有以下程序段，则使用错误的选项是 \textbf{【16】} 。
     \end{exampleblock}
-    \begin{lstlisting}[language=C]
+    \begin{lstlisting}[language=C, basicstyle=\footnotesize\ttfamily]
 struct student { int num; int age; };
 struct student stu[3] = {{1001,20},{1002,19},{1004,20}};
 struct student *p;
@@ -133,6 +136,7 @@ p = stu;
     \end{itemize}
     \pause
     \begin{alertblock}{解析}
+        \small
         \begin{itemize}
             \item A $\checkmark$：解引用后取成员，等价于 \texttt{p->num}
             \item B $\checkmark$：\texttt{p++} 后取成员，合法
@@ -146,23 +150,25 @@ p = stu;
 % --- Q17: for循环 ---
 \begin{frame}{第17题}{for 循环条件分析}
     \begin{exampleblock}{题目}
-        设j和k都是int类型，则for循环语句\\
+        \small 设j和k都是int类型，则for循环语句\\
         \texttt{for (j = 0, k = -1; k = 1; j++, k++) printf("*****\textbackslash n");} \textbf{【17】} 。
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item A. 循环结束的条件不合法 \quad B. 是无限循环
             \item C. 循环体一次也不执行 \quad D. 循环体只执行一次
         \end{itemize}
     \end{exampleblock}
     \pause
     \begin{alertblock}{解析}
+        \footnotesize
         {\color{highlight}关键：} \texttt{k = 1} 是\underline{赋值}，不是判断！
 
         赋值表达式的值为1（真），所以条件\underline{永远为真}→无限循环。
 
-        \vspace{0.5em}
+        \vspace{0.2em}
         {\color{highlight}易错点：} 初学者常把 \texttt{=} 和 \texttt{==} 混淆！
 
-        \vspace{0.5em}
+        \vspace{0.2em}
         {\color{highlight}答案：B}
     \end{alertblock}
 \end{frame}
@@ -178,13 +184,14 @@ p = stu;
     \end{exampleblock}
     \pause
     \begin{alertblock}{解析}
+        \small
         \begin{itemize}
             \item auto：局部变量默认，离开作用域销毁
             \item register：建议编译器放入寄存器（局部变量）
             \item {\color{highlight}C $\checkmark$：static 修饰全局变量→限制作用域为本文件（内部链接）}
             \item extern：声明外部变量，跨文件使用（外部链接）
         \end{itemize}
-        \vspace{0.5em}
+        \vspace{0.3em}
         {\color{highlight}记忆：} static = "静态+私密"（文件内可见，外部不可见）
     \end{alertblock}
 \end{frame}
@@ -201,6 +208,7 @@ p = stu;
     \end{exampleblock}
     \pause
     \begin{alertblock}{解析}
+        \footnotesize
         \begin{itemize}
             \item \texttt{s} 是 \texttt{char[4][81]} 类型
             \item \texttt{s[2]} 是 \texttt{char[81]} 类型（第2行），即 \texttt{char *}

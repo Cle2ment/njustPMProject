@@ -1,8 +1,55 @@
 \documentclass[aspectratio=169,UTF8]{ctexbeamer}
 
 % ========== 主题与配色 ==========
-\usetheme{metropolis}
+\usetheme[block=fill]{metropolis}
 \usefonttheme{professionalfonts}
+
+% --- 蓝白配色方案 ---
+\definecolor{myblue}{RGB}{25,85,190}         % 主蓝色
+\definecolor{mybluelight}{RGB}{220,235,252}  % 浅蓝背景
+\definecolor{myblueaccent}{RGB}{15,60,150}   % 深蓝强调
+\definecolor{mybluebg}{RGB}{235,245,255}     % 极浅蓝
+
+% Override metropolis 调色板
+\setbeamercolor{palette primary}{fg=white,bg=myblue}
+\setbeamercolor{progress bar}{fg=myblue,bg=mybluelight}
+\setbeamercolor{progress bar in head/foot}{fg=myblue,bg=mybluelight}
+\setbeamercolor{progress bar in section page}{fg=myblue,bg=mybluelight}
+\setbeamercolor{title separator}{fg=myblue}
+\setbeamercolor{frametitle}{fg=white,bg=myblue}
+
+% 块 (block) 颜色
+\setbeamercolor{block title}{fg=white,bg=myblue}
+\setbeamercolor{block body}{fg=black,bg=mybluelight!50}
+\setbeamercolor{block title example}{fg=white,bg=myblue!90!white}
+\setbeamercolor{block body example}{fg=black,bg=mybluebg}
+\setbeamercolor{block title alerted}{fg=white,bg=myblueaccent}
+\setbeamercolor{block body alerted}{fg=black,bg=mybluelight!25}
+
+% 普通文本结构色
+\setbeamercolor{structure}{fg=myblue}
+\setbeamercolor{normal text}{fg=black,bg=white}
+\setbeamercolor{itemize item}{fg=myblue}
+\setbeamercolor{itemize subitem}{fg=myblueaccent}
+\setbeamercolor{enumerate item}{fg=myblue}
+
+% 高亮色 — 用于标注答案
+\definecolor{highlight}{RGB}{15,60,150}
+
+% ========== 全局间距优化 ==========
+\usepackage{etoolbox}
+% 块标题与正文之间增加间距
+\AtBeginEnvironment{exampleblock}{\vspace{0.4em}}
+\AtBeginEnvironment{alertblock}{\vspace{0.4em}}
+\AtBeginEnvironment{block}{\vspace{0.4em}}
+
+% itemize / enumerate 内部间距
+\let\olditemize\itemize
+\let\oldendenumerate\endenumerate
+\let\oldenumerate\enumerate
+\let\oldenditemize\enditemize
+\renewcommand{\itemize}{\olditemize\addtolength{\itemsep}{0.15em plus 0.05em minus 0.05em}}
+\renewcommand{\enumerate}{\oldenumerate\addtolength{\itemsep}{0.15em plus 0.05em minus 0.05em}}
 
 % ========== 基础包 ==========
 \usepackage{graphicx}
@@ -15,14 +62,13 @@
 \usepackage{listings}
 \usepackage{xcolor}
 
-\definecolor{codebg}{RGB}{245,245,245}
+\definecolor{codebg}{RGB}{245,245,248}
 \definecolor{codecomment}{RGB}{106,153,85}
 \definecolor{codestring}{RGB}{206,145,120}
-\definecolor{codekeyword}{RGB}{86,156,214}
-\definecolor{highlight}{RGB}{220,50,50}
+\definecolor{codekeyword}{RGB}{25,85,190}
 
 \lstset{
-    basicstyle=\small\ttfamily,
+    basicstyle=\footnotesize\ttfamily,
     backgroundcolor=\color{codebg},
     commentstyle=\color{codecomment},
     stringstyle=\color{codestring},

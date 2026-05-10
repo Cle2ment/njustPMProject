@@ -54,11 +54,12 @@
 
 \begin{frame}{基本概念填空题（三）}{第9--10空 逗号表达式}
     \begin{exampleblock}{第9-10空}
-        \texttt{int i, a;} \\
+        \small \texttt{int i, a;} \\
         执行语句：\texttt{i = (a = 2 * 3, a * 5), a + 6;} 后
     \end{exampleblock}
     \pause
     \begin{alertblock}{逐步解析}
+        \small
         \begin{enumerate}
             \item \texttt{a = 2 * 3} → a = 6
             \item 逗号表达式 \texttt{(6, 6 * 5)} → 值为 30
@@ -67,7 +68,7 @@
         \end{enumerate}
         \textbf{a = 6, i = 30}
 
-        \vspace{0.5em}
+        \vspace{0.3em}
         {\color{highlight}知识点：逗号表达式从左到右求值，取最右值为结果。}
     \end{alertblock}
 \end{frame}

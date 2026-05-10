@@ -5,11 +5,12 @@
 
 \begin{frame}{编程题}{题目背景}
     \begin{exampleblock}{场景}
-        致远大厦有一部可停靠1$\sim$26层楼的电梯。\\
+        \small 致远大厦有一部可停靠1$\sim$26层楼的电梯。\\
         设计电梯调度系统，模拟考试分值：\textbf{4+2+4=10分}
     \end{exampleblock}
     \pause
     \begin{block}{输入格式}
+        \small
         \begin{itemize}
             \item 第一行：\texttt{n a d} —— n个按钮按下，a当前楼层，d方向（1上行/-1下行）
             \item 第二行：\texttt{n}个整数 —— 已按下的按钮（不重复、不含a、不一定有序）
@@ -17,7 +18,7 @@
     \end{block}
     \pause
     \begin{block}{输出要求}
-        输出下一个应停靠的楼层。
+        \small 输出下一个应停靠的楼层。
         \begin{itemize}
             \item 当前方向有目标→输出该方向最近的
             \item 当前方向无目标→反方向就近停靠
@@ -103,6 +104,7 @@ int main() {
 
 \begin{frame}{编程题}{调度逻辑图解}
     \begin{block}{核心思路}
+        \small
         \begin{enumerate}
             \item 排序按钮数组 → 有序后便于查找
             \item 上行(d=1)：找大于当前楼层的最小按钮（上方最近）
@@ -112,6 +114,7 @@ int main() {
     \end{block}
     \pause
     \begin{exampleblock}{举例}
+        \small
         当前在5楼，上行，按钮有 \{2, 8, 10\}：
         \begin{itemize}
             \item 上行方向：大于5的最小值是8 → 停8楼
