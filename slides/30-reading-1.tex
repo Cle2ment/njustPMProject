@@ -3,8 +3,8 @@
 % ============================================
 \section{阅读程序填空题（一）}
 
-% --- Reading Q1 ---
-\begin{frame}[fragile]{阅读程序 第1题}{for + continue + break}
+% --- Reading Q1 代码 ---
+\begin{frame}[fragile]{阅读程序 第1题 --- 代码}{for + continue + break}
     \begin{exampleblock}{输出结果：\textbf{11\quad 3}}
     \end{exampleblock}
     \begin{lstlisting}[language=C]
@@ -15,7 +15,10 @@ for (; j >= 1; j--) {
 }
 printf("%d\t%d\n", i, j);
 \end{lstlisting}
-    \pause
+\end{frame}
+
+% --- Reading Q1 解析 ---
+\begin{frame}{阅读程序 第1题 --- 解析}{for + continue + break}
     \begin{alertblock}{解析}
         \footnotesize
         \begin{itemize}
@@ -27,8 +30,8 @@ printf("%d\t%d\n", i, j);
     \end{alertblock}
 \end{frame}
 
-% --- Reading Q2 ---
-\begin{frame}[fragile]{阅读程序 第2题}{指针参数}
+% --- Reading Q2 代码 ---
+\begin{frame}[fragile]{阅读程序 第2题 --- 代码}{指针参数}
     \begin{exampleblock}{输出结果：\textbf{22, 6}}
     \end{exampleblock}
     \begin{lstlisting}[language=C,basicstyle=\scriptsize\ttfamily]
@@ -39,7 +42,10 @@ int main() {
     printf("%d, %d\n", x, y);
 }
 \end{lstlisting}
-    \pause
+\end{frame}
+
+% --- Reading Q2 解析 ---
+\begin{frame}{阅读程序 第2题 --- 解析}{指针参数}
     \begin{alertblock}{解析}
         \footnotesize 调用 \texttt{f1(y, \&x)} → \texttt{f1(6, \&x)}
         \begin{itemize}
@@ -84,8 +90,8 @@ int main() {
     \end{alertblock}
 \end{frame}
 
-% --- Reading Q4 ---
-\begin{frame}[fragile]{阅读程序 第4题}{字符处理}
+% --- Reading Q4 代码 ---
+\begin{frame}[fragile]{阅读程序 第4题 --- 代码}{字符处理}
     \begin{exampleblock}{输出结果：\textbf{ACT}}
     \end{exampleblock}
     \begin{lstlisting}[language=C,basicstyle=\scriptsize\ttfamily]
@@ -97,7 +103,10 @@ while (a[i] != '\0' && b[i] != '\0') {
 }
 c[i] = '\0'; puts(c);
 \end{lstlisting}
-    \pause
+\end{frame}
+
+% --- Reading Q4 解析 ---
+\begin{frame}{阅读程序 第4题 --- 解析}{字符处理}
     \begin{alertblock}{解析}
         \footnotesize 逐位比较取较大者，转大写（减32）：
         \begin{itemize}

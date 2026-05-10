@@ -8,7 +8,9 @@
         \footnotesize 致远大厦有一部可停靠1$\sim$26层楼的电梯。\\
         设计电梯调度系统，模拟考试分值：\textbf{4+2+4=10分}
     \end{exampleblock}
-    \pause
+\end{frame}
+
+\begin{frame}{编程题}{输入输出要求}
     \begin{block}{输入格式}
         \footnotesize
         \begin{itemize}
@@ -17,7 +19,6 @@
             \item 第二行：\texttt{n}个整数 —— 已按下的按钮（不重复、不含a、不一定有序）
         \end{itemize}
     \end{block}
-    \pause
     \begin{block}{输出要求}
         \footnotesize 输出下一个应停靠的楼层。
         \begin{itemize}
@@ -108,7 +109,7 @@ int main() {
 \end{lstlisting}
 \end{frame}
 
-\begin{frame}{编程题}{调度逻辑图解}
+\begin{frame}{编程题}{调度逻辑图解 --- 核心思路}
     \begin{block}{核心思路}
         \footnotesize
         \begin{enumerate}
@@ -119,7 +120,9 @@ int main() {
             \item 当前方向找不到目标 → 折返，反方向就近停靠
         \end{enumerate}
     \end{block}
-    \pause
+\end{frame}
+
+\begin{frame}{编程题}{调度逻辑图解 --- 举例}
     \begin{exampleblock}{举例}
         \footnotesize
         当前在5楼，上行，按钮有 \{2, 8, 10\}：

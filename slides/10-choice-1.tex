@@ -4,14 +4,16 @@
 \section{选择题（一）}
 
 % --- Q1: 标识符 ---
-\begin{frame}{第1题}{合法标识符}
+\begin{frame}{第1题}{合法标识符 --- 题目}
     \begin{exampleblock}{题目}
         以下是合法的C语言标识符的是 \textbf{【1】} 。
         \begin{itemize}
             \item A. \texttt{26autumn} \quad B. \texttt{scanf} \quad C. \texttt{Cour@e} \quad D. \texttt{while}
         \end{itemize}
     \end{exampleblock}
-    \pause
+\end{frame}
+
+\begin{frame}{第1题}{合法标识符 --- 解析}
     \begin{alertblock}{解析}
         \begin{itemize}
             \item A：以数字开头，非法
@@ -23,14 +25,16 @@
 \end{frame}
 
 % --- Q2: 运算符优先级 ---
-\begin{frame}{第2题}{运算符优先级}
+\begin{frame}{第2题}{运算符优先级 --- 题目}
     \begin{exampleblock}{题目}
         下列运算符的优先级最高的是 \textbf{【2】} 。
         \begin{itemize}
             \item A. \texttt{=} \quad B. \texttt{+} \quad C. \texttt{||} \quad D. \texttt{\&\&}
         \end{itemize}
     \end{exampleblock}
-    \pause
+\end{frame}
+
+\begin{frame}{第2题}{运算符优先级 --- 解析}
     \begin{alertblock}{解析}
         优先级从高到低：\texttt{+} (算术) > \texttt{\&\&} (逻辑与) > \texttt{||} (逻辑或) > \texttt{=} (赋值)
         \vspace{0.5em}
@@ -40,14 +44,16 @@
 \end{frame}
 
 % --- Q3: 合法字面量 ---
-\begin{frame}{第3题}{合法字面量}
+\begin{frame}{第3题}{合法字面量 --- 题目}
     \begin{exampleblock}{题目}
         \small 以下不是合法C语言字面量的是 \textbf{【3】} 。
         \begin{itemize}
             \item A. \texttt{"3e-3.5"} \quad B. \texttt{'\textbackslash 091'} \quad C. \texttt{1e-3} \quad D. \texttt{0xabc}
         \end{itemize}
     \end{exampleblock}
-    \pause
+\end{frame}
+
+\begin{frame}{第3题}{合法字面量 --- 解析}
     \begin{alertblock}{解析}
         \footnotesize
         \begin{itemize}
@@ -61,14 +67,16 @@
 \end{frame}
 
 % --- Q4: ASCII ---
-\begin{frame}{第4题}{ASCII码计算}
+\begin{frame}{第4题}{ASCII码计算 --- 题目}
     \begin{exampleblock}{题目}
         字符 'H' 的ASCII值为十六进制数48，则'K'的ASCII值为十六进制数 \textbf{【4】} 。
         \begin{itemize}
             \item A. 51 \quad B. 45 \quad C. 30 \quad D. 4B
         \end{itemize}
     \end{exampleblock}
-    \pause
+\end{frame}
+
+\begin{frame}{第4题}{ASCII码计算 --- 解析}
     \begin{alertblock}{解析}
         \begin{itemize}
             \item H → I → J → K，K比H多3
@@ -80,14 +88,16 @@
 \end{frame}
 
 % --- Q5: while(!(E)) ---
-\begin{frame}{第5题}{while 条件等价}
+\begin{frame}{第5题}{while 条件等价 --- 题目}
     \begin{exampleblock}{题目}
         语句 \texttt{while(!(E));} 中的表达式 \texttt{!(E)} 等价于 \textbf{【5】} 。
         \begin{itemize}
             \item A. \texttt{(E) == 1}\quad B. \texttt{(E) != 0}\quad C. \texttt{(E) != 1}\quad D. \texttt{(E) == 0}
         \end{itemize}
     \end{exampleblock}
-    \pause
+\end{frame}
+
+\begin{frame}{第5题}{while 条件等价 --- 解析}
     \begin{alertblock}{解析}
         \texttt{!(E)} 为真 $\Leftrightarrow$ \texttt{E} 为假 $\Leftrightarrow$ \texttt{E == 0}
 
@@ -99,7 +109,7 @@
 \end{frame}
 
 % --- Q6: break / continue ---
-\begin{frame}{第6题}{break 与 continue}
+\begin{frame}{第6题}{break 与 continue --- 题目}
     \begin{exampleblock}{题目}
         \small 以下正确的描述是 \textbf{【6】} 。
         \begin{itemize}
@@ -110,7 +120,9 @@
             \item D. 在循环体内使用break和continue语句的作用相同
         \end{itemize}
     \end{exampleblock}
-    \pause
+\end{frame}
+
+\begin{frame}{第6题}{break 与 continue --- 解析}
     \begin{alertblock}{解析}
         \footnotesize
         \begin{itemize}
@@ -125,14 +137,16 @@
 \end{frame}
 
 % --- Q7: 逻辑表达式 ---
-\begin{frame}{第7题}{逻辑表达式求值}
+\begin{frame}{第7题}{逻辑表达式求值 --- 题目}
     \begin{exampleblock}{题目}
         逻辑表达式 \texttt{3 < 2 || -1 \&\& 4 > 3 - 1} 的值为 \textbf{【7】} 。
         \begin{itemize}
             \item A. 1 \quad B. 3 \quad C. 0 \quad D. 2
         \end{itemize}
     \end{exampleblock}
-    \pause
+\end{frame}
+
+\begin{frame}{第7题}{逻辑表达式求值 --- 解析}
     \begin{alertblock}{解析}
         \footnotesize 优先级：算术 > 关系 > \&\& > ||
         \begin{itemize}
@@ -148,7 +162,7 @@
 \end{frame}
 
 % --- Q8: printf ---
-\begin{frame}[fragile]{第8题}{printf 格式化输出}
+\begin{frame}[fragile]{第8题}{printf 格式化输出 --- 题目}
     \begin{exampleblock}{题目}
         已知字母A的ASCII码是65，以下程序的执行结果是 \textbf{【8】} 。
     \end{exampleblock}
@@ -157,7 +171,9 @@
 char c1 = 'A', c2 = 'D';
 printf("%c, %d\n", c1, c2);
 \end{lstlisting}
-    \pause
+\end{frame}
+
+\begin{frame}{第8题}{printf 格式化输出 --- 解析}
     \begin{alertblock}{解析}
         \small
         \begin{itemize}
@@ -195,7 +211,7 @@ printf("%c, %d\n", c1, c2);
 \end{frame}
 
 % --- Q10: 二维数组下标 ---
-\begin{frame}{第10题}{二维数组下标越界}
+\begin{frame}{第10题}{二维数组下标越界 --- 题目}
     \begin{exampleblock}{题目}
         \small 若有说明 \texttt{int a[3][4];} 则以下 \textbf{【10】} 表达式不合理。
         \begin{itemize}
@@ -203,7 +219,9 @@ printf("%c, %d\n", c1, c2);
             \item A. \texttt{a[1][3]} \quad B. \texttt{a[0][4]} \quad C. \texttt{a[0][2*1]} \quad D. \texttt{a[4-2][0]}
         \end{itemize}
     \end{exampleblock}
-    \pause
+\end{frame}
+
+\begin{frame}{第10题}{二维数组下标越界 --- 解析}
     \begin{alertblock}{解析}
         \footnotesize \texttt{a[3][4]} 的行下标范围 0$\sim$2，列下标范围 0$\sim$3
         \begin{itemize}

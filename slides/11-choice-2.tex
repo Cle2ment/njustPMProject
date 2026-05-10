@@ -4,7 +4,7 @@
 \section{选择题（二）}
 
 % --- Q11: 函数形参 ---
-\begin{frame}{第11题}{函数形参}
+\begin{frame}{第11题}{函数形参 --- 题目}
     \begin{exampleblock}{题目}
         \footnotesize 在C语言的函数中，下列正确的说法是 \textbf{【11】} 。
         \begin{itemize}
@@ -15,7 +15,9 @@
             \item D. 必须有形参
         \end{itemize}
     \end{exampleblock}
-    \pause
+\end{frame}
+
+\begin{frame}{第11题}{函数形参 --- 解析}
     \begin{alertblock}{解析}
         \footnotesize
         \begin{itemize}
@@ -29,7 +31,7 @@
 \end{frame}
 
 % --- Q12: 宏展开 ---
-\begin{frame}{第12题}{宏定义展开陷阱}
+\begin{frame}{第12题}{宏定义展开陷阱 --- 题目}
     \begin{exampleblock}{题目}
         设有宏定义 \texttt{\#define F(r) r+r}，则 \texttt{F(3) * F(3)} 的值为 \textbf{【12】} 。
         \begin{itemize}
@@ -37,7 +39,9 @@
             \item A. 36 \quad B. 0 \quad C. 15 \quad D. 表达式有误
         \end{itemize}
     \end{exampleblock}
-    \pause
+\end{frame}
+
+\begin{frame}{第12题}{宏定义展开陷阱 --- 解析}
     \begin{alertblock}{解析}
         宏只是文本替换！\\
         \texttt{F(3) * F(3) → 3+3 * 3+3}\\
@@ -53,7 +57,7 @@
 \end{frame}
 
 % --- Q13: 函数嵌套 ---
-\begin{frame}{第13题}{函数的定义与调用嵌套}
+\begin{frame}{第13题}{函数的定义与调用嵌套 --- 题目}
     \begin{exampleblock}{题目}
         以下正确的描述是 \textbf{【13】} 。
         \begin{itemize}
@@ -63,7 +67,9 @@
             \item D. 函数的定义和函数的调用均不可以嵌套
         \end{itemize}
     \end{exampleblock}
-    \pause
+\end{frame}
+
+\begin{frame}{第13题}{函数的定义与调用嵌套 --- 解析}
     \begin{alertblock}{解析}
         \footnotesize
         \begin{itemize}
@@ -76,7 +82,7 @@
 \end{frame}
 
 % --- Q14: 指针与数组 ---
-\begin{frame}{第14题}{指针下标运算}
+\begin{frame}{第14题}{指针下标运算 --- 题目}
     \begin{exampleblock}{题目}
         有下列语句：\texttt{int a[10]=\{1,2,3,4,5,6,7,8\}; int *p = \&a[5];}\\
         则 \texttt{p[-3]} 的值是 \textbf{【14】} 。
@@ -85,7 +91,9 @@
             \item A. 1 \quad B. 2 \quad C. 3 \quad D. 4
         \end{itemize}
     \end{exampleblock}
-    \pause
+\end{frame}
+
+\begin{frame}{第14题}{指针下标运算 --- 解析}
     \begin{alertblock}{解析}
         \footnotesize
         \begin{itemize}
@@ -103,7 +111,7 @@
 \end{frame}
 
 % --- Q15: union ---
-\begin{frame}{第15题}{联合体（union）大小}
+\begin{frame}{第15题}{联合体（union）大小 --- 题目}
     \begin{exampleblock}{题目}
         \texttt{unionexp\{int i; float j; double k;\} x;}\\
         该联合体在常见计算机上所占字节数为 \textbf{【15】} 。
@@ -112,7 +120,9 @@
             \item A. 4 \quad B. 8 \quad C. 16 \quad D. 232
         \end{itemize}
     \end{exampleblock}
-    \pause
+\end{frame}
+
+\begin{frame}{第15题}{联合体（union）大小 --- 解析}
     \begin{alertblock}{解析}
         \small
         \begin{itemize}
@@ -159,7 +169,7 @@ p = stu;
 \end{frame}
 
 % --- Q17: for循环 ---
-\begin{frame}{第17题}{for 循环条件分析}
+\begin{frame}{第17题}{for 循环条件分析 --- 题目}
     \begin{exampleblock}{题目}
         \small 设j和k都是int类型，则for循环语句\\
         \texttt{for (j = 0, k = -1; k = 1; j++, k++) printf("*****\textbackslash n");} \textbf{【17】} 。
@@ -169,7 +179,9 @@ p = stu;
             \item C. 循环体一次也不执行 \quad D. 循环体只执行一次
         \end{itemize}
     \end{exampleblock}
-    \pause
+\end{frame}
+
+\begin{frame}{第17题}{for 循环条件分析 --- 解析}
     \begin{alertblock}{解析}
         \footnotesize
         {\color{highlight}关键：} \texttt{k = 1} 是\underline{赋值}，不是判断！
@@ -185,7 +197,7 @@ p = stu;
 \end{frame}
 
 % --- Q18: static ---
-\begin{frame}{第18题}{存储类别 static}
+\begin{frame}{第18题}{存储类别 static --- 题目}
     \begin{exampleblock}{题目}
         \footnotesize 在一个C源文件中，若要定义一个只允许本源文件所有函数使用的全局变量，\\
         则该变量需要使用的存储类别是 \textbf{【18】} 。
@@ -194,7 +206,9 @@ p = stu;
             \item A. auto \quad B. register \quad C. static \quad D. extern
         \end{itemize}
     \end{exampleblock}
-    \pause
+\end{frame}
+
+\begin{frame}{第18题}{存储类别 static --- 解析}
     \begin{alertblock}{解析}
         \footnotesize
         \begin{itemize}
@@ -210,7 +224,7 @@ p = stu;
 \end{frame}
 
 % --- Q19: 指针类型 ---
-\begin{frame}{第19题}{字符串指针数组——类型判断}
+\begin{frame}{第19题}{字符串指针数组——类型判断 --- 题目}
     \begin{exampleblock}{题目}
         \footnotesize 设有语句：\\
         \texttt{char s[][81] = \{"Student","Teacher","Father","Mother"\}, *ps=s[2];}\\
@@ -220,7 +234,9 @@ p = stu;
             \item A. char \quad B. char * \quad C. char ** \quad D. char[81]
         \end{itemize}
     \end{exampleblock}
-    \pause
+\end{frame}
+
+\begin{frame}{第19题}{字符串指针数组——类型判断 --- 解析}
     \begin{alertblock}{解析}
         \footnotesize
         \begin{itemize}
