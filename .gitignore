@@ -17,3 +17,8 @@ build/
 *.pdf
 
 materials/
+
+.opencode/
+.sisyphus/
+
+images/
