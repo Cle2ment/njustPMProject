@@ -4,18 +4,17 @@
 \usetheme[block=fill]{metropolis}
 \usefonttheme{professionalfonts}
 
-% --- 现代蓝白配色方案 ---
-% 深灰蓝 — 框架标题、块标题（替代沉闷的纯蓝，更显专业）
-\definecolor{primary}{RGB}{30,41,59}
-% 主蓝 — 进度条、项目符号、链接
-\definecolor{accent}{RGB}{59,130,246}
-% 浅蓝 — 示例块背景、褪色元素
-\definecolor{accentlight}{RGB}{219,234,254}
-% 琥珀暖色 — 答案高亮（在蓝灰色系中脱颖而出）
-\definecolor{warm}{RGB}{217,119,6}
-% 浅灰背景 — 块体、代码背景
-\definecolor{bglight}{RGB}{241,245,249}
-\definecolor{bglighter}{RGB}{248,250,252}
+% --- 克莱因蓝 (IKB) 配色方案 ---
+% IKB ≈ RGB(0,47,167)，以此为基调构建全蓝色系
+% 深邃克莱因蓝 — 框架标题、块标题、进度条
+\definecolor{primary}{RGB}{0,38,150}
+% 克莱因蓝 — 项目符号、结构元素、代码关键词
+\definecolor{accent}{RGB}{0,55,180}
+% 浅蓝 — 示例块背景
+\definecolor{accentlight}{RGB}{222,234,254}
+% 蓝灰背景 — 块体、代码背景
+\definecolor{bglight}{RGB}{244,247,254}
+\definecolor{bglighter}{RGB}{250,251,255}
 
 % Override metropolis 调色板
 \setbeamercolor{palette primary}{fg=white,bg=primary}
@@ -28,10 +27,10 @@
 % 块 (block) 颜色
 \setbeamercolor{block title}{fg=white,bg=primary}
 \setbeamercolor{block body}{fg=black,bg=bglight}
-\setbeamercolor{block title example}{fg=white,bg=accent!85!primary}
+\setbeamercolor{block title example}{fg=white,bg=accent}
 \setbeamercolor{block body example}{fg=black,bg=accentlight!30}
 \setbeamercolor{block title alerted}{fg=white,bg=primary}
-\setbeamercolor{block body alerted}{fg=black,bg=accentlight!15}
+\setbeamercolor{block body alerted}{fg=black,bg=accentlight!20}
 
 % 普通文本结构色
 \setbeamercolor{structure}{fg=accent}
@@ -40,8 +39,8 @@
 \setbeamercolor{itemize subitem}{fg=primary}
 \setbeamercolor{enumerate item}{fg=accent}
 
-% 高亮色 — 用于标注答案（暖琥珀色，醒目但不刺眼）
-\definecolor{highlight}{RGB}{217,119,6}
+% 高亮色 — 电光蓝，标注答案（与主色调同色系，醒目但不突兀）
+\definecolor{highlight}{RGB}{0,90,210}
 
 % ========== 全局间距优化 ==========
 \usepackage{etoolbox}
@@ -72,7 +71,7 @@
 \definecolor{codebg}{RGB}{248,250,252}
 \definecolor{codecomment}{RGB}{106,153,85}
 \definecolor{codestring}{RGB}{206,145,120}
-\definecolor{codekeyword}{RGB}{59,130,246}
+\definecolor{codekeyword}{RGB}{0,55,180}
 
 \lstset{
     basicstyle=\footnotesize\ttfamily,
