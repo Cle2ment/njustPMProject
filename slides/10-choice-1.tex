@@ -1,0 +1,207 @@
+% ============================================
+% 一、选择题 Q1-10
+% ============================================
+\section{选择题（一）}
+
+% --- Q1: 标识符 ---
+\begin{frame}{第1题}{合法标识符}
+    \begin{exampleblock}{题目}
+        以下是合法的C语言标识符的是 \textbf{【1】} 。
+        \begin{itemize}
+            \item A. \texttt{26autumn} \quad B. \texttt{scanf} \quad C. \texttt{Cour@e} \quad D. \texttt{while}
+        \end{itemize}
+    \end{exampleblock}
+    \pause
+    \begin{alertblock}{解析}
+        \begin{itemize}
+            \item A：以数字开头，非法
+            \item C：含非法字符 \texttt{@}
+            \item D：\texttt{while} 是关键字
+            \item {\color{highlight}B：\texttt{scanf} 是库函数名，但它是合法标识符（不是关键字）}
+        \end{itemize}
+    \end{alertblock}
+\end{frame}
+
+% --- Q2: 运算符优先级 ---
+\begin{frame}{第2题}{运算符优先级}
+    \begin{exampleblock}{题目}
+        下列运算符的优先级最高的是 \textbf{【2】} 。
+        \begin{itemize}
+            \item A. \texttt{=} \quad B. \texttt{+} \quad C. \texttt{||} \quad D. \texttt{\&\&}
+        \end{itemize}
+    \end{exampleblock}
+    \pause
+    \begin{alertblock}{解析}
+        优先级从高到低：\texttt{+} (算术) > \texttt{\&\&} (逻辑与) > \texttt{||} (逻辑或) > \texttt{=} (赋值)
+        \vspace{0.5em}
+
+        {\color{highlight}答案：B}
+    \end{alertblock}
+\end{frame}
+
+% --- Q3: 合法字面量 ---
+\begin{frame}{第3题}{合法字面量}
+    \begin{exampleblock}{题目}
+        以下不是合法C语言字面量的是 \textbf{【3】} 。
+        \begin{itemize}
+            \item A. \texttt{"3e-3.5"} \quad B. \texttt{'\textbackslash 091'} \quad C. \texttt{1e-3} \quad D. \texttt{0xabc}
+        \end{itemize}
+    \end{exampleblock}
+    \pause
+    \begin{alertblock}{解析}
+        \begin{itemize}
+            \item A：\texttt{"3e-3.5"} 是字符串常量，合法
+            \item B：\texttt{'\textbackslash 091'} 中 \texttt{\textbackslash 0} 表示八进制转义，但 \texttt{9} 不是合法八进制数字→非法
+            \item C：\texttt{1e-3} 是科学计数法浮点常量 $=0.001$
+            \item D：\texttt{0xabc} 是十六进制整数常量
+        \end{itemize}
+        {\color{highlight}答案：B}
+    \end{alertblock}
+\end{frame}
+
+% --- Q4: ASCII ---
+\begin{frame}{第4题}{ASCII码计算}
+    \begin{exampleblock}{题目}
+        字符 'H' 的ASCII值为十六进制数48，则'K'的ASCII值为十六进制数 \textbf{【4】} 。
+        \begin{itemize}
+            \item A. 51 \quad B. 45 \quad C. 30 \quad D. 4B
+        \end{itemize}
+    \end{exampleblock}
+    \pause
+    \begin{alertblock}{解析}
+        \begin{itemize}
+            \item H → I → J → K，K比H多3
+            \item $48_{16} = 72_{10}$，$72+3=75_{10}=4B_{16}$
+            \item 或直接十六进制：$48+3=4B$
+        \end{itemize}
+        {\color{highlight}答案：D}
+    \end{alertblock}
+\end{frame}
+
+% --- Q5: while(!(E)) ---
+\begin{frame}{第5题}{while 条件等价}
+    \begin{exampleblock}{题目}
+        语句 \texttt{while(!(E));} 中的表达式 \texttt{!(E)} 等价于 \textbf{【5】} 。
+        \begin{itemize}
+            \item A. \texttt{(E) == 1}\quad B. \texttt{(E) != 0}\quad C. \texttt{(E) != 1}\quad D. \texttt{(E) == 0}
+        \end{itemize}
+    \end{exampleblock}
+    \pause
+    \begin{alertblock}{解析}
+        \texttt{!(E)} 为真 $\Leftrightarrow$ \texttt{E} 为假 $\Leftrightarrow$ \texttt{E == 0}
+
+        while循环的条件：\texttt{!(E)} 为真时执行循环体，即 E 为 0（假）时循环。
+        \vspace{0.5em}
+
+        {\color{highlight}答案：D}
+    \end{alertblock}
+\end{frame}
+
+% --- Q6: break / continue ---
+\begin{frame}{第6题}{break 与 continue}
+    \begin{exampleblock}{题目}
+        以下正确的描述是 \textbf{【6】} 。
+        \begin{itemize}
+            \item A. 只能在循环体内和switch语句内使用break语句
+            \item B. continue语句的作用是终止整个循环的执行
+            \item C. 从多层嵌套循环退出时，只能使用goto语句
+            \item D. 在循环体内使用break和continue语句的作用相同
+        \end{itemize}
+    \end{exampleblock}
+    \pause
+    \begin{alertblock}{解析}
+        \begin{itemize}
+            \item A $\checkmark$：break只能用于循环体和switch
+            \item B $\times$：continue只跳过本轮剩余语句，不是终止整个循环
+            \item C $\times$：也可以用break配合标志变量退出
+            \item D $\times$：break是退出循环，continue是跳过本轮
+        \end{itemize}
+        {\color{highlight}答案：A}
+    \end{alertblock}
+\end{frame}
+
+% --- Q7: 逻辑表达式 ---
+\begin{frame}{第7题}{逻辑表达式求值}
+    \begin{exampleblock}{题目}
+        逻辑表达式 \texttt{3 < 2 || -1 \&\& 4 > 3 - 1} 的值为 \textbf{【7】} 。
+        \begin{itemize}
+            \item A. 1 \quad B. 3 \quad C. 0 \quad D. 2
+        \end{itemize}
+    \end{exampleblock}
+    \pause
+    \begin{alertblock}{解析}
+        优先级：算术 > 关系 > \&\& > ||
+        \begin{itemize}
+            \item \texttt{3 - 1 = 2}，\texttt{4 > 2} 为真 $\to 1$
+            \item \texttt{-1}（非零）为真 $\to 1$
+            \item \texttt{1 \&\& 1 = 1}
+            \item \texttt{3 < 2} 为假 $\to 0$
+            \item \texttt{0 || 1 = 1}
+        \end{itemize}
+        {\color{highlight}答案：A}
+    \end{alertblock}
+\end{frame}
+
+% --- Q8: printf ---
+\begin{frame}[fragile]{第8题}{printf 格式化输出}
+    \begin{exampleblock}{题目}
+        已知字母A的ASCII码是65，以下程序的执行结果是 \textbf{【8】} 。
+    \end{exampleblock}
+
+    \begin{lstlisting}[language=C]
+char c1 = 'A', c2 = 'D';
+printf("%c, %d\n", c1, c2);
+\end{lstlisting}
+    \pause
+    \begin{alertblock}{解析}
+        \begin{itemize}
+            \item \texttt{\%c} 输出字符：c1='A' → 输出 'A'
+            \item \texttt{\%d} 输出十进制整数：c2='D'，D的ASCII码为68
+            \item 注意 \textbf{不是}输出 'D'！\texttt{\%d} 打印的是整数值
+        \end{itemize}
+        {\color{highlight}答案：C（A, 68）}
+    \end{alertblock}
+\end{frame}
+
+% --- Q9: 字符数组声明 ---
+\begin{frame}{第9题}{字符数组声明}
+    \begin{exampleblock}{题目}
+        下列字符数组的声明正确的是 \textbf{【9】} 。
+        \begin{itemize}
+            \item A. \texttt{char s1[5][ ] = \{"ABCDE"\};}
+            \item B. \texttt{char s2[5] = \{"ABCDE"\};}
+            \item C. \texttt{char s3[ ][ ] = \{"ABCDE"\};}
+            \item D. \texttt{char s4[5] = \{'A','B','C','D','E'\};}
+        \end{itemize}
+    \end{exampleblock}
+    \pause
+    \begin{alertblock}{解析}
+        \begin{itemize}
+            \item A：二维数组不可同时省略列（第二维）大小
+            \item B：\texttt{"ABCDE"} 需要6字节（含'\textbackslash 0'），\texttt{s2[5]} 空间不足
+            \item C：二维数组两个维度都省略，编译器无法确定大小
+            \item {\color{highlight}D $\checkmark$：用初始化列表逐个字符赋值的正确方式}
+        \end{itemize}
+    \end{alertblock}
+\end{frame}
+
+% --- Q10: 二维数组下标 ---
+\begin{frame}{第10题}{二维数组下标越界}
+    \begin{exampleblock}{题目}
+        若有说明 \texttt{int a[3][4];} 则以下 \textbf{【10】} 表达式不合理。
+        \begin{itemize}
+            \item A. \texttt{a[1][3]} \quad B. \texttt{a[0][4]} \quad C. \texttt{a[0][2*1]} \quad D. \texttt{a[4-2][0]}
+        \end{itemize}
+    \end{exampleblock}
+    \pause
+    \begin{alertblock}{解析}
+        \texttt{a[3][4]} 的行下标范围 0$\sim$2，列下标范围 0$\sim$3
+        \begin{itemize}
+            \item A：\texttt{a[1][3]} → 列=3，合法
+            \item {\color{highlight}B：\texttt{a[0][4]} → 列=4，越界！（最大列下标为3）}
+            \item C：\texttt{a[0][2]} → 合法
+            \item D：\texttt{a[2][0]} → 合法
+        \end{itemize}
+        {\color{highlight}答案：B}
+    \end{alertblock}
+\end{frame}

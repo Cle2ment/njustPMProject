@@ -1,0 +1,73 @@
+% ============================================
+% 二、基本概念填空题
+% ============================================
+\section{基本概念填空题}
+
+\begin{frame}{基本概念填空题（一）}{第1--5空}
+    \begin{exampleblock}{第1-2空}
+        C语言中，源代码的后缀名为：\textbf{.c}。\\
+        scanf函数声明所在的标准头文件是 \textbf{stdio.h}。
+    \end{exampleblock}
+    \pause
+    \begin{exampleblock}{第3空}
+        C程序设计的三种基本结构是：顺序结构、\textbf{选择结构}和循环结构。
+    \end{exampleblock}
+    \pause
+    \begin{exampleblock}{第4空}
+        C语言中，\textbf{\&} 运算符可以获取变量的地址。
+    \end{exampleblock}
+    \pause
+    \begin{exampleblock}{第5空}
+        若x=5，y=10，则计算 \texttt{y *= ++x} 表达式后：
+        \begin{itemize}
+            \item \texttt{++x} → x 先自增为6
+            \item \texttt{y *= 6} → y = 10 × 6 = 60
+        \end{itemize}
+        \textbf{x=6, y=60}（顺序不可颠倒）
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}{基本概念填空题（二）}{第6--10空}
+    \begin{exampleblock}{第6-7空}
+        有函数声明 \texttt{int f(double *p);}
+        \begin{itemize}
+            \item 返回值类型是：\textbf{int}
+            \item 指向该函数类型的指针声明：\texttt{\textbf{int (*p)(int);}}
+            \begin{itemize}
+                \item 注意语法：\texttt{int (*p)(参数类型列表);}
+                \item 这里f的参数是 \texttt{double *}，所以应该是 \texttt{int (*p)(double *);}
+            \end{itemize}
+        \end{itemize}
+    \end{exampleblock}
+    \pause
+    \begin{exampleblock}{第8空}
+        \texttt{int x[3][4] = \{3,4,5,6,7,8,9,10,11,12\};}
+        初始化按行填充：
+        \begin{itemize}
+            \item x[0]: {3,4,5,6}
+            \item x[1]: {7,8,9,10}
+            \item x[2]: {11,12,0,0}（未初始化部分为0）
+        \end{itemize}
+        \texttt{x[2][0] = }\textbf{11}
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}{基本概念填空题（三）}{第9--10空 逗号表达式}
+    \begin{exampleblock}{第9-10空}
+        \texttt{int i, a;} \\
+        执行语句：\texttt{i = (a = 2 * 3, a * 5), a + 6;} 后
+    \end{exampleblock}
+    \pause
+    \begin{alertblock}{逐步解析}
+        \begin{enumerate}
+            \item \texttt{a = 2 * 3} → a = 6
+            \item 逗号表达式 \texttt{(6, 6 * 5)} → 值为 30
+            \item \texttt{i = 30}
+            \item 最外层逗号：\texttt{i = 30, a + 6} → 整体值为12（被丢弃）
+        \end{enumerate}
+        \textbf{a = 6, i = 30}
+
+        \vspace{0.5em}
+        {\color{highlight}知识点：逗号表达式从左到右求值，取最右值为结果。}
+    \end{alertblock}
+\end{frame}

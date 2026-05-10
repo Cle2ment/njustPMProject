@@ -1,0 +1,70 @@
+\documentclass[aspectratio=169,UTF8]{ctexbeamer}
+
+% ========== 主题与配色 ==========
+\usetheme{metropolis}
+\usefonttheme{professionalfonts}
+
+% ========== 基础包 ==========
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{multicol}
+
+% ========== 代码高亮 ==========
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codebg}{RGB}{245,245,245}
+\definecolor{codecomment}{RGB}{106,153,85}
+\definecolor{codestring}{RGB}{206,145,120}
+\definecolor{codekeyword}{RGB}{86,156,214}
+\definecolor{highlight}{RGB}{220,50,50}
+
+\lstset{
+    basicstyle=\small\ttfamily,
+    backgroundcolor=\color{codebg},
+    commentstyle=\color{codecomment},
+    stringstyle=\color{codestring},
+    keywordstyle=\color{codekeyword}\bfseries,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true,
+    showstringspaces=false,
+    tabsize=4,
+    language=C
+}
+
+% ========== 元信息 ==========
+\title{C语言期末模拟卷讲评}
+\subtitle{朋辈学业导师讲座}
+\author{（请填写姓名）}
+\institute{南京理工大学}
+\date{\today}
+
+\begin{document}
+
+\input{slides/01-title}
+\input{slides/02-outline}
+
+% ========== 选择题 ==========
+\input{slides/10-choice-1}
+\input{slides/11-choice-2}
+
+% ========== 基本概念填空题 ==========
+\input{slides/20-basic-blank}
+
+% ========== 阅读程序填空题 ==========
+\input{slides/30-reading-1}
+\input{slides/31-reading-2}
+
+% ========== 程序完善题 ==========
+\input{slides/40-complete}
+
+% ========== 编程题 ==========
+\input{slides/50-programming}
+
+\input{slides/99-end}
+
+\end{document}

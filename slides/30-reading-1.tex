@@ -1,0 +1,131 @@
+% ============================================
+% 三、阅读程序填空题 Q1-5
+% ============================================
+\section{阅读程序填空题（一）}
+
+% --- Reading Q1 ---
+\begin{frame}[fragile]{阅读程序 第1题}{for + continue + break}
+    \begin{exampleblock}{输出结果：\textbf{11\quad 3}}
+    \end{exampleblock}
+    \begin{lstlisting}[language=C]
+int i = 1, j = 10;
+for (; j >= 1; j--) {
+    if (j > 5) { i += 2; continue; }
+    if (j % 2) { j -= 2; break; }
+}
+printf("%d\t%d\n", i, j);
+\end{lstlisting}
+    \pause
+    \begin{alertblock}{解析}
+        \begin{itemize}
+            \item j从10递减：10,9,8,7,6→j>5，\texttt{i += 2}，continue跳过
+            \item j=5：j>5不满足；j\%2=1为真，\texttt{j-=2}→j=3，break退出
+            \item 最终：i = 1 + 2×5 = 11，j = 3
+        \end{itemize}
+    \end{alertblock}
+\end{frame}
+
+% --- Reading Q2 ---
+\begin{frame}[fragile]{阅读程序 第2题}{指针参数}
+    \begin{exampleblock}{输出结果：\textbf{22, 6}}
+    \end{exampleblock}
+    \begin{lstlisting}[language=C]
+void f1(int x, int *y) { x += *y; *y += x; }
+int main() {
+    int x = 8, y = 6;
+    f1(y, &x);
+    printf("%d, %d\n", x, y);
+}
+\end{lstlisting}
+    \pause
+    \begin{alertblock}{解析}
+        调用 \texttt{f1(y, \&x)} → \texttt{f1(6, \&x)}
+        \begin{itemize}
+            \item 形参x=6, 形参y指向main的x(值为8)
+            \item \texttt{x += *y}：形参x = 6+8 = 14（局部变量，不影响main）
+            \item \texttt{*y += x}：main的x = 8+14 = 22
+            \item main的y始终为6（值传递，未修改）
+        \end{itemize}
+    \end{alertblock}
+\end{frame}
+
+% --- Reading Q3 ---
+\begin{frame}[fragile]{阅读程序 第3题}{数组反转}
+    \begin{exampleblock}{输出结果：\textbf{8765}}
+    \end{exampleblock}
+    \begin{lstlisting}[language=C]
+void f2(int a[], int n) {
+    int i, t;
+    for (i = 0; i < n / 2; i++) {
+        t = a[i]; a[i] = a[n-1-i]; a[n-1-i] = t;
+    }
+}
+int main() {
+    int a[] = {5, 6, 7, 8}, i;
+    f2(a, 4);
+    for (i = 0; i < 4; i++) printf("%d", a[i]);
+}
+\end{lstlisting}
+    \pause
+    \begin{alertblock}{解析}
+        \texttt{f2} 实现\underline{原地反转数组}：
+        \begin{itemize}
+            \item i=0: 交换a[0]↔a[3] → {8,6,7,5}
+            \item i=1: 交换a[1]↔a[2] → {8,7,6,5}
+        \end{itemize}
+        没有换行，连续输出：8765
+    \end{alertblock}
+\end{frame}
+
+% --- Reading Q4 ---
+\begin{frame}[fragile]{阅读程序 第4题}{字符处理}
+    \begin{exampleblock}{输出结果：\textbf{ACT}}
+    \end{exampleblock}
+    \begin{lstlisting}[language=C]
+char a[] = "abt", b[] = "acid", c[10]; int i = 0;
+while (a[i] != '\0' && b[i] != '\0') {
+    if (a[i] >= b[i]) c[i] = a[i] - 32;
+    else c[i] = b[i] - 32;
+    ++i;
+}
+c[i] = '\0'; puts(c);
+\end{lstlisting}
+    \pause
+    \begin{alertblock}{解析}
+        逐位比较取较大者，转大写（减32）：
+        \begin{itemize}
+            \item i=0: a[0]='a'(97) ≥ b[0]='a'(97) → c[0]=97-32=65='A'
+            \item i=1: a[1]='b'(98) < b[1]='c'(99) → c[1]=99-32=67='C'
+            \item i=2: a[2]='t'(116) ≥ b[2]='i'(105) → c[2]=116-32=84='T'
+            \item i=3: a[3]='\textbackslash 0'，循环终止
+        \end{itemize}
+    \end{alertblock}
+\end{frame}
+
+% --- Reading Q5 ---
+\begin{frame}[fragile]{阅读程序 第5题}{递归函数}
+    \begin{exampleblock}{输出结果：\textbf{41}}
+    \end{exampleblock}
+    \begin{lstlisting}[language=C]
+int Fun(int a, int b) {
+    int p;
+    if (b < 1) p = 0;
+    else p = Fun(a - 1, b - 2) + a * a;
+    return p;
+}
+int main() {
+    int a = 5, b = 4;
+    printf("%d\n", Fun(a, b));
+}
+\end{lstlisting}
+    \pause
+    \begin{alertblock}{递归展开}
+        \begin{itemize}
+            \item Fun(5,4) = Fun(4,2) + 25
+            \item Fun(4,2) = Fun(3,0) + 16
+            \item Fun(3,0) = 0 \quad (b=0 < 1)
+            \item Fun(4,2) = 0 + 16 = 16
+            \item Fun(5,4) = 16 + 25 = 41
+        \end{itemize}
+    \end{alertblock}
+\end{frame}

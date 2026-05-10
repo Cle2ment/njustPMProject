@@ -1,0 +1,86 @@
+% ============================================
+% 四、程序完善题
+% ============================================
+\section{程序完善题}
+
+% --- Q1: 字符类型判断 ---
+\begin{frame}[fragile]{程序完善 第1题}{字符类型判断}
+    \begin{exampleblock}{题目}
+        输入一个字符，判断该字符是数字、字母、空格还是其他字符。
+    \end{exampleblock}
+    \begin{lstlisting}[language=C]
+char ch;
+ch = 【1】;                                    // getchar()
+if (【2】)                                     // 判断字母
+    printf("It is an English character\n");
+else if (【3】)                                // 判断数字
+    printf("It is a digit character\n");
+else if (ch == ' ')
+    printf("It is a space character\n");
+else
+    printf("It is other character\n");
+\end{lstlisting}
+    \pause
+    \begin{alertblock}{答案}
+        \begin{itemize}
+            \item 【1】\texttt{getchar()} —— 从标准输入读取一个字符
+            \item 【2】\texttt{(ch>='a'\&\&ch<='z')||(ch>='A'\&\&ch<='Z')}
+            \item 【3】\texttt{(ch>='0')\&\&(ch<='9')}
+        \end{itemize}
+    \end{alertblock}
+\end{frame}
+
+% --- Q2: 查找数组元素 ---
+\begin{frame}[fragile]{程序完善 第2题}{数组查找}
+    \begin{exampleblock}{题目}
+        在a数组中查找与x值相同的元素所在位置。
+    \end{exampleblock}
+    \begin{lstlisting}[language=C]
+int a[10], i, x;
+printf("input 10 integers:");
+for (i = 0; i < 10; i++) scanf("%d", 【4】);  // &a[i]
+printf("input the number you want to find x:");
+scanf("%d", &x);
+for (i = 0; i < 10; i++)
+    if (【5】) break;                          // a[i]==x
+if (i < 10)
+    printf("the pos of x is: %d\n", i);
+else
+    printf("can not find x!\n");
+\end{lstlisting}
+    \pause
+    \begin{alertblock}{答案}
+        \begin{itemize}
+            \item 【4】\texttt{\&a[i]} —— scanf需要变量\underline{地址}
+            \item 【5】\texttt{a[i]==x} 或 \texttt{x==a[i]}
+        \end{itemize}
+    \end{alertblock}
+\end{frame}
+
+% --- Q3: 统计非负数 ---
+\begin{frame}[fragile]{程序完善 第3题}{统计非负数}
+    \begin{exampleblock}{题目}
+        读入20个整数，统计非负数个数，并计算非负数之和。
+    \end{exampleblock}
+    \begin{lstlisting}[language=C]
+int i, a[20], s, count;
+s = 【6】;                              // count=0
+for (i = 0; i < 20; i++) scanf("%d", &a[i]);
+for (i = 0; i < 20; i++) {
+    if (【7】) continue;                // a[i] < 0
+    【8】                                // s += a[i];
+    【9】                                // count++;
+}
+printf("s = %d\t count = %d\n", 【10】); // s, count
+\end{lstlisting}
+    \pause
+    \begin{alertblock}{答案}
+        \begin{itemize}
+            \item 【6】\texttt{count=0}（注意s未初始化，但只累加非负数）
+            \item 【7】\texttt{a[i]<0} —— 跳过负数
+            \item 【8】\texttt{s+=a[i];} 或 \texttt{s=s+a[i];}
+            \item 【9】\texttt{count++;} 或 \texttt{++count;} 或 \texttt{count+=1;}
+            \item 【10】\texttt{s, count}（8、9空顺序可互换）
+        \end{itemize}
+    \end{alertblock}
+\end{frame}
