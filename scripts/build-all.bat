@@ -37,4 +37,10 @@ echo  Build complete!
 echo   Slide: slide\build\main.pdf
 echo   Note:  note\build\main.pdf
 echo ============================================
+echo.
+echo === Copying to products/ ===
+if not exist "products" mkdir products
+copy /y "slide\build\main.pdf" "products\展示.pdf"
+copy /y "note\build\main.pdf" "products\讲稿.pdf"
+echo Products: products\展示.pdf + products\讲稿.pdf
 pause

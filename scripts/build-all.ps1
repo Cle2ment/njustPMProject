@@ -44,3 +44,10 @@ Write-Host " 构建完成！" -ForegroundColor Green
 Write-Host "   幻灯片: slide\build\main.pdf" -ForegroundColor Green
 Write-Host "   讲  稿: note\build\main.pdf" -ForegroundColor Green
 Write-Host "============================================" -ForegroundColor Cyan
+
+# === 复制到 products/ ===
+$productsDir = "$root\products"
+if (-not (Test-Path $productsDir)) { New-Item -ItemType Directory -Path $productsDir -Force | Out-Null }
+Copy-Item "$root\slide\build\main.pdf" "$productsDir\展示.pdf" -Force
+Copy-Item "$root\note\build\main.pdf" "$productsDir\讲稿.pdf" -Force
+Write-Host "Products: products\展示.pdf + products\讲稿.pdf" -ForegroundColor Cyan
