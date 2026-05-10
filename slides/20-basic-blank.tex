@@ -3,7 +3,7 @@
 % ============================================
 \section{基本概念填空题}
 
-\begin{frame}{基本概念填空题（一）}{第1--5空}
+\begin{frame}{基本概念填空题（一）---第1-3空}{第1--3空}
     \begin{exampleblock}{第1-2空}
         C语言中，源代码的后缀名为：\textbf{.c}。\\
         scanf函数声明所在的标准头文件是 \textbf{stdio.h}。
@@ -12,7 +12,9 @@
     \begin{exampleblock}{第3空}
         C程序设计的三种基本结构是：顺序结构、\textbf{选择结构}和循环结构。
     \end{exampleblock}
-    \pause
+\end{frame}
+
+\begin{frame}{基本概念填空题（一）---第4-5空}{第4--5空}
     \begin{exampleblock}{第4空}
         C语言中，\textbf{\&} 运算符可以获取变量的地址。
     \end{exampleblock}
@@ -27,23 +29,28 @@
     \end{exampleblock}
 \end{frame}
 
-\begin{frame}{基本概念填空题（二）}{第6--10空}
+\begin{frame}{基本概念填空题（二）}{第6--7空}
     \begin{exampleblock}{第6-7空}
-        有函数声明 \texttt{int f(double *p);}
+        \small 有函数声明 \texttt{int f(double *p);}
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item 返回值类型是：\textbf{int}
             \item 指向该函数类型的指针声明：\texttt{\textbf{int (*p)(int);}}
             \begin{itemize}
+                \setlength{\itemsep}{0pt}
                 \item 注意语法：\texttt{int (*p)(参数类型列表);}
                 \item 这里f的参数是 \texttt{double *}，所以应该是 \texttt{int (*p)(double *);}
             \end{itemize}
         \end{itemize}
     \end{exampleblock}
-    \pause
+\end{frame}
+
+\begin{frame}{基本概念填空题（二）}{第8空}
     \begin{exampleblock}{第8空}
-        \texttt{int x[3][4] = \{3,4,5,6,7,8,9,10,11,12\};}
+        \small \texttt{int x[3][4] = \{3,4,5,6,7,8,9,10,11,12\};}
         初始化按行填充：
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item x[0]: {3,4,5,6}
             \item x[1]: {7,8,9,10}
             \item x[2]: {11,12,0,0}（未初始化部分为0）
@@ -59,8 +66,9 @@
     \end{exampleblock}
     \pause
     \begin{alertblock}{逐步解析}
-        \small
+        \footnotesize
         \begin{enumerate}
+            \setlength{\itemsep}{0pt}
             \item \texttt{a = 2 * 3} → a = 6
             \item 逗号表达式 \texttt{(6, 6 * 5)} → 值为 30
             \item \texttt{i = 30}

@@ -4,52 +4,59 @@
 \usetheme[block=fill]{metropolis}
 \usefonttheme{professionalfonts}
 
-% --- 蓝白配色方案 ---
-\definecolor{myblue}{RGB}{25,85,190}         % 主蓝色
-\definecolor{mybluelight}{RGB}{220,235,252}  % 浅蓝背景
-\definecolor{myblueaccent}{RGB}{15,60,150}   % 深蓝强调
-\definecolor{mybluebg}{RGB}{235,245,255}     % 极浅蓝
+% --- 现代蓝白配色方案 ---
+% 深灰蓝 — 框架标题、块标题（替代沉闷的纯蓝，更显专业）
+\definecolor{primary}{RGB}{30,41,59}
+% 主蓝 — 进度条、项目符号、链接
+\definecolor{accent}{RGB}{59,130,246}
+% 浅蓝 — 示例块背景、褪色元素
+\definecolor{accentlight}{RGB}{219,234,254}
+% 琥珀暖色 — 答案高亮（在蓝灰色系中脱颖而出）
+\definecolor{warm}{RGB}{217,119,6}
+% 浅灰背景 — 块体、代码背景
+\definecolor{bglight}{RGB}{241,245,249}
+\definecolor{bglighter}{RGB}{248,250,252}
 
 % Override metropolis 调色板
-\setbeamercolor{palette primary}{fg=white,bg=myblue}
-\setbeamercolor{progress bar}{fg=myblue,bg=mybluelight}
-\setbeamercolor{progress bar in head/foot}{fg=myblue,bg=mybluelight}
-\setbeamercolor{progress bar in section page}{fg=myblue,bg=mybluelight}
-\setbeamercolor{title separator}{fg=myblue}
-\setbeamercolor{frametitle}{fg=white,bg=myblue}
+\setbeamercolor{palette primary}{fg=white,bg=primary}
+\setbeamercolor{progress bar}{fg=accent,bg=accentlight!50}
+\setbeamercolor{progress bar in head/foot}{fg=accent,bg=accentlight!50}
+\setbeamercolor{progress bar in section page}{fg=accent,bg=accentlight}
+\setbeamercolor{title separator}{fg=accent}
+\setbeamercolor{frametitle}{fg=white,bg=primary}
 
 % 块 (block) 颜色
-\setbeamercolor{block title}{fg=white,bg=myblue}
-\setbeamercolor{block body}{fg=black,bg=mybluelight!50}
-\setbeamercolor{block title example}{fg=white,bg=myblue!90!white}
-\setbeamercolor{block body example}{fg=black,bg=mybluebg}
-\setbeamercolor{block title alerted}{fg=white,bg=myblueaccent}
-\setbeamercolor{block body alerted}{fg=black,bg=mybluelight!25}
+\setbeamercolor{block title}{fg=white,bg=primary}
+\setbeamercolor{block body}{fg=black,bg=bglight}
+\setbeamercolor{block title example}{fg=white,bg=accent!85!primary}
+\setbeamercolor{block body example}{fg=black,bg=accentlight!30}
+\setbeamercolor{block title alerted}{fg=white,bg=primary}
+\setbeamercolor{block body alerted}{fg=black,bg=accentlight!15}
 
 % 普通文本结构色
-\setbeamercolor{structure}{fg=myblue}
+\setbeamercolor{structure}{fg=accent}
 \setbeamercolor{normal text}{fg=black,bg=white}
-\setbeamercolor{itemize item}{fg=myblue}
-\setbeamercolor{itemize subitem}{fg=myblueaccent}
-\setbeamercolor{enumerate item}{fg=myblue}
+\setbeamercolor{itemize item}{fg=accent}
+\setbeamercolor{itemize subitem}{fg=primary}
+\setbeamercolor{enumerate item}{fg=accent}
 
-% 高亮色 — 用于标注答案
-\definecolor{highlight}{RGB}{15,60,150}
+% 高亮色 — 用于标注答案（暖琥珀色，醒目但不刺眼）
+\definecolor{highlight}{RGB}{217,119,6}
 
 % ========== 全局间距优化 ==========
 \usepackage{etoolbox}
 % 块标题与正文之间增加间距
-\AtBeginEnvironment{exampleblock}{\vspace{0.4em}}
-\AtBeginEnvironment{alertblock}{\vspace{0.4em}}
-\AtBeginEnvironment{block}{\vspace{0.4em}}
+\AtBeginEnvironment{exampleblock}{\vspace{0.35em}}
+\AtBeginEnvironment{alertblock}{\vspace{0.35em}}
+\AtBeginEnvironment{block}{\vspace{0.35em}}
 
-% itemize / enumerate 内部间距
+% itemize / enumerate 内部间距（紧凑但不过度）
 \let\olditemize\itemize
 \let\oldendenumerate\endenumerate
 \let\oldenumerate\enumerate
 \let\oldenditemize\enditemize
-\renewcommand{\itemize}{\olditemize\addtolength{\itemsep}{0.15em plus 0.05em minus 0.05em}}
-\renewcommand{\enumerate}{\oldenumerate\addtolength{\itemsep}{0.15em plus 0.05em minus 0.05em}}
+\renewcommand{\itemize}{\olditemize\addtolength{\itemsep}{0.08em plus 0.03em minus 0.03em}}
+\renewcommand{\enumerate}{\oldenumerate\addtolength{\itemsep}{0.08em plus 0.03em minus 0.03em}}
 
 % ========== 基础包 ==========
 \usepackage{graphicx}
@@ -62,10 +69,10 @@
 \usepackage{listings}
 \usepackage{xcolor}
 
-\definecolor{codebg}{RGB}{245,245,248}
+\definecolor{codebg}{RGB}{248,250,252}
 \definecolor{codecomment}{RGB}{106,153,85}
 \definecolor{codestring}{RGB}{206,145,120}
-\definecolor{codekeyword}{RGB}{25,85,190}
+\definecolor{codekeyword}{RGB}{59,130,246}
 
 \lstset{
     basicstyle=\footnotesize\ttfamily,

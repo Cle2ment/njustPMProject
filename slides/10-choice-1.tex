@@ -136,6 +136,7 @@
     \begin{alertblock}{解析}
         \footnotesize 优先级：算术 > 关系 > \&\& > ||
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item \texttt{3 - 1 = 2}，\texttt{4 > 2} 为真 $\to 1$
             \item \texttt{-1}（非零）为真 $\to 1$
             \item \texttt{1 \&\& 1 = 1}
@@ -168,8 +169,7 @@ printf("%c, %d\n", c1, c2);
     \end{alertblock}
 \end{frame}
 
-% --- Q9: 字符数组声明 ---
-\begin{frame}{第9题}{字符数组声明}
+\begin{frame}{第9题}{字符数组声明 — 题目}
     \begin{exampleblock}{题目}
         \small 下列字符数组的声明正确的是 \textbf{【9】} 。
         \begin{itemize}
@@ -179,10 +179,13 @@ printf("%c, %d\n", c1, c2);
             \item D. \texttt{char s4[5] = \{'A','B','C','D','E'\};}
         \end{itemize}
     \end{exampleblock}
-    \pause
+\end{frame}
+
+\begin{frame}{第9题}{字符数组声明 — 解析}
     \begin{alertblock}{解析}
         \small
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item A：二维数组不可同时省略列（第二维）大小
             \item B：\texttt{"ABCDE"} 需要6字节（含'\textbackslash 0'），\texttt{s2[5]} 空间不足
             \item C：二维数组两个维度都省略，编译器无法确定大小

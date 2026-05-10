@@ -6,8 +6,9 @@
 % --- Q11: 函数形参 ---
 \begin{frame}{第11题}{函数形参}
     \begin{exampleblock}{题目}
-        在C语言的函数中，下列正确的说法是 \textbf{【11】} 。
+        \footnotesize 在C语言的函数中，下列正确的说法是 \textbf{【11】} 。
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item A. 形参可以是整型，也可以是指针等其它类型
             \item B. 返回类型为void时不能含有形参
             \item C. 全局变量中已声明的标识符名称不能作形参名
@@ -18,6 +19,7 @@
     \begin{alertblock}{解析}
         \footnotesize
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item {\color{highlight}A $\checkmark$：形参可以是任何类型}
             \item B $\times$：void函数可以有形参，如 \texttt{void print(int n);}
             \item C $\times$：形参名会屏蔽同名的全局变量（可以同名）
@@ -31,6 +33,7 @@
     \begin{exampleblock}{题目}
         设有宏定义 \texttt{\#define F(r) r+r}，则 \texttt{F(3) * F(3)} 的值为 \textbf{【12】} 。
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item A. 36 \quad B. 0 \quad C. 15 \quad D. 表达式有误
         \end{itemize}
     \end{exampleblock}
@@ -62,7 +65,9 @@
     \end{exampleblock}
     \pause
     \begin{alertblock}{解析}
+        \footnotesize
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item C语言中\underline{所有函数定义都是平等的}，不能在函数体内定义另一个函数
             \item 但可以在函数中调用其他函数（包括自身→递归）
         \end{itemize}
@@ -76,6 +81,7 @@
         有下列语句：\texttt{int a[10]=\{1,2,3,4,5,6,7,8\}; int *p = \&a[5];}\\
         则 \texttt{p[-3]} 的值是 \textbf{【14】} 。
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item A. 1 \quad B. 2 \quad C. 3 \quad D. 4
         \end{itemize}
     \end{exampleblock}
@@ -83,6 +89,7 @@
     \begin{alertblock}{解析}
         \footnotesize
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item \texttt{p} 指向 \texttt{a[5]}（值为6）
             \item \texttt{p[-3] $\equiv$ *(p-3)}，即向低位偏移3个元素
             \item \texttt{p-3} 指向 \texttt{a[2]}，其值为3
@@ -101,6 +108,7 @@
         \texttt{unionexp\{int i; float j; double k;\} x;}\\
         该联合体在常见计算机上所占字节数为 \textbf{【15】} 。
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item A. 4 \quad B. 8 \quad C. 16 \quad D. 232
         \end{itemize}
     \end{exampleblock}
@@ -108,6 +116,7 @@
     \begin{alertblock}{解析}
         \small
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item union 的大小 = \underline{最大成员的大小}
             \item int: 4字节，float: 4字节，double: 8字节
             \item 最大为 double 的 8 字节
@@ -120,8 +129,8 @@
     \end{alertblock}
 \end{frame}
 
-% --- Q16: struct 指针 ---
-\begin{frame}[fragile]{第16题}{结构体指针成员访问}
+% --- Q16: struct 指针 (SPLIT) ---
+\begin{frame}[fragile]{第16题 --- 题目}{结构体指针成员访问}
     \begin{exampleblock}{题目}
         若有以下程序段，则使用错误的选项是 \textbf{【16】} 。
     \end{exampleblock}
@@ -134,9 +143,11 @@ p = stu;
     \begin{itemize}
         \item A. \texttt{(*p).num} \quad B. \texttt{(p++)->num} \quad C. \texttt{p = stu.age} \quad D. \texttt{p++}
     \end{itemize}
-    \pause
+\end{frame}
+
+\begin{frame}{第16题 --- 解析}{结构体指针成员访问}
+    \small
     \begin{alertblock}{解析}
-        \small
         \begin{itemize}
             \item A $\checkmark$：解引用后取成员，等价于 \texttt{p->num}
             \item B $\checkmark$：\texttt{p++} 后取成员，合法
@@ -176,16 +187,18 @@ p = stu;
 % --- Q18: static ---
 \begin{frame}{第18题}{存储类别 static}
     \begin{exampleblock}{题目}
-        在一个C源文件中，若要定义一个只允许本源文件所有函数使用的全局变量，\\
+        \footnotesize 在一个C源文件中，若要定义一个只允许本源文件所有函数使用的全局变量，\\
         则该变量需要使用的存储类别是 \textbf{【18】} 。
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item A. auto \quad B. register \quad C. static \quad D. extern
         \end{itemize}
     \end{exampleblock}
     \pause
     \begin{alertblock}{解析}
-        \small
+        \footnotesize
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item auto：局部变量默认，离开作用域销毁
             \item register：建议编译器放入寄存器（局部变量）
             \item {\color{highlight}C $\checkmark$：static 修饰全局变量→限制作用域为本文件（内部链接）}
@@ -199,10 +212,11 @@ p = stu;
 % --- Q19: 指针类型 ---
 \begin{frame}{第19题}{字符串指针数组——类型判断}
     \begin{exampleblock}{题目}
-        设有语句：\\
+        \footnotesize 设有语句：\\
         \texttt{char s[][81] = \{"Student","Teacher","Father","Mother"\}, *ps=s[2];}\\
         题干语句中 \texttt{ps} 的类型是 \textbf{【19】} 。
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item A. char \quad B. char * \quad C. char ** \quad D. char[81]
         \end{itemize}
     \end{exampleblock}
@@ -210,6 +224,7 @@ p = stu;
     \begin{alertblock}{解析}
         \footnotesize
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item \texttt{s} 是 \texttt{char[4][81]} 类型
             \item \texttt{s[2]} 是 \texttt{char[81]} 类型（第2行），即 \texttt{char *}
             \item \texttt{*ps = s[2]}：ps 初始化为指向 \texttt{s[2]} 的指针
@@ -218,19 +233,24 @@ p = stu;
     \end{alertblock}
 \end{frame}
 
-% --- Q20: 字符串指针取值 ---
-\begin{frame}{第20题}{字符串指针输出}
+% --- Q20: 字符串指针取值 (SPLIT) ---
+\begin{frame}{第20题 --- 题目}{字符串指针输出}
     \begin{exampleblock}{题目}
         在题干基础上，执行语句 \texttt{printf("\%c,\%s,\%c\textbackslash n",*s[1],ps,*ps);} \\
         的输出的结果是 \textbf{【20】} 。
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item A. T, Father, F \quad B. Teacher, F, Father
             \item C. Teacher, Father, Father \quad D. 语法错无输出
         \end{itemize}
     \end{exampleblock}
-    \pause
+\end{frame}
+
+\begin{frame}{第20题 --- 解析}{字符串指针输出}
+    \small
     \begin{alertblock}{解析}
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item \texttt{*s[1]}：\texttt{s[1]} = \texttt{"Teacher"}，解引用取首字符→\texttt{'T'}
             \item \texttt{ps}：指向 \texttt{s[2]} = \texttt{"Father"}，\texttt{\%s} 输出字符串 →\texttt{Father}
             \item \texttt{*ps}：解引用取 \texttt{'F'}

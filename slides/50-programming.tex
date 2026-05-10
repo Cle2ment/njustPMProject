@@ -5,21 +5,23 @@
 
 \begin{frame}{编程题}{题目背景}
     \begin{exampleblock}{场景}
-        \small 致远大厦有一部可停靠1$\sim$26层楼的电梯。\\
+        \footnotesize 致远大厦有一部可停靠1$\sim$26层楼的电梯。\\
         设计电梯调度系统，模拟考试分值：\textbf{4+2+4=10分}
     \end{exampleblock}
     \pause
     \begin{block}{输入格式}
-        \small
+        \footnotesize
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item 第一行：\texttt{n a d} —— n个按钮按下，a当前楼层，d方向（1上行/-1下行）
             \item 第二行：\texttt{n}个整数 —— 已按下的按钮（不重复、不含a、不一定有序）
         \end{itemize}
     \end{block}
     \pause
     \begin{block}{输出要求}
-        \small 输出下一个应停靠的楼层。
+        \footnotesize 输出下一个应停靠的楼层。
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item 当前方向有目标→输出该方向最近的
             \item 当前方向无目标→反方向就近停靠
             \item 无任何按钮按下→停靠1楼
@@ -27,7 +29,7 @@
     \end{block}
 \end{frame}
 
-\begin{frame}[fragile]{编程题（一）}{my\_sort — 排序函数（4分）}
+\begin{frame}[fragile]{编程题（一）代码}{my\_sort — 排序函数（4分）}
     \begin{exampleblock}{void my\_sort(int *arr, int cnt)}
         对数组 arr 进行\underline{原地升序}排序，元素个数为 cnt。
     \end{exampleblock}
@@ -44,14 +46,16 @@ void my_sort(int *arr, int cnt) {
     }
 }
 \end{lstlisting}
-    \pause
+\end{frame}
+
+\begin{frame}{编程题（一）解析}{my\_sort — 排序函数}
     \begin{alertblock}{解析}
         经典冒泡排序，时间复杂度 O($n^2$)。\\
         {\color{highlight}排序是为了后续能快速找到"比target大但最小的元素"。}
     \end{alertblock}
 \end{frame}
 
-\begin{frame}[fragile]{编程题（二）}{find\_larger — 查找函数（2分）}
+\begin{frame}[fragile]{编程题（二）代码}{find\_larger — 查找函数（2分）}
     \begin{exampleblock}{int find\_larger(int *arr, int cnt, int target)}
         找到比target大、但比数组中其他元素都小的元素（即大于target的最小值）。
     \end{exampleblock}
@@ -68,7 +72,9 @@ int find_larger(int *arr, int cnt, int target) {
     return min_larger;
 }
 \end{lstlisting}
-    \pause
+\end{frame}
+
+\begin{frame}{编程题（二）解析}{find\_larger — 查找函数}
     \begin{alertblock}{解析}
         遍历数组，记录满足"大于target"条件中的最小值。\\
         find\_smaller 与之对称（找小于target的最大值），题目给出声明可直接调用。
@@ -76,7 +82,7 @@ int find_larger(int *arr, int cnt, int target) {
 \end{frame}
 
 \begin{frame}[fragile]{编程题（三）}{main 函数 — 电梯调度逻辑（4分）}
-    \begin{lstlisting}[language=C, basicstyle=\scriptsize\ttfamily]
+    \begin{lstlisting}[language=C, basicstyle=\tiny\ttfamily]
 int main() {
     int n, a, d;
     scanf("%d %d %d", &n, &a, &d);
@@ -104,8 +110,9 @@ int main() {
 
 \begin{frame}{编程题}{调度逻辑图解}
     \begin{block}{核心思路}
-        \small
+        \footnotesize
         \begin{enumerate}
+            \setlength{\itemsep}{0pt}
             \item 排序按钮数组 → 有序后便于查找
             \item 上行(d=1)：找大于当前楼层的最小按钮（上方最近）
             \item 下行(d=-1)：找小于当前楼层的最大按钮（下方最近）
@@ -114,14 +121,16 @@ int main() {
     \end{block}
     \pause
     \begin{exampleblock}{举例}
-        \small
+        \footnotesize
         当前在5楼，上行，按钮有 \{2, 8, 10\}：
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item 上行方向：大于5的最小值是8 → 停8楼
         \end{itemize}
 
         当前在10楼，上行，按钮有 \{2, 3, 6\}：
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item 上行方向：大于10的值不存在 → 折返
             \item 下行方向：小于10的最大值是6 → 停6楼
         \end{itemize}

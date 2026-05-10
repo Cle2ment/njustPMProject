@@ -4,7 +4,7 @@
 \section{阅读程序填空题（二）}
 
 % --- Reading Q6 ---
-\begin{frame}[fragile]{阅读程序 第6题}{static 局部变量}
+\begin{frame}[fragile]{阅读程序 第6题（代码）}{static 局部变量}
     \begin{exampleblock}{输出结果：\textbf{9}}
     \end{exampleblock}
     \begin{lstlisting}[language=C]
@@ -19,7 +19,9 @@ int main() {
     printf("%d\n", k);
 }
 \end{lstlisting}
-    \pause
+\end{frame}
+
+\begin{frame}{阅读程序 第6题（解析）}{static 局部变量}
     \begin{alertblock}{解析}
         \footnotesize
         \begin{itemize}
@@ -34,7 +36,7 @@ int main() {
 \end{frame}
 
 % --- Reading Q7 ---
-\begin{frame}[fragile]{阅读程序 第7题}{结构体指针传参}
+\begin{frame}[fragile]{阅读程序 第7题（代码）}{结构体指针传参}
     \begin{exampleblock}{输出结果：\textbf{x=6, y=5}}
     \end{exampleblock}
     \begin{lstlisting}[language=C]
@@ -51,7 +53,9 @@ int main() {
     printf("x = %d, y = %d\n", myPoint.x, myPoint.y);
 }
 \end{lstlisting}
-    \pause
+\end{frame}
+
+\begin{frame}{阅读程序 第7题（解析）}{结构体指针传参}
     \begin{alertblock}{解析}
         \footnotesize myPoint初始 \{x=5, y=12\}：
         \begin{enumerate}
@@ -63,8 +67,8 @@ int main() {
     \end{alertblock}
 \end{frame}
 
-% --- Reading Q8-10 ---
-\begin{frame}[fragile]{阅读程序 第8-10题（一）}{第8空}
+% --- Reading Q8-10 (一) ---
+\begin{frame}[fragile]{阅读程序 第8-10题（一）代码}{第8空}
     \begin{exampleblock}{第8空输出：\textbf{z=8}}
     \end{exampleblock}
     \begin{lstlisting}[language=C]
@@ -79,7 +83,9 @@ int main() {
     printf("z = %d\n", z);  // 【8】
 }
 \end{lstlisting}
-    \pause
+\end{frame}
+
+\begin{frame}{阅读程序 第8-10题（一）解析}{第8空}
     \begin{alertblock}{解析}
         \footnotesize \texttt{func(2, 3)} 计算 $2^3$：
         \begin{itemize}
@@ -92,7 +98,7 @@ int main() {
     \end{alertblock}
 \end{frame}
 
-\begin{frame}[fragile]{阅读程序 第8-10题（二）}{第9空}
+\begin{frame}[fragile]{阅读程序 第8-10题（二）代码}{第9空}
     \begin{exampleblock}{第9空输出：\textbf{sum=3}}
     \end{exampleblock}
     \begin{lstlisting}[language=C]
@@ -104,9 +110,11 @@ for (int i = 0; i < 5; i++) {
 }
 printf("sum = %d\n", sum);  // 【9】
 \end{lstlisting}
-    \pause
+\end{frame}
+
+\begin{frame}{阅读程序 第8-10题（二）解析}{第9空}
     \begin{alertblock}{解析}
-        \small
+        \footnotesize
         \begin{tabular}{c|c|c|c}
             i & arr[i] & i\%2 & sum变化 \\ \hline
             0 & 1 & 0(偶) & 0+1=1 \\
@@ -120,7 +128,7 @@ printf("sum = %d\n", sum);  // 【9】
     \end{alertblock}
 \end{frame}
 
-\begin{frame}[fragile]{阅读程序 第8-10题（三）}{第10空：异或交换}
+\begin{frame}[fragile]{阅读程序 第8-10题（三）代码}{第10空：异或交换}
     \begin{exampleblock}{第10空输出：\textbf{a=3, b=5}}
     \end{exampleblock}
     \begin{lstlisting}[language=C]
@@ -128,10 +136,13 @@ int a = 5, b = 3;
 a = a ^ b; b = a ^ b; a = a ^ b;
 printf("a = %d, b = %d\n", a, b);  // 【10】
 \end{lstlisting}
-    \pause
+\end{frame}
+
+\begin{frame}{阅读程序 第8-10题（三）解析}{第10空：异或交换}
     \begin{alertblock}{异或交换法（不借助临时变量）}
         \small 二进制视角：
         \begin{itemize}
+            \setlength{\itemsep}{0pt}
             \item a=5(101), b=3(011)
             \item a=a\^{}b → a=110(6)
             \item b=a\^{}b → b=101(5)

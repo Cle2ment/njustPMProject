@@ -31,7 +31,7 @@ printf("%d\t%d\n", i, j);
 \begin{frame}[fragile]{阅读程序 第2题}{指针参数}
     \begin{exampleblock}{输出结果：\textbf{22, 6}}
     \end{exampleblock}
-    \begin{lstlisting}[language=C]
+    \begin{lstlisting}[language=C,basicstyle=\scriptsize\ttfamily]
 void f1(int x, int *y) { x += *y; *y += x; }
 int main() {
     int x = 8, y = 6;
@@ -52,8 +52,8 @@ int main() {
     \end{alertblock}
 \end{frame}
 
-% --- Reading Q3 ---
-\begin{frame}[fragile]{阅读程序 第3题}{数组反转}
+% --- Reading Q3 代码 ---
+\begin{frame}[fragile]{阅读程序 第3题 — 代码}{数组反转}
     \begin{exampleblock}{输出结果：\textbf{8765}}
     \end{exampleblock}
     \begin{lstlisting}[language=C]
@@ -69,7 +69,10 @@ int main() {
     for (i = 0; i < 4; i++) printf("%d", a[i]);
 }
 \end{lstlisting}
-    \pause
+\end{frame}
+
+% --- Reading Q3 解析 ---
+\begin{frame}[fragile]{阅读程序 第3题 — 解析}{数组反转}
     \begin{alertblock}{解析}
         \footnotesize \texttt{f2} 实现\underline{原地反转数组}：
         \begin{itemize}
@@ -85,7 +88,7 @@ int main() {
 \begin{frame}[fragile]{阅读程序 第4题}{字符处理}
     \begin{exampleblock}{输出结果：\textbf{ACT}}
     \end{exampleblock}
-    \begin{lstlisting}[language=C]
+    \begin{lstlisting}[language=C,basicstyle=\scriptsize\ttfamily]
 char a[] = "abt", b[] = "acid", c[10]; int i = 0;
 while (a[i] != '\0' && b[i] != '\0') {
     if (a[i] >= b[i]) c[i] = a[i] - 32;
@@ -107,11 +110,11 @@ c[i] = '\0'; puts(c);
     \end{alertblock}
 \end{frame}
 
-% --- Reading Q5 ---
-\begin{frame}[fragile]{阅读程序 第5题}{递归函数}
+% --- Reading Q5 代码 ---
+\begin{frame}[fragile]{阅读程序 第5题 — 代码}{递归函数}
     \begin{exampleblock}{输出结果：\textbf{41}}
     \end{exampleblock}
-    \begin{lstlisting}[language=C]
+    \begin{lstlisting}[language=C,basicstyle=\scriptsize\ttfamily]
 int Fun(int a, int b) {
     int p;
     if (b < 1) p = 0;
@@ -123,7 +126,10 @@ int main() {
     printf("%d\n", Fun(a, b));
 }
 \end{lstlisting}
-    \pause
+\end{frame}
+
+% --- Reading Q5 解析 ---
+\begin{frame}[fragile]{阅读程序 第5题 — 解析}{递归函数}
     \begin{alertblock}{递归展开}
         \footnotesize
         \begin{itemize}
