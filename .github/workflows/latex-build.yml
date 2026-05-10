@@ -1,0 +1,83 @@
+name: LaTeX Build Check
+
+on:
+  push:
+    paths:
+      - 'slide/**'
+      - 'note/**'
+      - 'scripts/**'
+      - '.github/workflows/latex-build.yml'
+  pull_request:
+    paths:
+      - 'slide/**'
+      - 'note/**'
+      - 'scripts/**'
+
+jobs:
+  build-slide:
+    name: Build Slide (xelatex)
+    runs-on: ubuntu-latest
+    container:
+      image: texlive/texlive:latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build slide
+        working-directory: slide
+        run: latexmk -xelatex -interaction=nonstopmode main.tex
+
+      - name: Check for errors
+        working-directory: slide
+        run: |
+          if grep -q "^!" build/main.log; then
+            echo "=== LaTeX Errors Found ==="
+            grep "^!" build/main.log
+            exit 1
+          fi
+
+      - name: Show result
+        working-directory: slide
+        run: |
+          grep "Output written" build/main.log
+          echo "Overfull vbox warnings: $(grep -c 'Overfull' build/main.log || echo 0)"
+
+      - name: Upload slide PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: slide
+          path: slide/build/main.pdf
+          retention-days: 7
+
+  build-note:
+    name: Build Note (xelatex)
+    runs-on: ubuntu-latest
+    container:
+      image: texlive/texlive:latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build note
+        working-directory: note
+        run: latexmk -xelatex -interaction=nonstopmode main.tex
+
+      - name: Check for errors
+        working-directory: note
+        run: |
+          if grep -q "^!" build/main.log; then
+            echo "=== LaTeX Errors Found ==="
+            grep "^!" build/main.log
+            exit 1
+          fi
+
+      - name: Show result
+        working-directory: note
+        run: |
+          grep "Output written" build/main.log
+          echo "Overfull vbox warnings: $(grep -c 'Overfull' build/main.log || echo 0)"
+
+      - name: Upload note PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: note
+          path: note/build/main.pdf
+          retention-days: 7
