@@ -1,0 +1,281 @@
+% ============================================
+% 阅读程序填空题 Q1-5 讲稿
+% ============================================
+\section{阅读程序填空题（一）}
+
+% -------------------------------------------------------
+\subsection{第1题：for + continue + break}
+
+\textbf{概念概要：} for 循环中 \texttt{continue} 与 \texttt{break} 的行为差异——continue 跳过本轮剩余代码继续下一轮，break 直接退出循环。
+
+\medskip
+\textbf{讲师提示：} \textit{让学生先自己读代码，30 秒后在黑板上跟踪 j 和 i 的变化。务必一步一步来，不能跳步。}
+
+\smallskip
+\textbf{代码：}
+\begin{lstlisting}[language=C]
+int i = 1, j = 10;
+for (; j >= 1; j--) {
+    if (j > 5) { i += 2; continue; }
+    if (j % 2) { j -= 2; break; }
+}
+printf("%d\t%d\n", i, j);
+\end{lstlisting}
+
+\smallskip
+\textbf{逐步执行追踪：}
+
+\begin{center}
+\begin{tabular}{c|c|c|c|c}
+\hline
+\textbf{轮次} & \textbf{j} & \textbf{j > 5?} & \textbf{j \% 2?} & \textbf{i} \\
+\hline
+1  & 10 & 是 → i+=2;\ continue & — & 3 \\
+2  & 9  & 是 → i+=2;\ continue & — & 5 \\
+3  & 8  & 是 → i+=2;\ continue & — & 7 \\
+4  & 7  & 是 → i+=2;\ continue & — & 9 \\
+5  & 6  & 是 → i+=2;\ continue & — & 11 \\
+6  & 5  & 否 & 1(真) → j-=2; \textbf{break} & 11 \\
+\hline
+\end{tabular}
+\end{center}
+
+\smallskip
+\textbf{结果：} \texttt{i = 11, j = 3}（注意 j 在第 6 轮被改为 3 后才 break）
+
+\textbf{关键教学要点：}
+\begin{itemize}
+    \item \texttt{j > 5} 时：j 从 10 到 6（共 5 次），每次 i+=2，i 从 1 变成 11。
+    \item 同时 \texttt{continue} 跳过本轮后续代码——所以 \texttt{j \% 2} 的检查在 j>5 时从不执行。
+    \item j=5 时才到达第二个 if：5 \% 2 = 1（真），执行 \texttt{j -= 2}（j 变为 3），然后 \texttt{break} 直接跳出循环。
+    \item for 循环头部的 j--（递减）在 continue 跳过后仍会执行——这是 for 机制保证的。
+\end{itemize}
+
+\textbf{常见错误：}
+\begin{itemize}
+    \item 误以为 continue 会跳过 for 的 j--——实际上 for 循环的\"迭代表达式\"（j--）在 continue 后仍照常执行。
+    \item 在 j=5 时忘记先执行 j-=2 再 break，误输出 j=5。
+    \item 漏算 i 的累加次数：j=10,9,8,7,6 共 5 次，i=1+2×5=11。
+\end{itemize}
+
+{\color{highlight}输出：\texttt{11\quad 3}}
+
+% -------------------------------------------------------
+\subsection{第2题：指针参数}
+
+\textbf{概念概要：} 函数参数传递——值传递（形参有自己独立的存储空间）与指针传递（通过指针间接修改实参）。
+
+\medskip
+\textbf{讲师提示：} \textit{此题是区分\"值传递\"和\"地址传递\"的绝佳例子。重点强调：形参 x 是局部副本，修改它不影响实参，但通过指针 y 修改则会影响。}
+
+\smallskip
+\textbf{代码：}
+\begin{lstlisting}[language=C]
+void f1(int x, int *y) { x += *y; *y += x; }
+int main() {
+    int x = 8, y = 6;
+    f1(y, &x);
+    printf("%d, %d\n", x, y);
+}
+\end{lstlisting}
+
+\smallskip
+\textbf{逐步执行追踪：}
+
+\noindent \textbf{调用 f1(y, \&x)} → \texttt{f1(6, \&x)}：
+\begin{enumerate}
+    \item 形参 x = 6（main 中 y 的值被\underline{复制}过来）
+    \item 形参 y 指向 main 的 x（地址为 \&main::x，当前值为 8）
+    \item \texttt{x += *y}：形参 x = 6 + 8 = \textbf{14}（注意：这是形参 x，是局部变量！）
+    \item \texttt{*y += x}：*y 即 main 的 x = 8 + 14 = \textbf{22}（通过指针修改了 main 中的 x）
+    \item f1 返回后：main 的 x = 22，main 的 y = 6（y 从未被修改——值传递）
+\end{enumerate}
+
+\textbf{关键教学要点：}
+\begin{itemize}
+    \item 形参 x 和 main 中 x 是\underline{两个不同的变量}——同名但不同作用域。
+    \item 普通参数（int x）是值传递：函数内修改不影响实参。
+    \item 指针参数（int *y）传递的是地址：通过 *y 可以间接修改实参。
+    \item 调用时参数顺序是 \texttt{f1(y, \&x)}，y 的值 6 传给形参 x，x 的地址传给形参 y——名字上有迷惑性，要让学生仔细核对。
+\end{itemize}
+
+\textbf{常见错误：}
+\begin{itemize}
+    \item 以为形参 x 就是 main 中的 x——因为同名！这是最容易犯错的点。
+    \item 搞混哪个参数是值传递、哪个是指针传递——调用时 \texttt{f1(y, \&x)} 中 y 是值（6），\&x 是地址。
+    \item 误以为 main 中的 y 也变了——实际 y 只是作为值传给了形参 x，main::y 始终为 6。
+\end{itemize}
+
+{\color{highlight}输出：\texttt{22, 6}}
+
+% -------------------------------------------------------
+\subsection{第3题：数组反转}
+
+\textbf{概念概要：} 原地（in-place）数组反转算法——对称交换。
+
+\medskip
+\textbf{讲师提示：} \textit{让学生用笔画出数组初始状态，然后逐步交换。这是典型的\"双指针\"思想的前身。}
+
+\smallskip
+\textbf{代码：}
+\begin{lstlisting}[language=C]
+void f2(int a[], int n) {
+    int i, t;
+    for (i = 0; i < n / 2; i++) {
+        t = a[i]; a[i] = a[n-1-i]; a[n-1-i] = t;
+    }
+}
+int main() {
+    int a[] = {5, 6, 7, 8}, i;
+    f2(a, 4);
+    for (i = 0; i < 4; i++) printf("%d", a[i]);
+}
+\end{lstlisting}
+
+\smallskip
+\textbf{逐步执行追踪：}
+
+\noindent 初始：\texttt{a = [5, 6, 7, 8]}，n = 4，n/2 = 2（循环 2 次）
+
+\begin{center}
+\begin{tabular}{c|c|c|c|c}
+\hline
+\textbf{i} & \textbf{交换对} & \textbf{a[i]} ↔ \textbf{a[n-1-i]} & \textbf{结果} \\
+\hline
+0 & a[0] ↔ a[3] & 5 ↔ 8 & [\textbf{8}, 6, 7, \textbf{5}] \\
+1 & a[1] ↔ a[2] & 6 ↔ 7 & [8, \textbf{7}, \textbf{6}, 5] \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent 最终数组：\texttt{[8, 7, 6, 5]}，连续输出（无分隔符）：\texttt{8765}
+
+\textbf{关键教学要点：}
+\begin{itemize}
+    \item 循环次数：n/2。如果 n 是奇数，中间元素不需要交换——让学生验证 n=5 的情况。
+    \item 对称下标：a[i] ↔ a[n-1-i]。
+    \item 传数组名给函数实际传递的是\underline{首元素地址}，因此函数内的修改会反映到 main 的数组。
+    \item printf 没有加空格或换行，所以输出是连续的"8765"——阅读程序题要特别注意输出格式。
+\end{itemize}
+
+\textbf{常见错误：}
+\begin{itemize}
+    \item 循环写成 i < n（而非 n/2），导致交换两次又变回原数组。
+    \item 忘记临时变量 t 的作用——没有 t 无法完成交换。
+    \item 输出格式看错：以为输出带空格或换行。
+\end{itemize}
+
+{\color{highlight}输出：\texttt{8765}}
+
+% -------------------------------------------------------
+\subsection{第4题：字符处理}
+
+\textbf{概念概要：} 字符串逐字符比较与 ASCII 码运算——大小写转换（减 32）。
+
+\medskip
+\textbf{讲师提示：} \textit{先回顾 ASCII 表：'a'=97, 'A'=65，差值为 32。让学生记住这个差值——期末考试几乎所有字符题都绕不开它。}
+
+\smallskip
+\textbf{代码：}
+\begin{lstlisting}[language=C]
+char a[] = "abt", b[] = "acid", c[10]; int i = 0;
+while (a[i] != '\0' && b[i] != '\0') {
+    if (a[i] >= b[i]) c[i] = a[i] - 32;
+    else c[i] = b[i] - 32;
+    ++i;
+}
+c[i] = '\0'; puts(c);
+\end{lstlisting}
+
+\smallskip
+\textbf{逐步执行追踪：}
+
+\begin{center}
+\begin{tabular}{c|c|c|c|c|c|c}
+\hline
+\textbf{i} & \textbf{a[i]} & \textbf{b[i]} & \textbf{条件} & \textbf{取值} & \textbf{c[i] 计算} & \textbf{c[i] 字符} \\
+\hline
+0 & 'a' (97) & 'a' (97) & a[i] ≥ b[i] ✓ & a[i] & 97-32=65 & 'A' \\
+1 & 'b' (98) & 'c' (99) & a[i] ≥ b[i] ✗ & b[i] & 99-32=67 & 'C' \\
+2 & 't' (116) & 'i' (105) & a[i] ≥ b[i] ✓ & a[i] & 116-32=84 & 'T' \\
+3 & '\textbackslash 0' & 'd' (100) & 循环条件不满足，退出 & — & — & — \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent 退出后 c[3] = '\textbackslash 0'，c = \texttt{"ACT"}。\texttt{puts(c)} 输出 \texttt{ACT}。
+
+\textbf{关键教学要点：}
+\begin{itemize}
+    \item 循环遍历两个字符串，直到任一字符串遇到 '\textbackslash 0'。由于 a 只有 3 个字符（"abt"），i=3 时退出。
+    \item 逐位比较：取较大的字符转大写（小写字母 -32 = 大写）。这里 \"较大的字符\" 指 ASCII 码值更大。
+    \item \texttt{puts(c)} 自动在末尾加换行，所以输出是 \texttt{ACT}（带换行，不影响结果）。
+    \item 数组 a 和 b 长度不同（3 vs 4），循环在较短者结束时停止。
+\end{itemize}
+
+\textbf{常见错误：}
+\begin{itemize}
+    \item 字符比较时忘记用 ASCII 码——'a' (97) < 'c' (99)，而不是按字母表\"位置\"比较。
+    \item 忘记 c[i] = '\textbackslash 0' 这一句——没有它 puts 会输出到遇到 '\textbackslash 0' 为止，可能输出乱码。
+    \item 减 32 的方向搞反——小写转大写是减 32，大写转小写是加 32。
+\end{itemize}
+
+{\color{highlight}输出：\texttt{ACT}}
+
+% -------------------------------------------------------
+\subsection{第5题：递归函数}
+
+\textbf{概念概要：} 递归函数的展开求值——自顶向下递推，自底向上回归。
+
+\medskip
+\textbf{讲师提示：} \textit{在黑板上画递归树！从 Fun(5,4) 开始，逐步向下展开，然后从叶子节点向上逐层返回。这是最直观的教学方式。}
+
+\smallskip
+\textbf{代码：}
+\begin{lstlisting}[language=C]
+int Fun(int a, int b) {
+    int p;
+    if (b < 1) p = 0;
+    else p = Fun(a - 1, b - 2) + a * a;
+    return p;
+}
+int main() {
+    int a = 5, b = 4;
+    printf("%d\n", Fun(a, b));
+}
+\end{lstlisting}
+
+\smallskip
+\textbf{递归展开过程：}
+
+\noindent 初始调用：\texttt{Fun(5, 4)}
+
+\noindent \textbf{第 1 层}：Fun(5, 4)，b=4 ≥ 1 → \texttt{p = Fun(4, 2) + 5*5 = Fun(4, 2) + 25}
+
+\noindent \textbf{第 2 层}：Fun(4, 2)，b=2 ≥ 1 → \texttt{p = Fun(3, 0) + 4*4 = Fun(3, 0) + 16}
+
+\noindent \textbf{第 3 层}：Fun(3, 0)，b=0 < 1 → \texttt{p = 0}（\textbf{递归终止！}）
+
+\noindent \textbf{回溯第 2 层}：Fun(4, 2) = 0 + 16 = \textbf{16}
+
+\noindent \textbf{回溯第 1 层}：Fun(5, 4) = 16 + 25 = \textbf{41}
+
+\medskip
+\textbf{关键教学要点：}
+\begin{itemize}
+    \item 递归终止条件：b < 1 时 p = 0。参数 b 每次减 2，a 每次减 1。
+    \item 注意：每一层都有自己的局部变量 p，互不影响。
+    \item \texttt{a * a} 中的 a 是\textbf{当前层的形参 a}——第 1 层是 5（25），第 2 层是 4（16）。
+    \item 递归执行流程：\"递\"到 Fun(3,0) 终止，然后\"归\"回去逐层加。
+\end{itemize}
+
+\textbf{常见错误：}
+\begin{itemize}
+    \item 把 Fun(a, b) 中 a*b 的和弄混——注意是 \texttt{a * a}（当前层的 a 的平方），不是 \texttt{a * b}。
+    \item 在回溯时忘记加当前层的 a*a——只看到递归调用的结果。
+    \item 搞错递归层次——分不清哪一层的 a 是多少。
+\end{itemize}
+
+\textbf{延伸：} 可以让学生思考——如果把递归终止条件换成 b == 0，会有什么不同？（Fun(3,0)仍然触发，但 Fun(3,1) 也会继续递归直到 b≤0。）
+
+{\color{highlight}输出：\texttt{41}}

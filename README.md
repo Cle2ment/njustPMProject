@@ -31,14 +31,19 @@
 │   ├── 50-programming.tex   ← 编程题：电梯调度系统
 │   └── 99-end.tex           ← 结束页
 ├── scripts/                 ← 编译与辅助脚本
-│   ├── build.bat            ← Windows 批处理编译（带暂停）
-│   ├── build.ps1            ← PowerShell 编译
-│   ├── clean.bat            ← 清理 slide/build/ 目录
+│   ├── build.bat            ← Windows 批处理编译幻灯片
+│   ├── build.ps1            ← PowerShell 编译幻灯片
+│   ├── build-all.bat        ← 一键构建 PPT + 讲稿
+│   ├── clean.bat            ← 清理幻灯片构建产物
+│   ├── clean-all.bat        ← 清理所有构建产物
 │   └── gen_note.py          ← 从 PDF 提取文本生成发言稿
 ├── materials/               ← 原始试卷 PDF（不纳入版本控制）
 ├── figures/                 ← 图片资源
 ├── code/                    ← 示例代码
-└── note/                    ← 讲稿 LaTeX（待创建）
+├── note/                    ← 讲稿 LaTeX 文件
+│   ├── main.tex             ← 讲稿入口
+│   ├── .latexmkrc           ← 讲稿编译配置
+│   └── chapters/            ← 讲稿章节文件
 ```
 
 ## 幻灯片内容索引
@@ -132,22 +137,28 @@
 ### 快速编译
 
 ```bash
-# 方式一：latexmk（推荐）
+# 方式一：latexmk（推荐）— 仅幻灯片
 cd slide && latexmk -xelatex main.tex
 
-# 方式二：双击批处理
-scripts\build.bat
+# 方式二：完整构建 — 幻灯片 + 讲稿
+scripts\build-all.bat
 
-# 方式三：PowerShell
-pwsh scripts\build.ps1
+# 方式三：仅幻灯片
+scripts\build.bat        # 批处理
+pwsh scripts\build.ps1   # PowerShell
 ```
 
-编译成功后，PDF 输出至 `slide/build/main.pdf`。
+编译成功后：
+- 幻灯片 PDF 输出至 `slide/build/main.pdf`
+- 讲稿 PDF 输出至 `note/build/main.pdf`
 
 ### 清理
 
 ```bash
-# 删除 slide/build/ 目录
+# 清理所有构建产物
+scripts\clean-all.bat
+
+# 仅清理幻灯片
 scripts\clean.bat
 ```
 

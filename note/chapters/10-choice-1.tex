@@ -1,0 +1,169 @@
+% ============================================
+% 选择题（一） Q1--Q10
+% ============================================
+\section{选择题（一）：Q1--Q10}
+
+\subsection{Q1：合法标识符}
+
+\begin{itemize}
+    \item \textbf{考查知识点：} C语言标识符的命名规则。
+    \item \textbf{关键结论：} 标识符由字母、数字、下划线组成，且 \textbf{不能以数字开头}，\textbf{不能是关键字}。库函数名（如 \texttt{scanf}）不是关键字，可以作为标识符使用。
+    \item \textbf{逐项分析：}
+    \begin{itemize}
+        \item A (\texttt{26autumn})：数字开头 → 非法
+        \item B (\texttt{scanf})：库函数名，但 \textbf{不是关键字} → 合法 ✓
+        \item C (\texttt{Cour@e})：含特殊字符 \texttt{@} → 非法
+        \item D (\texttt{while})：C语言 \textbf{关键字} → 非法
+    \end{itemize}
+    \item {\color{highlight}\textbf{答案：B}}
+    \item \textbf{常见错误：} 很多同学认为 \texttt{scanf} 是关键字（因为天天用），但它实际是 \texttt{stdio.h} 中声明的库函数。C语言关键字只有 32 个（C89）。
+    \item \textbf{教学提示：} 此处可追问：「\texttt{main} 是不是关键字？」（答案：不是，它是约定的主函数名）
+\end{itemize}
+
+\subsection{Q2：运算符优先级}
+
+\begin{itemize}
+    \item \textbf{考查知识点：} 四类运算符的优先级排序。
+    \item \textbf{关键结论：} 优先级从高到低：
+    \[
+    \texttt{+（算术）} > \texttt{\&\&（逻辑与）} > \texttt{||（逻辑或）} > \texttt{=（赋值）}
+    \]
+    \item {\color{highlight}\textbf{答案：B（+）}}
+    \item \textbf{常见错误：} 混淆 \texttt{\&\&} 和 \texttt{||} 的优先级（\texttt{\&\&} 高于 \texttt{||}，类似 \texttt{*} 高于 \texttt{+}）。赋值运算符 \texttt{=} 的优先级最低，这几乎是所有语言的通则。
+    \item \textbf{教学提示：} 建议学生记住优先级的口诀：「单算关位逻条赋」—— 单目 > 算术 > 关系 > 位运算 > 逻辑 > 条件 > 赋值。
+\end{itemize}
+
+\subsection{Q3：合法字面量}
+
+\begin{itemize}
+    \item \textbf{考查知识点：} 字符串常量、八进制/十六进制转义字符、浮点常量的合法性。
+    \item \textbf{关键结论：} 八进制转义 \texttt{\textbackslash 0} 后面只能跟 0--7 的数字，\texttt{9} 不是合法八进制数字 → \texttt{'\textbackslash 091'} 非法。
+    \item {\color{highlight}\textbf{答案：B}}
+    \item \textbf{常见错误：}
+    \begin{itemize}
+        \item 误以为 \texttt{"3e-3.5"} 不合法（字符串常量 \textbf{不检查} 内容语义）
+        \item 八进制数字范围记忆不清（0--7，非 0--9）
+        \item 科学计数法 \texttt{1e-3} 等价于 $1 \times 10^{-3} = 0.001$，是合法的
+    \end{itemize}
+    \item \textbf{教学提示：} 此处可追问：「\texttt{'\textbackslash 087'} 合法吗？」（不合法，8 不是八进制数字）
+\end{itemize}
+
+\subsection{Q4：ASCII码计算}
+
+\begin{itemize}
+    \item \textbf{考查知识点：} ASCII 码的连续性（大写字母 A--Z 依次递增）+ 十六进制加法。
+    \item \textbf{关键结论：} 大写字母连续排列，K 比 H 多 3。$\text{0x}48 + 3 = \text{0x}4\text{B}$。两种算法：① 转十进制：$72 + 3 = 75 = 4\text{B}_{16}$；② 直接十六进制：$48_{16} + 3 = 4\text{B}_{16}$。
+    \item {\color{highlight}\textbf{答案：D（4B）}}
+    \item \textbf{常见错误：} 十六进制加法不熟练，$48 + 3$ 算成 $51$ 或 $45$。「B」在十六进制中代表 11，$8+3=11$ 产生进位，十位从 4 进到 4、个位变 B → 4B。
+    \item \textbf{教学提示：} 可以让学生直接背：'A' = 65 (0x41), 'a' = 97 (0x61)，大小写差 32 (0x20)。
+\end{itemize}
+
+\subsection{Q5：\texttt{while(!(E))} 等价条件}
+
+\begin{itemize}
+    \item \textbf{考查知识点：} 逻辑非 \texttt{!} 的语义，条件的真/假判断。
+    \item \textbf{关键结论：}
+    \[
+    !(E) \text{ 为真 } \Leftrightarrow E \text{ 为假 } \Leftrightarrow E \texttt{ == } 0
+    \]
+    \item {\color{highlight}\textbf{答案：D（E == 0）}}
+    \item \textbf{常见错误：} 把 \texttt{!(E)} 误解为「E 不等于 0」，恰好相反。可以用反证法想：如果 \texttt{!(E)} 等价于 \texttt{E != 0}，那 \texttt{while(0)} 和 \texttt{while(!0)} 应该一个都不执行（矛盾）。
+    \item \textbf{教学提示：} 此处可让学生当场验证：C语言中所有非零值视为「真」，零视为「假」。\texttt{!0 = 1}，\texttt{!5 = 0}。
+\end{itemize}
+
+\subsection{Q6：break 与 continue}
+
+\begin{itemize}
+    \item \textbf{考查知识点：} break 和 continue 的 \textbf{使用范围} 和 \textbf{行为差异}。
+    \item \textbf{关键结论：}
+    \begin{itemize}
+        \item \texttt{break}：只能用于 \textbf{循环体} 和 \textbf{switch 语句}。作用是退出当前循环/switch。
+        \item \texttt{continue}：只能用于 \textbf{循环体}。作用是跳过本轮剩余语句，进入下一轮迭代。
+    \end{itemize}
+    \item {\color{highlight}\textbf{答案：A}}
+    \item \textbf{常见错误：}
+    \begin{itemize}
+        \item 认为 break 可以在 if 中直接使用（不行，if 不是循环也不是 switch）
+        \item 认为 continue 终止整个循环（它只跳过本轮）
+        \item 认为多层循环只能用 goto 退出（可以用 break 配合标志变量逐层退出）
+    \end{itemize}
+    \item \textbf{教学提示：} 可在黑板上画循环流程图，标注 break 和 continue 分别跳转到哪里。
+\end{itemize}
+
+\subsection{Q7：逻辑表达式求值}
+
+\begin{itemize}
+    \item \textbf{考查知识点：} 运算符优先级（算术 > 关系 > \texttt{\&\&} > \texttt{||}）与逻辑表达式的逐步求值。
+    \item \textbf{逐步推导：}
+    \begin{enumerate}
+        \item 先算算术：\texttt{3 - 1 = 2}
+        \item 再算关系：\texttt{3 < 2} → 0（假），\texttt{4 > 2} → 1（真）
+        \item 非零值判真：\texttt{-1} ≠ 0 → 1（真）
+        \item 逻辑与：\texttt{1 \&\& 1 = 1}
+        \item 逻辑或：\texttt{0 || 1 = 1}
+    \end{enumerate}
+    \item {\color{highlight}\textbf{答案：A（1）}}
+    \item \textbf{常见错误：}
+    \begin{itemize}
+        \item 误以为结果会是 3 或 2（逻辑表达式的值只能是 \textbf{0 或 1}，不可能是其他数字）
+        \item 把 \texttt{-1} 当成 0（C 语言中只有 0 是假，负数也是真！）
+    \end{itemize}
+    \item \textbf{教学提示：} 此处可以补充「短路求值」概念：\texttt{0 \&\& anything} 不再计算右边，直接得 0。
+\end{itemize}
+
+\subsection{Q8：printf 格式化输出}
+
+\begin{itemize}
+    \item \textbf{考查知识点：} \texttt{\%c}（字符）与 \texttt{\%d}（十进制整数）的区别。
+    \item \textbf{关键结论：} \texttt{\%d} 输出的是字符的 \textbf{ASCII 码整数值}，不是字符本身。'A' 的 ASCII 码是 65，'D' 的 ASCII 码是 68。
+    \item \textbf{程序输出：}
+\begin{lstlisting}[language=C]
+char c1 = 'A', c2 = 'D';
+printf("%c, %d\n", c1, c2); // 输出: A, 68
+\end{lstlisting}
+    \item {\color{highlight}\textbf{答案：C（A, 68）}}
+    \item \textbf{常见错误：} 误以为 \texttt{\%d} 输出 'D' → 选 D 是常见错误。printf 格式说明符决定了 \textbf{输出形式}，而非变量内容。
+    \item \textbf{教学提示：} 此处可追问：「如果把 \texttt{\%c,\%d} 改成 \texttt{\%d,\%c} 会输出什么？」（输出：65, D）
+\end{itemize}
+
+\subsection{Q9：字符数组声明}
+
+\begin{itemize}
+    \item \textbf{考查知识点：} 一维/二维字符数组的声明与初始化语法规则。
+    \item \textbf{关键结论：}
+    \begin{itemize}
+        \item A 错：二维数组只能省略 \textbf{第一维}（行），不能省略第二维（列）
+        \item B 错：\texttt{"ABCDE"} 含末尾 \texttt{\textbackslash 0}，共需 6 字节，\texttt{s2[5]} 不够
+        \item C 错：两个维度都省略，编译器无法分配空间
+        \item D 正确：用初始化列表逐个字符赋值，一维数组长度可省略
+    \end{itemize}
+    \item {\color{highlight}\textbf{答案：D}}
+    \item \textbf{常见错误：} 忘记字符串末尾自动加 \texttt{\textbackslash 0}，认为 \texttt{"ABCDE"} 只需要 5 字节。
+    \item \textbf{教学提示：} 此处可强调：「用双引号初始化字符数组时，长度至少要 = 可见字符数 + 1」。想要不带 \texttt{\textbackslash 0} 就用初始化列表逐个字符赋值。
+\end{itemize}
+
+\subsection{Q10：二维数组下标越界}
+
+\begin{itemize}
+    \item \textbf{考查知识点：} 二维数组的下标范围。
+    \item \textbf{关键结论：} \texttt{int a[3][4]} → 行下标 0$\sim$2，列下标 0$\sim$3。
+    \item \textbf{逐项检查：}
+    \begin{itemize}
+        \item A (\texttt{a[1][3]})：行 1 ≤ 2 ✓，列 3 ≤ 3 ✓ → 合法
+        \item B (\texttt{a[0][4]})：行 0 ≤ 2 ✓，列 4 > 3 ✗ → \textbf{越界！}
+        \item C (\texttt{a[0][2*1]}) = \texttt{a[0][2]}：列 2 ≤ 3 ✓ → 合法
+        \item D (\texttt{a[4-2][0]}) = \texttt{a[2][0]}：行 2 ≤ 2 ✓，列 0 ≤ 3 ✓ → 合法
+    \end{itemize}
+    \item {\color{highlight}\textbf{答案：B}}
+    \item \textbf{常见错误：} 把定义中的「4」误解为最大下标（实际是元素个数，最大下标 = 个数 $- 1$）。
+    \item \textbf{教学提示：} 此处可追问：「C语言中数组越界会怎样？」（答案：不会报编译错误，可能导致运行时崩溃或数据被意外修改——这是 C 语言最危险的特性之一）
+\end{itemize}
+
+% ========== 小结与过渡 ==========
+\subsection{小结}
+
+Q1--Q10 覆盖了 C 语言的基础语法：标识符、运算符、字面量、ASCII、逻辑运算、流程控制、格式化输出和数组。这些知识点在期末考中几乎 \textbf{必考}，请务必熟练掌握。
+
+大家注意：Q2（优先级）、Q7（逻辑表达式）和 Q9（字符数组声明）是 \textbf{高频丢分题}，建议课后重点回顾。
+
+\textbf{教学提示：} 此处请稍作停顿，询问学生是否有疑问，再继续下一节。

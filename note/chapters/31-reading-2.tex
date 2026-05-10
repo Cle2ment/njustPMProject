@@ -1,0 +1,324 @@
+% ============================================
+% 阅读程序填空题 Q6-10 讲稿
+% ============================================
+\section{阅读程序填空题（二）}
+
+% -------------------------------------------------------
+\subsection{第6题：static 局部变量}
+
+\textbf{概念概要：} static 修饰局部变量——\textbf{只初始化一次}，值在函数调用间保留；作用域不变但生命周期延长至整个程序运行期。
+
+\medskip
+\textbf{讲师提示：} \textit{此题是理解 static 局部变量最重要的例题！先让学生回忆 static 的两种含义（第 18 题讲过的），再带入此题。务必强调\"static 局部变量只初始化一次\"。}
+
+\smallskip
+\textbf{代码：}
+\begin{lstlisting}[language=C]
+int k = 0, a = 1;
+int f3(int c) {
+    static int a = 1;
+    return (++a) + c;
+}
+int main() {
+    { int a = 3; k += f3(a); }   // 块1
+    k += f3(a);                   // 块2
+    printf("%d\n", k);
+}
+\end{lstlisting}
+
+\smallskip
+\textbf{逐步执行追踪：}
+
+\noindent \textbf{初始化：}
+\begin{itemize}
+    \item 全局 k = 0，全局 a = 1
+    \item f3 中的 static a = 1（\textbf{只执行一次}）
+\end{itemize}
+
+\noindent \textbf{块 1：} \texttt{\{ int a = 3; k += f3(a); \}}
+\begin{enumerate}
+    \item 块内局部变量 a = 3（屏蔽全局 a）
+    \item 调用 f3(3)：形参 c = 3
+    \item \texttt{++a}：static a 从 1 变为 \textbf{2}，返回 2 + 3 = \textbf{5}
+    \item k = 0 + 5 = \textbf{5}
+    \item 块结束，块内局部变量 a 销毁
+\end{enumerate}
+
+\noindent \textbf{块 2：} \texttt{k += f3(a);}
+\begin{enumerate}
+    \item 块 1 的 a 已销毁，此处 a 是全局 a = \textbf{1}
+    \item 调用 f3(1)：形参 c = 1
+    \item \texttt{++a}：static a 从 2 变为 \textbf{3}（\underline{不重新初始化为 1！}），返回 3 + 1 = \textbf{4}
+    \item k = 5 + 4 = \textbf{9}
+\end{enumerate}
+
+\noindent printf 输出 \textbf{9}。
+
+\textbf{关键教学要点：}
+\begin{itemize}
+    \item static 局部变量的\textbf{初始化只在程序加载时执行一次}。即使函数被多次调用，\texttt{static int a = 1;} 也只在第一次进入函数时执行。
+    \item static 变量的值\textbf{在函数调用之间持久保留}——f3(3) 把 static a 改成 2，下次 f3(1) 从 2 开始。
+    \item 作用域分析能力：块 1 的 a 局部变量 vs 全局 a vs f3 的 static a——三个不同的 a，互不干扰！
+\end{itemize}
+
+\textbf{常见错误：}
+\begin{itemize}
+    \item 以为每次调用 f3 都会重新把 static a 初始化为 1——这是最常见的误解。
+    \item 块 2 中 f3(a) 的 a 用错：以为还是块 1 的 a=3，实际块 1 的 a 已出作用域。
+    \item 把 static a 和全局 a 混淆——两个变量虽然同名但作用域不同。
+\end{itemize}
+
+{\color{highlight}输出：\texttt{9}}
+
+% -------------------------------------------------------
+\subsection{第7题：结构体指针传参}
+
+\textbf{概念概要：} 结构体指针传参——通过指针直接修改原结构体成员；条件运算符（三元运算符）的求值。
+
+\medskip
+\textbf{讲师提示：} \textit{此题考察结构体指针操作 + 条件表达式。建议放慢速度，让学生跟着写每步的变化。}
+
+\smallskip
+\textbf{代码：}
+\begin{lstlisting}[language=C]
+struct Point { int x; int y; };
+void modifyPoint(struct Point *p) {
+    int temp = p->x;
+    p->x = p->y;
+    p->y = temp;
+    p->x = (p->x > 10) ? (p->x / 2) : (p->x * 2);
+}
+int main() {
+    struct Point myPoint = {5, 12};
+    modifyPoint(&myPoint);
+    printf("x = %d, y = %d\n", myPoint.x, myPoint.y);
+}
+\end{lstlisting}
+
+\smallskip
+\textbf{逐步执行追踪：}
+
+\noindent 初始：myPoint = \{x=5, y=12\}
+
+\noindent 调用 modifyPoint(\&myPoint)，形参 p 指向 myPoint：
+
+\begin{center}
+\begin{tabular}{c|l|c|c}
+\hline
+\textbf{步骤} & \textbf{操作} & \textbf{p->x} & \textbf{p->y} \\
+\hline
+0 & 初始 & 5 & 12 \\
+1 & temp = p->x = 5 & 5 & 12 \\
+2 & p->x = p->y = 12（交换开始） & 12 & 12 \\
+3 & p->y = temp = 5（交换完成） & 12 & 5 \\
+4 & p->x = (12 > 10) ? (12/2) : (12*2) → 6 & \textbf{6} & 5 \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent 最终输出：\texttt{x = 6, y = 5}
+
+\textbf{关键教学要点：}
+\begin{itemize}
+    \item \texttt{p->x} 等价于 \texttt{(*p).x}——通过指针访问结构体成员。
+    \item 交换操作：先用 temp 保存 p->x 的原值（5），然后将 p->x 赋为 p->y（12），再将 p->y 赋为 temp（5）。
+    \item 条件运算符 \texttt{(p->x > 10) ? (p->x / 2) : (p->x * 2)}：此时 p->x = 12，12 > 10 为真，执行前半部分：12 / 2 = 6。
+    \item 由于传的是指针（\texttt{\&myPoint}），函数内对 *p 的任何修改都直接反映到 main 的 myPoint。
+\end{itemize}
+
+\textbf{常见错误：}
+\begin{itemize}
+    \item 交换步骤记错，导致最终 y 的值不对。
+    \item 条件表达式判断时机——是在交换后的 p->x=12 时判断，不是初始的 5。
+    \item 忘记传指针的效果——以为函数内修改不会影响 main（如果是值传递确实不影响，但这里传的是地址）。
+\end{itemize}
+
+{\color{highlight}输出：\texttt{x=6, y=5}}
+
+% -------------------------------------------------------
+\subsection{第8题：幂运算}
+
+\textbf{概念概要：} 用循环实现幂运算 $a^b$——累乘 b-1 次（因为 result 初始值为 a）。
+
+\medskip
+\textbf{讲师提示：} \textit{此题难度较低，可以快速讲。重点让学生注意边界条件 b=0 时返回 1 的处理。}
+
+\smallskip
+\textbf{代码：}
+\begin{lstlisting}[language=C]
+int func(int a, int b) {
+    if (b == 0) return 1;
+    int result = a;
+    for (int i = 1; i < b; i++) result *= a;
+    return result;
+}
+int main() {
+    int x = 2, y = 3, z = func(x, y);
+    printf("z = %d\n", z);
+}
+\end{lstlisting}
+
+\smallskip
+\textbf{逐步执行追踪：}
+
+\noindent 调用 func(2, 3)：
+
+\begin{itemize}
+    \item b = 3 ≠ 0，不进入 if
+    \item result = a = \textbf{2}
+    \item 循环：i 从 1 到 2（i < b，即 i < 3）
+\end{itemize}
+
+\begin{center}
+\begin{tabular}{c|c|c}
+\hline
+\textbf{i} & \textbf{操作} & \textbf{result} \\
+\hline
+— & 初始 & 2 \\
+1 & result *= 2 & 2 × 2 = 4 \\
+2 & result *= 2 & 4 × 2 = 8 \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent 返回 8，z = 8，输出 \texttt{z = 8}。
+
+\textbf{关键教学要点：}
+\begin{itemize}
+    \item 幂运算的本质：$2^3 = 2 \times 2 \times 2$。循环执行了 b-1=2 次乘法（初始已有 1 个 a）。
+    \item 边界条件：b = 0 时，$a^0 = 1$，直接返回 1。
+    \item 注意循环条件 \texttt{i < b}——如果写成 \texttt{i <= b} 会多乘一次，算出 $2^4 = 16$。
+\end{itemize}
+
+\textbf{常见错误：}
+\begin{itemize}
+    \item 循环边界搞错：i=1;\ i<b → 执行 2 次，非 3 次。
+    \item 忽略 b=0 的特殊情况——但本题 b=3，不影响。
+    \item 忘记 result 初始已有一个 a 的值。
+\end{itemize}
+
+{\color{highlight}输出：\texttt{z=8}}
+
+% -------------------------------------------------------
+\subsection{第9题：数组奇偶下标}
+
+\textbf{概念概要：} 根据下标奇偶性对数组元素做不同运算——偶数下标加、奇数下标减。
+
+\medskip
+\textbf{讲师提示：} \textit{让学生注意下标从 0 开始！i\%2 判断的是下标的奇偶，不是元素值的奇偶。}
+
+\smallskip
+\textbf{代码：}
+\begin{lstlisting}[language=C]
+int arr[5] = {1, 2, 3, 4, 5};
+int sum = 0;
+for (int i = 0; i < 5; i++) {
+    if (i % 2 == 0) sum += arr[i];
+    else sum -= arr[i];
+}
+printf("sum = %d\n", sum);
+\end{lstlisting}
+
+\smallskip
+\textbf{逐步执行追踪：}
+
+\begin{center}
+\begin{tabular}{c|c|c|c|c|c}
+\hline
+\textbf{i} & \textbf{arr[i]} & \textbf{i\%2} & \textbf{奇偶} & \textbf{操作} & \textbf{sum} \\
+\hline
+0 & 1 & 0 & 偶 → 加 & 0 + 1 & \textbf{1} \\
+1 & 2 & 1 & 奇 → 减 & 1 - 2 & \textbf{-1} \\
+2 & 3 & 0 & 偶 → 加 & -1 + 3 & \textbf{2} \\
+3 & 4 & 1 & 奇 → 减 & 2 - 4 & \textbf{-2} \\
+4 & 5 & 0 & 偶 → 加 & -2 + 5 & \textbf{3} \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent 最终 sum = 3，输出 \texttt{sum = 3}。
+
+\textbf{关键教学要点：}
+\begin{itemize}
+    \item 下标的奇偶性：i = 0, 2, 4 是偶数，i = 1, 3 是奇数。i\%2 的结果 0 为偶数，1 为奇数。
+    \item 运算逻辑：1 - 2 + 3 - 4 + 5 = 3。等价于 (1+3+5) - (2+4) = 9 - 6 = 3。
+    \item 注意：判断的是 i\%2（下标），不是 arr[i]\%2（元素值）——如果考元素值的奇偶会写成 \texttt{if (arr[i] \% 2 == 0)}。
+\end{itemize}
+
+\textbf{常见错误：}
+\begin{itemize}
+    \item 混淆\"下标奇偶\"和\"元素值奇偶\"——代码是 \texttt{i \% 2}，不是 \texttt{arr[i] \% 2}。
+    \item 下标从 0 开始带来的惯性：把 i=1 当偶数——但 1\%2=1 是奇数。
+    \item 手算 sum 时正负号弄反，特别是中间出现负数时。
+\end{itemize}
+
+{\color{highlight}输出：\texttt{sum=3}}
+
+% -------------------------------------------------------
+\subsection{第10题：异或交换}
+
+\textbf{概念概要：} 利用异或（XOR，\^{}）运算的性质实现\underline{无临时变量}的两数交换——经典技巧题。
+
+\medskip
+\textbf{讲师提示：} \textit{此题是\"炫技型\"考点。先复习异或的运算规则（相同为 0，不同为 1），再推导核心性质：A \^{} B \^{} B = A。在黑板上用二进制演示！}
+
+\smallskip
+\textbf{代码：}
+\begin{lstlisting}[language=C]
+int a = 5, b = 3;
+a = a ^ b; b = a ^ b; a = a ^ b;
+printf("a = %d, b = %d\n", a, b);
+\end{lstlisting}
+
+\smallskip
+\textbf{逐步执行追踪（二进制视角）：}
+
+\noindent 初始：a = 5 = \texttt{0101}，b = 3 = \texttt{0011}
+
+\begin{center}
+\begin{tabular}{c|l|l|l}
+\hline
+\textbf{步骤} & \textbf{操作} & \textbf{二进制计算} & \textbf{结果} \\
+\hline
+0 & 初始 & a=0101, b=0011 & a=5, b=3 \\
+1 & a = a \^{} b & 0101 \^{} 0011 = 0110 & a=6, b=3 \\
+2 & b = a \^{} b & 0110 \^{} 0011 = 0101 & a=6, b=5 \\
+3 & a = a \^{} b & 0110 \^{} 0101 = 0011 & a=3, b=5 \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent 最终 a = 3, b = 5（成功交换！），输出 \texttt{a = 3, b = 5}。
+
+\smallskip
+\textbf{核心原理推导：}
+\begin{itemize}
+    \item 异或的核心性质：\texttt{X \^{} Y \^{} Y = X}（对同一值异或两次，恢复原值）
+    \item 第 1 步：a = a \^{} b，a 变成了 "a 和 b 的混合体"
+    \item 第 2 步：b = (a \^{} b) \^{} b = a（提取出原始的 a），b 变成 5
+    \item 第 3 步：a = (a \^{} b) \^{} a = b（提取出原始的 b，因为现在的 b 就是原始的 a）
+    \item 更直观的理解：令 $A_0=5, B_0=3$
+    \begin{itemize}
+        \item $A_1 = A_0 \oplus B_0$（6）
+        \item $B_1 = A_1 \oplus B_0 = A_0 \oplus B_0 \oplus B_0 = A_0$（5）✓ 
+        \item $A_2 = A_1 \oplus B_1 = A_0 \oplus B_0 \oplus A_0 = B_0$（3）✓
+    \end{itemize}
+\end{itemize}
+
+\textbf{关键教学要点：}
+\begin{itemize}
+    \item 异或交换不需要临时变量——这是它的主要\"卖点\"，面试也爱考。
+    \item 三条语句的顺序绝对不能变——变了就得不到正确结果。
+    \item 异或的性质：\texttt{a \^{} a = 0}，\texttt{a \^{} 0 = a}，\texttt{a \^{} b = b \^{} a}（交换律），\texttt{(a \^{} b) \^{} c = a \^{} (b \^{} c)}（结合律）。
+\end{itemize}
+
+\textbf{常见错误：}
+\begin{itemize}
+    \item 把三条语句的顺序记错——这是最致命的。
+    \item 不理解异或运算本身：忘了 5(101) \^{} 3(011) = 6(110) 的具体计算。
+    \item 以为 \texttt{a \^{} b} 返回的是\"a 的 b 次方\"——\^{} 在 C 中是异或，不是幂运算！
+\end{itemize}
+
+\textbf{实践警示：} 虽然异或交换很巧妙，但在实际开发中不建议滥用——可读性差，且当 a 和 b 指向同一内存地址时会出错（a \^{} a = 0）。老老实实用临时变量最安全。
+
+{\color{highlight}输出：\texttt{a=3, b=5}}

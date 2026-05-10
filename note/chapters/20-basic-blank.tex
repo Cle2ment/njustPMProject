@@ -1,0 +1,157 @@
+% ============================================
+% 基本概念填空题
+% ============================================
+\section{基本概念填空题}
+
+\subsection{第1空：源文件后缀名}
+
+\begin{itemize}
+    \item \textbf{考查知识点：} C 语言源文件的命名约定。
+    \item \textbf{答案：} \texttt{\textbf{.c}}
+    \item \textbf{要点：} C 源文件以 \texttt{.c} 为后缀，头文件以 \texttt{.h} 为后缀。注意 \textbf{不是} \texttt{.cpp}（那是 C++），也不是 \texttt{.obj}（那是编译后的目标文件）。
+    \item \textbf{常见错误：} 与 C++ 的 \texttt{.cpp} 混淆。考试时一定要看清题目问的是「C语言」还是「C++」。
+\end{itemize}
+
+\subsection{第2空：标准头文件}
+
+\begin{itemize}
+    \item \textbf{考查知识点：} \texttt{scanf} 函数声明的头文件。
+    \item \textbf{答案：} \texttt{\textbf{stdio.h}}
+    \item \textbf{要点：} \texttt{stdio.h} = Standard Input/Output（标准输入输出）。\texttt{scanf}、\texttt{printf}、\texttt{getchar}、\texttt{putchar} 等都在其中。注意是 \texttt{stdio}，不是 \texttt{studio}（很多同学拼错！）。
+    \item \textbf{其他常见头文件：}
+    \begin{itemize}
+        \item \texttt{stdlib.h}：\texttt{malloc}、\texttt{free}、\texttt{atoi}、\texttt{rand}
+        \item \texttt{string.h}：\texttt{strlen}、\texttt{strcpy}、\texttt{strcmp}
+        \item \texttt{math.h}：\texttt{sqrt}、\texttt{pow}、\texttt{sin}、\texttt{cos}
+        \item \texttt{ctype.h}：\texttt{isalpha}、\texttt{isdigit}、\texttt{toupper}
+    \end{itemize}
+    \item \textbf{教学提示：} 建议学生记住这几个高频头文件的英文全称，帮助记忆——\texttt{stdio} 不是 \texttt{studio}。
+\end{itemize}
+
+\subsection{第3空：三种基本结构}
+
+\begin{itemize}
+    \item \textbf{考查知识点：} 结构化程序设计的三种基本结构。
+    \item \textbf{答案：} \textbf{选择结构}（也称分支结构）
+    \item \textbf{三种结构：} 顺序结构 → \textbf{选择结构} → 循环结构
+    \item \textbf{要点：} 这三种结构是1966年由Böhm和Jacopini证明的——任何程序都可以仅用这三种结构实现。选择结构在 C 语言中对应 \texttt{if-else} 和 \texttt{switch}。
+    \item \textbf{常见错误：} 写成「分支结构」不算错，但如果题目填空处是给确定的空位，「选择」和「分支」哪个需要根据上下文判断。建议考试时以教材用词为准。
+    \item \textbf{教学提示：} 此处可以简要点一下 goto 语句——它可以打破这三种结构，因此被广泛认为是有害的（Dijkstra, 1968 年著名论文 \textit{Go To Statement Considered Harmful}）。
+\end{itemize}
+
+\subsection{第4空：取地址运算符}
+
+\begin{itemize}
+    \item \textbf{考查知识点：} 获取变量地址的运算符。
+    \item \textbf{答案：} \texttt{\textbf{\&}}
+    \item \textbf{要点：} \texttt{\&} 运算符在 C 语言中有 \textbf{两种含义}：
+    \begin{enumerate}
+        \item 取地址运算符（一元）：\texttt{\&a} → 变量 a 的地址，常配合 \texttt{scanf} 使用
+        \item 按位与运算符（二元）：\texttt{a \& b} → a 和 b 的按位与
+    \end{enumerate}
+    \item \textbf{常见错误：} 把取地址写成 \texttt{*}（那是解引用/间接访问运算符，作用相反）。
+    \item \textbf{教学提示：} 此处可追问：「\texttt{scanf("\%d", a)} 和 \texttt{scanf("\%d", \&a)} 有什么区别？」（前者把 a 的值当地址用，可能导致崩溃）
+\end{itemize}
+
+\subsection{第5空：\texttt{y *= ++x} 复合赋值}
+
+\begin{itemize}
+    \item \textbf{考查知识点：} 前置自增 \texttt{++} 与复合赋值 \texttt{*=} 的 \textbf{运算顺序}。
+    \item \textbf{答案：} \textbf{x = 6, y = 60}（顺序不可颠倒）
+    \item \textbf{逐步推导（给定 x = 5, y = 10）：}
+    \begin{enumerate}
+        \item 先执行 \texttt{++x}：x 自增为 6
+        \item 再执行 \texttt{y *= 6}：等价于 \texttt{y = y * 6 = 10 * 6 = 60}
+    \end{enumerate}
+    \item \textbf{常见错误：} 把运算顺序搞反——先算 \texttt{y *= x} 再自增，得到 y = 50, x = 6（错误）。\texttt{++x} 是前置自增，\textbf{先自增再使用}。
+    \item \textbf{教学提示：} 此处可追问：「如果改成 \texttt{y *= x++} 结果是多少？」（x 先用再自增：y = 10 * 5 = 50, x = 6）
+\end{itemize}
+
+\subsection{第6--7空：函数声明与函数指针}
+
+\begin{itemize}
+    \item \textbf{考查知识点：} 函数返回值类型识别 + 函数指针的声明语法。
+    \item \textbf{第6空答案：} \texttt{\textbf{int}}
+    \item \textbf{第7空答案：} \texttt{\textbf{int (*p)(double *);}}
+    \item \textbf{要点分析：}
+    \begin{itemize}
+        \item 函数 \texttt{int f(double *p);} → 返回值为 \texttt{int}，参数为 \texttt{double *} 类型
+        \item 函数指针声明语法：\texttt{返回类型 (*指针名)(参数类型列表);}
+        \item 关键：\texttt{(*p)} 的括号 \textbf{不能省略}！否则 \texttt{int *p(double *)} 会变成「返回 \texttt{int*} 的函数 \texttt{p}」的声明。
+    \end{itemize}
+    \item \textbf{常见错误：}
+    \begin{itemize}
+        \item 忘写括号：写成 \texttt{int *p(double *)} —— 语义完全不同（声明了一个返回 int* 的函数 p）
+        \item 参数类型写错：写成 \texttt{int (*p)(int)} —— 原函数参数是 \texttt{double *}，不是 \texttt{int}
+    \end{itemize}
+    \item \textbf{教学提示：} 函数指针是考试的高频考点，建议学生记住「右左法则」（Right-Left Rule）或 spiral rule 来解读复杂声明。
+\end{itemize}
+
+\subsection{第8空：二维数组初始化}
+
+\begin{itemize}
+    \item \textbf{考查知识点：} 二维数组的初始化——按行填充，未初始化元素自动补 0。
+    \item \textbf{答案：} \texttt{\textbf{11}}
+    \item \textbf{分析过程：}
+\begin{lstlisting}[language=C]
+int x[3][4] = {3,4,5,6,7,8,9,10,11,12};
+\end{lstlisting}
+    按行优先顺序填充（每行 4 个元素）：
+    \begin{itemize}
+        \item \texttt{x[0]}：\{3, 4, 5, 6\}
+        \item \texttt{x[1]}：\{7, 8, 9, 10\}
+        \item \texttt{x[2]}：\{11, 12, 0, 0\}（剩余位置补 0）
+    \end{itemize}
+    因此 \texttt{x[2][0] = 11}。
+    \item \textbf{常见错误：}
+    \begin{itemize}
+        \item 误以为 \texttt{x[2][0] = 12}（忽略了 \texttt{x[2]} 的第一个元素是第 9 个值，即 11）
+        \item 忘记未初始化部分自动补 0
+    \end{itemize}
+    \item \textbf{教学提示：} 此处可用画图方式展示 3×4 矩阵，逐个填入值，帮助学生理解「行优先」存储。
+\end{itemize}
+
+\subsection{第9--10空：逗号表达式}
+
+\begin{itemize}
+    \item \textbf{考查知识点：} 逗号表达式的求值规则 + 赋值运算符的结合性。
+    \item \textbf{第9空答案：} \texttt{\textbf{a = 6}}
+    \item \textbf{第10空答案：} \texttt{\textbf{i = 30}}
+    \item \textbf{原语句：}
+\begin{lstlisting}[language=C]
+int i, a;
+i = (a = 2 * 3, a * 5), a + 6;
+\end{lstlisting}
+    \item \textbf{逐步推导：}
+    \begin{enumerate}
+        \item \texttt{a = 2 * 3} → a = 6
+        \item 内层逗号表达式 \texttt{(6, a * 5)} = \texttt{(6, 30)} → 值取最右 = 30
+        \item \texttt{i = 30}（赋值运算符优先级高于逗号，所以先执行）
+        \item 最外层逗号：\texttt{(i = 30), a + 6} → 整体值为 12，但 \textbf{被丢弃}
+    \end{enumerate}
+    \item \textbf{关键要点：}
+    \begin{itemize}
+        \item 逗号表达式 \textbf{从左到右} 依次求值，最终值 = \textbf{最右边表达式} 的值
+        \item 赋值运算符 \texttt{=} 的优先级 \textbf{高于} 逗号运算符（所以在 \texttt{a+6} 之前执行）
+        \item 括号改变了求值顺序：内层括号 \texttt{(a = 2*3, a*5)} 先被求值
+    \end{itemize}
+    \item \textbf{常见错误：}
+    \begin{itemize}
+        \item 误以为整体表达式值为 12 并赋给 i（逗号表达式的值不一定赋给变量——除非显式赋值）
+        \item 忽略括号的作用，搞错求值顺序
+    \end{itemize}
+    \item \textbf{教学提示：} 逗号表达式是期末考试 \textbf{必考} 的难点。建议让学生多练几道类似题目，理解「从左到右、值取最右」的规则。可以给出一个更简单的例子帮助理解：
+\begin{lstlisting}[language=C]
+int x;
+x = (1, 2, 3);  // x = 3
+\end{lstlisting}
+\end{itemize}
+
+% ========== 小结与过渡 ==========
+\subsection{小结}
+
+基本概念填空题考查的是 C 语言最基础的语法和概念：文件命名、头文件、三种结构、取地址、自增/复合赋值、函数指针、二维数组初始化和逗号表达式。
+
+其中，\textbf{第5空（y *= ++x）}和 \textbf{第9--10空（逗号表达式）} 丢分最严重——核心原因是对「运算顺序」和「求值规则」理解不深。
+
+\textbf{教学提示：} 此处请稍作停顿，询问学生是否有疑问。然后预告下一节内容：「下面我们进入阅读程序填空题，这部分考查大家对程序运行过程的理解能力。」
