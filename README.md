@@ -12,12 +12,14 @@
 
 ```
 .
-├── main.tex                 ← 入口文件：文档类 / 主题 / 配色 / \lstset / \input 所有 slide
-├── .latexmkrc               ← latexmk 编译配置（xelatex，输出到 build/）
-├── .gitignore               ← 忽略构建产物（*.aux, *.log, build/, *.pdf, materials/）
-├── AGENTS.md                ← AI Agent 项目说明
+├── slide/
+│   ├── main.tex              ← 入口：文档类 / 主题 / 配色 / \lstset / \input 所有章节
+│   ├── chapters/             ← 幻灯片片段文件（由 slide/main.tex \input 引入）
+│   ├── .latexmkrc            ← latexmk 编译配置（xelatex，输出到 build/）
+│   └── build/                ← 编译输出（PDF 等）
+├── .gitignore                ← 忽略构建产物（*.aux, *.log, build/, *.pdf, materials/）
+├── AGENTS.md                 ← AI Agent 项目说明
 ├── README.md
-├── slides/                  ← 幻灯片片段文件（由 main.tex \input 引入）
 │   ├── 01-title.tex         ← 标题页
 │   ├── 02-outline.tex       ← 目录 / 讲座大纲
 │   ├── 10-choice-1.tex      ← 选择题 第 1—10 题
@@ -29,19 +31,27 @@
 │   ├── 50-programming.tex   ← 编程题：电梯调度系统
 │   └── 99-end.tex           ← 结束页
 ├── scripts/                 ← 编译与辅助脚本
-│   ├── build.bat            ← Windows 批处理编译（带暂停）
-│   ├── build.ps1            ← PowerShell 编译
-│   ├── clean.bat            ← 清理 build/ 目录
+│   ├── build.bat            ← Windows 批处理编译幻灯片
+│   ├── build.ps1            ← PowerShell 编译幻灯片
+│   ├── build-all.bat        ← 一键构建 PPT + 讲稿
+│   ├── clean.bat            ← 清理幻灯片构建产物
+│   ├── clean-all.bat        ← 清理所有构建产物
 │   └── gen_note.py          ← 从 PDF 提取文本生成发言稿
 ├── materials/               ← 原始试卷 PDF（不纳入版本控制）
-├── figures/                 ← 图片资源
-├── code/                    ← 示例代码
-└── build/                   ← 编译产物目录（gitignore）
+├── images/                  ← 图片资源（Logo 等）
+├── products/                ← 最终输出 PDF（展示.pdf + 讲稿.pdf，gitignore）
+├── .github/                 ← GitHub Actions CI
+│   └── workflows/
+│       └── latex-build.yml  ← LaTeX 编译验证
+├── note/                    ← 讲稿 LaTeX 文件
+│   ├── main.tex             ← 讲稿入口
+│   ├── .latexmkrc           ← 讲稿编译配置
+│   └── chapters/            ← 讲稿章节文件
 ```
 
 ## 幻灯片内容索引
 
-### 选择题（一）— `slides/10-choice-1.tex`
+### 选择题（一）— `slide/chapters/10-choice-1.tex`
 
 | 题号 | 知识点 |
 |------|--------|
@@ -56,7 +66,7 @@
 | 9    | 字符数组声明（拆分为题目 + 解析两帧） |
 | 10   | 二维数组下标越界 |
 
-### 选择题（二）— `slides/11-choice-2.tex`
+### 选择题（二）— `slide/chapters/11-choice-2.tex`
 
 | 题号 | 知识点 |
 |------|--------|
@@ -71,7 +81,7 @@
 | 19   | 字符串指针数组 — 类型判断 |
 | 20   | 字符串指针输出（拆分为题目 + 解析两帧） |
 
-### 基本概念填空题 — `slides/20-basic-blank.tex`
+### 基本概念填空题 — `slide/chapters/20-basic-blank.tex`
 
 | 空号 | 知识点 |
 |------|--------|
@@ -81,7 +91,7 @@
 | 8    | 结构体初始化 |
 | 9—10 | 逗号表达式 |
 
-### 阅读程序填空题（一）— `slides/30-reading-1.tex`
+### 阅读程序填空题（一）— `slide/chapters/30-reading-1.tex`
 
 | 题号 | 知识点 |
 |------|--------|
@@ -91,7 +101,7 @@
 | 4    | 字符处理 |
 | 5    | 递归函数（拆分为代码 + 解析两帧） |
 
-### 阅读程序填空题（二）— `slides/31-reading-2.tex`
+### 阅读程序填空题（二）— `slide/chapters/31-reading-2.tex`
 
 | 题号 | 知识点 |
 |------|--------|
@@ -101,7 +111,7 @@
 | 9    | 数组奇偶处理（拆分为代码 + 解析两帧） |
 | 10   | 异或交换（拆分为代码 + 解析两帧） |
 
-### 程序完善题 — `slides/40-complete.tex`
+### 程序完善题 — `slide/chapters/40-complete.tex`
 
 | 题号 | 知识点 |
 |------|--------|
@@ -109,7 +119,7 @@
 | 2    | 数组查找（拆分为代码 + 答案两帧） |
 | 3    | 统计非负数（拆分为代码 + 答案两帧） |
 
-### 编程题 — `slides/50-programming.tex`
+### 编程题 — `slide/chapters/50-programming.tex`
 
 | 内容 | 说明 |
 |------|------|
@@ -130,22 +140,30 @@
 ### 快速编译
 
 ```bash
-# 方式一：latexmk（推荐）
-latexmk -xelatex main.tex
+# 完整构建 — 幻灯片 + 讲稿（推荐）
+scripts\build-all.bat        # Windows 批处理
+pwsh scripts\build-all.ps1   # PowerShell
 
-# 方式二：双击批处理
-scripts\build.bat
+# 仅幻灯片
+scripts\build.bat            # Windows 批处理
+pwsh scripts\build.ps1       # PowerShell
 
-# 方式三：PowerShell
-pwsh scripts\build.ps1
+# 命令行（单独编译）
+cd slide && latexmk -xelatex main.tex   # 仅幻灯片
+cd note && latexmk -xelatex main.tex    # 仅讲稿
 ```
 
-编译成功后，PDF 输出至 `build/main.pdf`。
+编译成功后：
+- `slide/build/main.pdf` → 复制到 `products/展示.pdf`
+- `note/build/main.pdf` → 复制到 `products/讲稿.pdf`
 
 ### 清理
 
 ```bash
-# 删除 build/ 目录
+# 清理所有构建产物
+scripts\clean-all.bat
+
+# 仅清理幻灯片
 scripts\clean.bat
 ```
 

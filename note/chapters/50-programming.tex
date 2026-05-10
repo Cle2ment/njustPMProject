@@ -1,0 +1,507 @@
+% ============================================
+% 五、编程题：电梯调度系统 — 讲稿
+% ============================================
+\section{编程题：电梯调度系统（10分）}
+
+这是本套模拟试卷中分值最高、综合性最强的题目。题目要求实现一个简化的电梯调度算法，
+分三个子任务完成，模拟考试分值分配为 \textbf{4 + 2 + 4 = 10 分}。
+
+\textbf{教学提示：} 这道题建议花 15\~{}20 分钟详细讲解。先讲清题目背景和输入输出规则（2分钟），
+然后分别讲解三个子任务（每个 3\~{}4 分钟），最后带学生走一遍完整执行流程（3分钟）。
+强调「先想清楚再写代码」，算法思路比代码细节更重要。
+
+\bigskip
+
+% ====================================
+\subsection{题目背景与输入输出}
+
+\subsubsection{场景描述}
+
+致远大厦有一部可停靠 1\~{}26 层楼的电梯。需要根据当前电梯位置、行驶方向和乘客按下的按钮，
+决定电梯下一个应停靠的楼层。
+
+\begin{itemize}
+    \item 电梯当前停在 a 楼，行驶方向为 d（1 = 上行，-1 = 下行）。
+    \item 有 n 个按钮被按下（n 个整数，互不相同，不等于 a，不一定有序）。
+    \item 按「就近原则」选择下一个停靠楼层。
+\end{itemize}
+
+\subsubsection{输入格式}
+
+\begin{lstlisting}[language=C]
+第一行：n a d     // n个按钮，a当前楼层，d方向
+第二行：n个整数    // 按钮楼层（乱序）
+\end{lstlisting}
+
+\subsubsection{输出要求}
+
+\begin{enumerate}
+    \item 若 n = 0（无按钮按下），电梯停靠 1 楼，输出 \texttt{1}。
+    \item 当前行駶方向有按钮 → 输出该方向最近的楼层。
+    \item 当前行駶方向无按钮 → 反方向就近停靠（折返）。
+\end{enumerate}
+
+\subsubsection{分值分配}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{@{}clll@{}}
+        \toprule
+        \textbf{部分} & \textbf{函数}                   & \textbf{分值} & \textbf{考点}          \\
+        \midrule
+        Part 1 & \texttt{my\_sort}         & 4分 & 冒泡排序、数组参数传递          \\
+        Part 2 & \texttt{find\_larger}     & 2分 & 遍历查找、哨兵值 INT\_MAX    \\
+        Part 3 & \texttt{main} 调度逻辑       & 4分 & 方向判断、折返逻辑、函数调用与返回值处理 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\textbf{教学提示：} 先让学生明确分值结构。Part 1 和 Part 2 是独立的基础函数，
+即使 Part 3 调度逻辑写不出来，只要 sort 和 find 写对了也能拿到 6 分。
+所以考试策略上建议先确保 Part 1 和 Part 2 稳拿。
+
+\bigskip
+\bigskip
+
+% ====================================
+\subsection{Part 1：my\_sort — 排序函数（4分）}
+
+\subsubsection{函数原型与功能}
+
+\begin{lstlisting}[language=C]
+void my_sort(int *arr, int cnt);
+\end{lstlisting}
+
+对数组 \texttt{arr} 进行\underline{原地升序}排序，元素个数为 \texttt{cnt}。
+
+\subsubsection{完整代码}
+
+\begin{lstlisting}[language=C]
+void my_sort(int *arr, int cnt) {
+    for (int i = 0; i < cnt - 1; i++) {
+        for (int j = 0; j < cnt - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+\end{lstlisting}
+
+\subsubsection{算法讲解 —— 冒泡排序}
+
+\textbf{核心思想：} 每一轮把「当前未排序部分的最大值」冒泡到最后。
+
+\vspace{0.3em}
+\textbf{外层循环 \texttt{i}：} 控制轮数。有 cnt 个元素，需要 cnt-1 轮比较。
+第 i 轮结束后，最后 i 个元素已排好序。
+
+\textbf{内层循环 \texttt{j}：} 控制每轮内的比较次数。
+第 i 轮只需比较前 \texttt{cnt - i - 1} 对相邻元素（因为最后 i 个已就位）。
+
+\textbf{交换逻辑：} 如果左侧元素 \texttt{arr[j]} 大于右侧元素 \texttt{arr[j+1]}，
+则交换两者。需要一个临时变量 temp 完成交换。
+
+\subsubsection{逐轮演示（以 \{5, 3, 8, 1\} 为例）}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{@{}ccl@{}}
+        \toprule
+        \textbf{轮次 (i)} & \textbf{比较过程} & \textbf{结果} \\
+        \midrule
+        i=0 (j=0\~{}2) & 5>3 交换, 5<8 不变, 8>1 交换 & \{3, 5, 1, {\color{highlight}8}\} \\
+        i=1 (j=0\~{}1) & 3<5 不变, 5>1 交换           & \{3, 1, {\color{highlight}5}, 8\} \\
+        i=2 (j=0)  & 3>1 交换                         & \{1, {\color{highlight}3}, 5, 8\} \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\textbf{教学提示：} 可以在黑板上画出每一步数组的变化，让学生直观看到最大值如何逐步冒泡到最后。
+这是很多同学第一次接触排序算法，图解比代码更有说服力。
+
+\subsubsection{为什么需要排序？}
+
+这是理解整个电梯调度系统的\underline{关键前提}。
+
+\textbf{原因：} 题目给定的按钮数组是\underline{乱序}的。
+而后续 Part 2 的 \texttt{find\_larger} 函数需要在数组中查找「大于 target 的最小值」。
+如果数组有序（升序），这个查找问题就变得简单 —— 只需从头遍历，找到第一个大于 target 的元素即可（因为后面的元素只会更大）。
+
+当然，Part 2 中我们采用的是完整遍历法（不管有序无序都能找到），
+但排序后的数组在逻辑上更清晰、便于理解「大于 target 的最小值」这个概念。
+同时，有序数组也为可能的二分查找优化留下了空间。
+
+\textbf{另一个重要原因：}
+当两个方向都可能有按钮时，有序数组让「最近楼层」的判断变得直接。
+\texttt{find\_larger} 返回的就是最近的上行目标，\texttt{find\_smaller} 返回的就是最近的下行目标。
+
+\subsubsection{常见错误}
+
+\begin{itemize}
+    \item \textbf{内外循环边界写错：} \texttt{i < cnt}（应为 \texttt{cnt - 1}）或 \texttt{j < cnt - 1}（应为 \texttt{cnt - i - 1}）。虽然多跑几次循环不会出错，但浪费时间，体现对算法理解不深。
+    \item \textbf{比较方向写反：} \texttt{if (arr[j] < arr[j+1])} —— 这就变成了降序排列。
+    \item \textbf{交换时丢失数据：} 如果不用 temp 变量，\texttt{arr[j] = arr[j+1]; arr[j+1] = arr[j];} 会导致两个元素都变成同一个值（经典的 swap 陷阱）。
+    \item \textbf{函数参数理解错误：} \texttt{int *arr} 传递的是数组首地址，函数内对 arr 的修改会影响原数组。这就是「原地排序」的实现基础。
+\end{itemize}
+
+\bigskip
+\bigskip
+
+% ====================================
+\subsection{Part 2：find\_larger — 查找函数（2分）}
+
+\subsubsection{函数原型与功能}
+
+\begin{lstlisting}[language=C]
+int find_larger(int *arr, int cnt, int target);
+\end{lstlisting}
+
+在数组 \texttt{arr} 中查找大于 \texttt{target} 的最小元素。若不存在，返回 \texttt{-1}。
+
+\subsubsection{完整代码}
+
+\begin{lstlisting}[language=C]
+#include <limits.h>  // 提供 INT_MAX
+
+int find_larger(int *arr, int cnt, int target) {
+    int min_larger = INT_MAX;  // 初始化为最大整数，作为哨兵
+    for (int i = 0; i < cnt; i++) {
+        if (arr[i] > target && arr[i] < min_larger)
+            min_larger = arr[i];
+    }
+    if (min_larger == INT_MAX) return -1;  // 未找到任何大于 target 的元素
+    return min_larger;
+}
+\end{lstlisting}
+
+\subsubsection{分步讲解}
+
+\textbf{第1步：理解需求}
+
+题目描述为「找到比 target 大、但比数组中其他元素都小的元素」。
+翻译成人话：\textbf{在数组中，找大于 target 的最小值}。
+
+例如，数组 \{2, 5, 8, 10\}，target = 6 → 大于 6 的元素有 8 和 10，其中最小的是 8 → 返回 8。
+target = 12 → 没有大于 12 的元素 → 返回 -1。
+
+\vspace{0.4em}
+\textbf{第2步：哨兵值 INT\_MAX}
+
+\texttt{INT\_MAX} 是 \texttt{<limits.h>} 中定义的常量，值为 2147483647（在大多数平台上）。
+它的作用是作为 \texttt{min\_larger} 的初始值。
+
+为什么不是 0 或 -1？
+\begin{itemize}
+    \item 初始化为 0：如果数组中所有大于 target 的值都大于 0，逻辑没问题。但如果数组中有小于 0 的正数（比如大于 target 的值为 3），min\_larger 需要更新为 3，也没问题。但 0 不是一个好的哨兵值，因为如果所有大于 target 的元素都大于 INT\_MAX 呢？不可能，所以 INT\_MAX 是最好的哨兵。
+    \item 初始化为 -1：-1 可能恰好是数组中大于 target 的最小值（比如 target = -2，数组中有 -1），导致 -1 永远不会被更新，因为 \texttt{arr[i] < min\_larger}（即 arr[i] < -1）不可能成立。
+    \item 初始化为 INT\_MAX：INT\_MAX 大于任何可能的元素值，确保第一个符合条件的元素一定能更新 min\_larger。
+\end{itemize}
+
+\textbf{教学提示：} 「哨兵值」这种编程技巧在竞赛和考试中经常出现。选一个「绝对不会干扰比较结果」的初始值，确保算法正确性。
+
+\vspace{0.4em}
+\textbf{第3步：遍历与更新}
+
+\texttt{for} 循环遍历整个数组，对每个元素做两个判断：
+\begin{enumerate}
+    \item \texttt{arr[i] > target} —— 这个元素是「上方」的吗？
+    \item \texttt{arr[i] < min\_larger} —— 这个元素比目前已知的最小值还小吗？
+\end{enumerate}
+两个条件同时满足 → 更新 min\_larger。
+
+\vspace{0.4em}
+\textbf{第4步：返回结果}
+
+循环结束后，检查 \texttt{min\_larger} 是否仍然是 INT\_MAX：
+\begin{itemize}
+    \item 是 → 说明没有找到任何大于 target 的元素 → 返回 -1。
+    \item 否 → 返回 min\_larger（即大于 target 的最小值）。
+\end{itemize}
+
+\subsubsection{find\_smaller 的对称性}
+
+题目声明了 \texttt{find\_smaller} 函数可直接调用，它是 \texttt{find\_larger} 的镜像：
+
+\begin{lstlisting}[language=C]
+int find_smaller(int *arr, int cnt, int target) {
+    int max_smaller = INT_MIN;  // 注意：初始化为最小整数
+    for (int i = 0; i < cnt; i++) {
+        if (arr[i] < target && arr[i] > max_smaller)
+            max_smaller = arr[i];
+    }
+    if (max_smaller == INT_MIN) return -1;
+    return max_smaller;
+}
+\end{lstlisting}
+
+\textbf{对称对比：}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{@{}lll@{}}
+        \toprule
+        \textbf{要素}                 & \textbf{find\_larger} & \textbf{find\_smaller} \\
+        \midrule
+        目标                  & 大于 target 的最小值        & 小于 target 的最大值           \\
+        哨兵初始值               & INT\_MAX                  & INT\_MIN                   \\
+        判断条件                & \texttt{arr[i] > target} & \texttt{arr[i] < target}  \\
+        更新条件                & \texttt{arr[i] < min\_larger} & \texttt{arr[i] > max\_smaller} \\
+        未找到返回值              & -1                       & -1                         \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{常见错误}
+
+\begin{itemize}
+    \item \textbf{哨兵值选错：} 用 0 或 -1 做初始值，导致结果被污染。
+    \item \textbf{条件写反：} \texttt{arr[i] < target \&\& arr[i] < min\_larger} —— 小于 target 的是下行方向，与 find\_larger 的语义矛盾。
+    \item \textbf{忘记头文件：} 使用 INT\_MAX 必须 \texttt{\#include <limits.h>}。
+    \item \textbf{未处理「未找到」情况：} 忘记判断 min\_larger == INT\_MAX，直接返回 INT\_MAX 而非 -1。
+\end{itemize}
+
+\bigskip
+\bigskip
+
+% ====================================
+\subsection{Part 3：main 函数 — 电梯调度逻辑（4分）}
+
+\subsubsection{完整代码}
+
+\begin{lstlisting}[language=C]
+int main() {
+    int n, a, d;
+    scanf("%d %d %d", &n, &a, &d);
+    if (n == 0) { printf("1\n"); return 0; }    // ① 无按钮→停1楼
+
+    int arr[100];
+    for (int i = 0; i < n; i++) scanf("%d", &arr[i]);
+    my_sort(arr, n);                              // ② 排序按钮数组
+
+    int next_floor;
+    if (d == 1) {                                 // ③ 上行方向
+        next_floor = find_larger(arr, n, a);      //   找上方最近的
+        if (next_floor == -1)                     //   上方无按钮
+            next_floor = find_smaller(arr, n, a); //   折返：下方最近的
+    } else {                                      // ④ 下行方向
+        next_floor = find_smaller(arr, n, a);     //   找下方最近的
+        if (next_floor == -1)                     //   下方无按钮
+            next_floor = find_larger(arr, n, a);  //   折返：上方最近的
+    }
+    printf("%d\n", next_floor);
+    return 0;
+}
+\end{lstlisting}
+
+\subsubsection{调度逻辑分步讲解}
+
+\textbf{教学提示：} 这是学生最容易丢分的部分。建议先用流程图或示意图讲清调度逻辑，
+再对照代码逐行讲解。避免对着代码「念」—— 先讲算法，再讲实现。
+
+\vspace{0.5em}
+\textbf{步骤①：边界情况处理（无按钮）}
+
+\begin{lstlisting}[language=C]
+if (n == 0) { printf("1\n"); return 0; }
+\end{lstlisting}
+
+没有按钮按下时，电梯直接去 1 楼。这是题目要求的最简单情况。
+
+\textbf{为什么 return 0 而不是用 else？}
+一来避免后续代码嵌套过深，二来逻辑清晰：特殊情况先处理掉，后面的代码不需要再考虑 n=0 的情况。
+这种写法叫做「卫语句」(Guard Clause)，是编程中常用的模式。
+
+\vspace{0.5em}
+\textbf{步骤②：排序}
+
+\begin{lstlisting}[language=C]
+my_sort(arr, n);
+\end{lstlisting}
+
+将乱序的按钮数组按升序排列。排序完成后：
+\begin{itemize}
+    \item arr[0] 是最低楼层的按钮
+    \item arr[n-1] 是最高楼层的按钮
+    \item 数组变为有序，便于后续查找
+\end{itemize}
+
+\textbf{为什么有序很重要？} 对 find\_larger 来说，虽然遍历找最小值不要求有序，
+但有序数组意味着「遍历到的第一个大于 target 的元素就是最小值」，
+可以提前 break 优化性能。更重要的是，排序后调试和推理都更直观。
+
+\vspace{0.5em}
+\textbf{步骤③：上行方向 (d == 1)}
+
+\begin{lstlisting}[language=C]
+next_floor = find_larger(arr, n, a);      // 1) 先找上方最近的
+if (next_floor == -1)                     // 2) 上方没有？
+    next_floor = find_smaller(arr, n, a); // 3) 折返找下方最近的
+\end{lstlisting}
+
+\textbf{逻辑：} 上行时优先找\underline{上方}的按钮。如果上方没有按钮了（find\_larger 返回 -1），
+说明所有按钮都在下方，电梯只能折返下行，去下方最近的楼层。
+
+\vspace{0.5em}
+\textbf{步骤④：下行方向 (d == -1)}
+
+\begin{lstlisting}[language=C]
+next_floor = find_smaller(arr, n, a);     // 1) 先找下方最近的
+if (next_floor == -1)                     // 2) 下方没有？
+    next_floor = find_larger(arr, n, a);  // 3) 折返找上方最近的
+\end{lstlisting}
+
+与上行完全对称：下行时优先找\underline{下方}的按钮。如果下方没有，折返上行。
+
+\subsubsection{调度逻辑图解}
+
+\begin{center}
+\begin{tabular}{@{}c|c@{}}
+    \toprule
+    \textbf{上行 (d = 1)} & \textbf{下行 (d = -1)} \\
+    \midrule
+    \texttt{find\_larger(arr, n, a)} & \texttt{find\_smaller(arr, n, a)} \\
+    找上方最近（$>$ 且最小）              & 找下方最近（$<$ 且最大）                   \\
+    $\downarrow$ 找到了？返回                       & $\downarrow$ 找到了？返回                           \\
+    找不到 $\rightarrow$ 折返                     & 找不到 $\rightarrow$ 折返                         \\
+    \texttt{find\_smaller(arr, n, a)} & \texttt{find\_larger(arr, n, a)} \\
+    找下方最近                        & 找上方最近                            \\
+    \bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{教学提示：} 可以在黑板上画一个竖线代表楼层 1\~{}26，标注当前楼层 a，画箭头表示上行/下行方向，
+再标出按钮位置。让学生直观看到「上方最近」和「下方最近」的含义。
+
+\subsubsection{举例演示}
+
+\textbf{例1：当前5楼上行，按钮 \{2, 8, 10\}}
+
+排序后：\{2, 8, 10\}
+
+\begin{enumerate}
+    \item 方向 d=1（上行）
+    \item find\_larger(\{2,8,10\}, 3, 5)：大于5的有 \{8, 10\}，最小是 \textbf{8}
+    \item 找到了 → 输出 \textbf{8}
+\end{enumerate}
+
+结论：电梯从5楼上行，最近的按钮在8楼 → 停在8楼。
+
+\vspace{0.4em}
+\textbf{例2：当前10楼上行，按钮 \{2, 3, 6\}}
+
+排序后：\{2, 3, 6\}
+
+\begin{enumerate}
+    \item 方向 d=1（上行）
+    \item find\_larger(\{2,3,6\}, 3, 10)：大于10的元素不存在 → 返回 \textbf{-1}
+    \item 折返！find\_smaller(\{2,3,6\}, 3, 10)：小于10的有 \{2, 3, 6\}，最大是 \textbf{6}
+    \item 输出 \textbf{6}
+\end{enumerate}
+
+结论：电梯在10楼往上的方向没有按钮了 → 改变方向下行 → 去下方最近的6楼。
+
+\vspace{0.4em}
+\textbf{例3：当前5楼下行，按钮 \{7, 10, 12\}}
+
+排序后：\{7, 10, 12\}
+
+\begin{enumerate}
+    \item 方向 d=-1（下行）
+    \item find\_smaller(\{7,10,12\}, 3, 5)：小于5的元素不存在 → 返回 \textbf{-1}
+    \item 折返！find\_larger(\{7,10,12\}, 3, 5)：大于5的有 \{7, 10, 12\}，最小是 \textbf{7}
+    \item 输出 \textbf{7}
+\end{enumerate}
+
+结论：电梯在5楼下行方向无按钮 → 改变方向上行驶 → 去上方最近的7楼。
+
+\vspace{0.4em}
+\textbf{例4：边界情况，n=0}
+
+不输入按钮，直接输出 1。电梯停到1楼。
+
+\subsubsection{常见错误}
+
+\begin{itemize}
+    \item \textbf{忘记处理 n=0：} 直接读取 arr[i] 会出问题（没有第二行输入），程序可能卡住或读入垃圾数据。
+    \item \textbf{忘记排序：} 直接对乱序数组调用 find\_larger/find\_smaller。虽然遍历法不依赖有序性，但排序是题目明确要求的步骤（Part 1 价值4分），不调用 my\_sort 会丢分。
+    \item \textbf{方向判断反了：} d==1 时调 find\_smaller，d==-1 时调 find\_larger —— 完全搞反了上行和下行的语义。这是最严重的逻辑错误。
+    \item \textbf{折返逻辑遗漏：} 只调用一次 find\_larger 或 find\_smaller，不判断 -1。当当前方向无按钮时，next\_floor 直接赋值为 -1 然后输出 -1，完全错误。必须加 if 判断并折返查找。
+    \item \textbf{折返时调错函数：} 上行找不到 → 再次调 find\_larger（而不是 find\_smaller），等于再查一次没结果的查询，next\_floor 还是 -1。折返意味着换方向。
+    \item \textbf{printf 输出多余内容：} 直接 printf("\%d", next\_floor) 即可，不需要 "the next floor is..." 之类的额外文字。OJ 判题只比对数字。
+\end{itemize}
+
+\bigskip
+\bigskip
+
+% ====================================
+\subsection{完整执行流程演示}
+
+以 \textbf{输入 ``3 5 1''（n=3, a=5, d=1上行）}和 \textbf{按钮 ``10 2 8''} 为例，跟踪整个程序：
+
+\begin{center}
+\begin{tabular}{@{}p{3cm}p{5cm}p{5cm}@{}}
+    \toprule
+    \textbf{代码位置}      & \textbf{执行内容}                & \textbf{程序状态}               \\
+    \midrule
+    scanf                  & 读入 n=3, a=5, d=1           &                                  \\
+    n==0?                  & n=3, 非0，继续                  &                                  \\
+    读入按钮                  & arr = \{10, 2, 8\}            & arr(乱序)                         \\
+    my\_sort(arr, 3)       & 冒泡排序                        & arr = \{2, 8, 10\}               \\
+    d==1?                  & 是，执行上行分支                    &                                  \\
+    find\_larger(\{2,8,10\}, 3, 5) & 遍历: 2>5? no; 8>5?\& 8<IMAX? → min=8; 10>5?\& 10<8? no & 返回 8                        \\
+    next\_floor==-1?       & 8 != -1, 不折返                &                                  \\
+    printf                 & 输出 8                        & 输出: 8                           \\
+    \bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{教学提示：} 可以让学生画出自己的测试用例，在纸上手动走一遍代码，
+检查自己的程序是否正确。这是调试逻辑错误的终极方法。
+
+\bigskip
+\bigskip
+
+% ====================================
+\subsection{编程题总结}
+
+\subsubsection{本题的综合性}
+
+这道编程题融合了 C 语言的多个核心知识点：
+\begin{enumerate}
+    \item \textbf{数组操作} —— 数组声明、遍历、元素访问、作为函数参数传递（传指针）
+    \item \textbf{排序算法} —— 冒泡排序的完整实现（经典算法入门）
+    \item \textbf{查找算法} —— 线性遍历 + 条件筛选 + 哨兵值技巧
+    \item \textbf{分支逻辑} —— if-else 判断上行/下行方向、折返条件
+    \item \textbf{函数设计与调用} —— 三个函数各司其职，main 负责调度编排
+    \item \textbf{输入输出} —— scanf/printf 的格式化使用
+\end{enumerate}
+
+\subsubsection{考试策略建议}
+
+\begin{itemize}
+    \item \textbf{先拿下 6 分基础分：} 即使调度逻辑暂时想不清楚，先把 my\_sort 和 find\_larger 这两个独立函数写完。
+    它们是纯粹的算法题，不需要理解电梯调度即可完成。4分 + 2分 = 6分，已经超过编程题的一半。
+    \item \textbf{画图辅助思考：} 调度逻辑涉及方向判断和折返，光靠脑想很容易晕。在草稿纸上画一条竖线标注楼层，把按钮和当前位置标出来，逻辑就清晰了。
+    \item \textbf{检查边界情况：} n=0、上方无按钮、下方无按钮 —— 这三种特殊情况都要测试到。
+    \item \textbf{注意返回值：} find\_larger 和 find\_smaller 找不到目标时返回 -1 而不是 0 或其他值。
+    main 中必须判断 -1 才能触发折返逻辑。
+\end{itemize}
+
+\subsubsection{延伸思考（可选，面向学有余力的学生）}
+
+\begin{itemize}
+    \item \textbf{优化 find\_larger：} 数组已排序，可以改为二分查找，将时间复杂度从 O(n) 降到 O(log n)。
+    \item \textbf{电梯规则的完善：} 真实电梯调度更加复杂——需要考虑多按钮按下时的顺序规划（SCAN算法 / LOOK算法）、同方向顺路停靠等。
+    学有余力的同学可以查阅操作系统中「磁盘调度算法」的资料，电梯调度和它非常相似。
+    \item \textbf{升级为多电梯系统：} 如果有多部电梯，如何分配按钮？这涉及分布式调度问题，是面试中常见的设计题。
+\end{itemize}
+
+\textbf{教学提示：} 延伸思考部分视时间和学生水平决定是否展开。重点是确保所有学生都理解了基础版本。
+
+\bigskip
+
+\begin{center}
+    \textbf{—— 编程题讲解结束 ——}
+\end{center}

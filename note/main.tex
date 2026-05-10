@@ -1,0 +1,86 @@
+% ============================================
+% C语言期末模拟卷讲评讲座 — 讲稿
+% 编译: xelatex note/main.tex
+% ============================================
+\documentclass[UTF8,a4paper,11pt]{ctexart}
+
+% === 页面设置 ===
+\usepackage[top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm]{geometry}
+
+% === 中文支持 ===
+\usepackage{ctex}
+
+% === 文本符号 ===
+\usepackage{textcomp}
+
+% === 数学 ===
+\usepackage{amsmath,amssymb}
+
+% === 超链接 ===
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+
+% === 代码 ===
+\usepackage{listings}
+\lstset{
+    language=C,
+    basicstyle=\small\ttfamily,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray},
+    stringstyle=\color{teal},
+    numbers=left,
+    numberstyle=\tiny,
+    frame=single,
+    breaklines=true,
+    showstringspaces=false,
+}
+
+% === 颜色 ===
+\usepackage{xcolor}
+\definecolor{primary}{RGB}{30,41,59}
+\definecolor{accent}{RGB}{59,130,246}
+\definecolor{highlight}{RGB}{217,119,6}
+
+% === 表格 ===
+\usepackage{array}
+\usepackage{booktabs}
+
+% === 标题格式 ===
+\usepackage{titlesec}
+\titleformat{\section}{\Large\bfseries\color{primary}}{}{0em}{}
+\titleformat{\subsection}{\large\bfseries\color{primary}}{}{0em}{}
+
+% === 文档信息 ===
+\title{\Huge\bfseries C语言期末模拟卷讲评讲座}
+\author{朋辈学业导师\\[0.3em]\footnotesize 南京理工大学~新生学院~致远书院}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\newpage
+\tableofcontents
+\newpage
+
+% ========== 讲座开场 ==========
+\input{chapters/00-opening}
+
+% ========== 选择题 ==========
+\input{chapters/10-choice-1}
+\input{chapters/11-choice-2}
+
+% ========== 基本概念填空题 ==========
+\input{chapters/20-basic-blank}
+
+% ========== 阅读程序填空题 ==========
+\input{chapters/30-reading}
+\input{chapters/31-reading-2}
+
+% ========== 程序完善题 ==========
+\input{chapters/40-complete}
+
+% ========== 编程题 ==========
+\input{chapters/50-programming}
+
+\end{document}

@@ -5,7 +5,7 @@
 import pdfplumber
 import os
 
-pdf_path = os.path.join(os.path.dirname(__file__), '..', 'build', 'main.pdf')
+pdf_path = os.path.join(os.path.dirname(__file__), '..', 'slide', 'build', 'main.pdf')
 if not os.path.exists(pdf_path):
     print(f"PDF 不存在: {pdf_path}")
     print("请先运行 build.bat 编译生成 PDF")
