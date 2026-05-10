@@ -12,8 +12,14 @@
 *.blg
 *.bcf
 *.run.xml
+*.xdv
 build/
 
 *.pdf
 
 materials/
+
+.opencode/
+.sisyphus/
+
+images/
