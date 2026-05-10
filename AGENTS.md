@@ -5,7 +5,7 @@ LaTeX beamer 幻灯片项目（96页），ctexbeamer + metropolis 主题，xelat
 ## 编译命令
 
 ```bash
-latexmk -xelatex main.tex         # 编译到 build/main.pdf
+latexmk -xelatex slide/main.tex         # 编译到 slide/build/main.pdf
 scripts\build.bat                 # 双击运行（带暂停）
 pwsh scripts\build.ps1            # PowerShell 编译
 scripts\clean.bat                 # 清理 build/
@@ -19,10 +19,11 @@ python scripts\gen_note.py        # 从 PDF 生成发言稿 speaker_notes.txt
 ## 项目结构
 
 ```
-main.tex          — 入口：文档类 / 主题 / 配色 / \lstset / \input 所有 slide
-.latexmkrc        — latexmk 编译配置
+slide/main.tex          — 入口：文档类 / 主题 / 配色 / \lstset / \input 所有章节
+.latexmkrc        — latexmk 编译配置（输出到 slide/build/）
 README.md         — 人类可读项目说明（幻灯片索引、知识点映射）
-slides/           — 10 个 .tex 片段（不完整文档，由 main.tex \input）
+slide/chapters/   — 幻灯片 LaTeX 片段（不完整文档，由 slide/main.tex \input）
+note/             — 讲稿 LaTeX 文件（待创建）
 scripts/          — build.bat / build.ps1 / clean.bat / gen_note.py
 materials/        — 原始试卷 PDF（gitignore）
 figures/          — 图片资源

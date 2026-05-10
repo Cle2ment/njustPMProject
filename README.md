@@ -12,12 +12,14 @@
 
 ```
 .
-├── main.tex                 ← 入口文件：文档类 / 主题 / 配色 / \lstset / \input 所有 slide
-├── .latexmkrc               ← latexmk 编译配置（xelatex，输出到 build/）
-├── .gitignore               ← 忽略构建产物（*.aux, *.log, build/, *.pdf, materials/）
-├── AGENTS.md                ← AI Agent 项目说明
+├── slide/
+│   ├── main.tex              ← 入口：文档类 / 主题 / 配色 / \lstset / \input 所有章节
+│   ├── chapters/             ← 幻灯片片段文件（由 slide/main.tex \input 引入）
+│   └── build/                ← 编译输出（PDF 等）
+├── .latexmkrc                ← latexmk 编译配置（xelatex，输出到 slide/build/）
+├── .gitignore                ← 忽略构建产物（*.aux, *.log, build/, *.pdf, materials/）
+├── AGENTS.md                 ← AI Agent 项目说明
 ├── README.md
-├── slides/                  ← 幻灯片片段文件（由 main.tex \input 引入）
 │   ├── 01-title.tex         ← 标题页
 │   ├── 02-outline.tex       ← 目录 / 讲座大纲
 │   ├── 10-choice-1.tex      ← 选择题 第 1—10 题
@@ -41,7 +43,7 @@
 
 ## 幻灯片内容索引
 
-### 选择题（一）— `slides/10-choice-1.tex`
+### 选择题（一）— `slide/chapters/10-choice-1.tex`
 
 | 题号 | 知识点 |
 |------|--------|
@@ -56,7 +58,7 @@
 | 9    | 字符数组声明（拆分为题目 + 解析两帧） |
 | 10   | 二维数组下标越界 |
 
-### 选择题（二）— `slides/11-choice-2.tex`
+### 选择题（二）— `slide/chapters/11-choice-2.tex`
 
 | 题号 | 知识点 |
 |------|--------|
@@ -71,7 +73,7 @@
 | 19   | 字符串指针数组 — 类型判断 |
 | 20   | 字符串指针输出（拆分为题目 + 解析两帧） |
 
-### 基本概念填空题 — `slides/20-basic-blank.tex`
+### 基本概念填空题 — `slide/chapters/20-basic-blank.tex`
 
 | 空号 | 知识点 |
 |------|--------|
@@ -81,7 +83,7 @@
 | 8    | 结构体初始化 |
 | 9—10 | 逗号表达式 |
 
-### 阅读程序填空题（一）— `slides/30-reading-1.tex`
+### 阅读程序填空题（一）— `slide/chapters/30-reading-1.tex`
 
 | 题号 | 知识点 |
 |------|--------|
@@ -91,7 +93,7 @@
 | 4    | 字符处理 |
 | 5    | 递归函数（拆分为代码 + 解析两帧） |
 
-### 阅读程序填空题（二）— `slides/31-reading-2.tex`
+### 阅读程序填空题（二）— `slide/chapters/31-reading-2.tex`
 
 | 题号 | 知识点 |
 |------|--------|
@@ -101,7 +103,7 @@
 | 9    | 数组奇偶处理（拆分为代码 + 解析两帧） |
 | 10   | 异或交换（拆分为代码 + 解析两帧） |
 
-### 程序完善题 — `slides/40-complete.tex`
+### 程序完善题 — `slide/chapters/40-complete.tex`
 
 | 题号 | 知识点 |
 |------|--------|
@@ -109,7 +111,7 @@
 | 2    | 数组查找（拆分为代码 + 答案两帧） |
 | 3    | 统计非负数（拆分为代码 + 答案两帧） |
 
-### 编程题 — `slides/50-programming.tex`
+### 编程题 — `slide/chapters/50-programming.tex`
 
 | 内容 | 说明 |
 |------|------|
@@ -131,7 +133,7 @@
 
 ```bash
 # 方式一：latexmk（推荐）
-latexmk -xelatex main.tex
+latexmk -xelatex slide/main.tex
 
 # 方式二：双击批处理
 scripts\build.bat
@@ -140,7 +142,7 @@ scripts\build.bat
 pwsh scripts\build.ps1
 ```
 
-编译成功后，PDF 输出至 `build/main.pdf`。
+编译成功后，PDF 输出至 `slide/build/main.pdf`。
 
 ### 清理
 
