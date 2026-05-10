@@ -18,8 +18,8 @@ build/
 *.pdf
 
 materials/
+images/
+products/
 
 .opencode/
 .sisyphus/
-
-images/
