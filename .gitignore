@@ -12,6 +12,7 @@
 *.blg
 *.bcf
 *.run.xml
+*.xdv
 build/
 
 *.pdf
