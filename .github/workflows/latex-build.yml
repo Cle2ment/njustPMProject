@@ -6,12 +6,14 @@ on:
       - 'slide/**'
       - 'note/**'
       - 'scripts/**'
+      - 'images/**'
       - '.github/workflows/latex-build.yml'
   pull_request:
     paths:
       - 'slide/**'
       - 'note/**'
       - 'scripts/**'
+      - 'images/**'
 
 jobs:
   build-slide:
