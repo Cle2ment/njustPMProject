@@ -39,7 +39,6 @@
 │   └── gen_note.py          ← 从 PDF 提取文本生成发言稿
 ├── materials/               ← 原始试卷 PDF（不纳入版本控制）
 ├── images/                  ← 图片资源（Logo 等）
-├── code/                    ← 示例代码
 ├── products/                ← 最终输出 PDF（展示.pdf + 讲稿.pdf，gitignore）
 ├── .github/                 ← GitHub Actions CI
 │   └── workflows/

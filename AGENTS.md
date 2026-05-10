@@ -30,7 +30,6 @@ products/         — 最终输出 PDF（展示.pdf + 讲稿.pdf，gitignore）
 .github/          — GitHub Actions CI（latex-build.yml）
 materials/        — 原始试卷 PDF（gitignore）
 images/           — 图片资源
-code/             — 示例 C 代码
 ```
 
 ## 配色方案
