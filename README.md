@@ -38,8 +38,12 @@
 │   ├── clean-all.bat        ← 清理所有构建产物
 │   └── gen_note.py          ← 从 PDF 提取文本生成发言稿
 ├── materials/               ← 原始试卷 PDF（不纳入版本控制）
-├── figures/                 ← 图片资源
+├── images/                  ← 图片资源（Logo 等）
 ├── code/                    ← 示例代码
+├── products/                ← 最终输出 PDF（展示.pdf + 讲稿.pdf，gitignore）
+├── .github/                 ← GitHub Actions CI
+│   └── workflows/
+│       └── latex-build.yml  ← LaTeX 编译验证
 ├── note/                    ← 讲稿 LaTeX 文件
 │   ├── main.tex             ← 讲稿入口
 │   ├── .latexmkrc           ← 讲稿编译配置
@@ -137,20 +141,22 @@
 ### 快速编译
 
 ```bash
-# 方式一：latexmk（推荐）— 仅幻灯片
-cd slide && latexmk -xelatex main.tex
+# 完整构建 — 幻灯片 + 讲稿（推荐）
+scripts\build-all.bat        # Windows 批处理
+pwsh scripts\build-all.ps1   # PowerShell
 
-# 方式二：完整构建 — 幻灯片 + 讲稿
-scripts\build-all.bat
+# 仅幻灯片
+scripts\build.bat            # Windows 批处理
+pwsh scripts\build.ps1       # PowerShell
 
-# 方式三：仅幻灯片
-scripts\build.bat        # 批处理
-pwsh scripts\build.ps1   # PowerShell
+# 命令行（单独编译）
+cd slide && latexmk -xelatex main.tex   # 仅幻灯片
+cd note && latexmk -xelatex main.tex    # 仅讲稿
 ```
 
 编译成功后：
-- 幻灯片 PDF 输出至 `slide/build/main.pdf`
-- 讲稿 PDF 输出至 `note/build/main.pdf`
+- `slide/build/main.pdf` → 复制到 `products/展示.pdf`
+- `note/build/main.pdf` → 复制到 `products/讲稿.pdf`
 
 ### 清理
 

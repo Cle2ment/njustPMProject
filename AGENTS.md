@@ -1,15 +1,15 @@
 # AGENTS.md — C语言期末模拟卷讲评讲座
 
-LaTeX beamer 幻灯片项目（96页），ctexbeamer + metropolis 主题，xelatex 编译。克莱因蓝 (IKB) 配色。
+LaTeX beamer 幻灯片项目（95页），ctexbeamer + metropolis 主题，xelatex 编译。深蓝灰 + 亮蓝 accent + 暖琥珀色答案高亮配色。
 
 ## 编译命令
 
 ```bash
-cd slide && latexmk -xelatex main.tex   # 编译到 slide/build/main.pdf
-cd note && latexmk -xelatex main.tex    # 编译到 note/build/main.pdf
-scripts\build-all.bat             # 一键构建 PPT + 讲稿
+cd slide && latexmk -xelatex main.tex   # 编译幻灯片 → slide/build/main.pdf → products/展示.pdf
+cd note && latexmk -xelatex main.tex    # 编译讲稿   → note/build/main.pdf  → products/讲稿.pdf
+scripts\build-all.bat             # 一键构建 PPT + 讲稿，并输出到 products/
+scripts\build-all.ps1             # PowerShell 一键构建
 scripts\clean-all.bat             # 清理所有构建产物
-python scripts\gen_note.py        # 从 PDF 生成发言稿 speaker_notes.txt
 ```
 
 - **必须 xelatex**，不可 pdflatex（中文支持）
@@ -26,22 +26,24 @@ slide/chapters/   — 幻灯片 LaTeX 片段（不完整文档，由 slide/main.
 note/             — 讲稿 LaTeX 文件 (note/main.tex + note/chapters/)
 note/.latexmkrc      — latexmk 编译配置（输出到 build/，即 note/build/）
 scripts/          — build-all.bat / build.ps1 / clean-all.bat / gen_note.py
+products/         — 最终输出 PDF（展示.pdf + 讲稿.pdf，gitignore）
+.github/          — GitHub Actions CI（latex-build.yml）
 materials/        — 原始试卷 PDF（gitignore）
-figures/          — 图片资源
+images/           — 图片资源
 code/             — 示例 C 代码
 ```
 
 ## 配色方案
 
-克莱因蓝 (International Klein Blue, RGB 0,47,167) 全蓝色系，定义在 `slide/main.tex` 前言区：
+深蓝灰 + 亮蓝 accent + 暖琥珀色答案高亮，定义在 `slide/main.tex` 前言区：
 
 | 色名 | RGB | 用途 |
 |------|-----|------|
-| primary | (0,38,150) | frametitle, block 标题, 进度条 |
-| accent | (0,55,180) | 项目符号, 结构元素, 代码关键词 |
-| highlight | (0,90,210) | 答案标注（`\color{highlight}`） |
-| accentlight | (222,234,254) | block 背景 |
-| bglight / bglighter | (244,247,254) / (250,251,255) | block body / code 背景 |
+| primary | (30,41,59) | frametitle, block 标题, 进度条 |
+| accent | (59,130,246) | 项目符号, 结构元素, 代码关键词 |
+| highlight | (217,119,6) | 答案标注（`\color{highlight}`），暖琥珀色 |
+| accentlight | (219,234,254) | block 背景 |
+| bglight / bglighter | (241,245,249) / (248,250,252) | block body / code 背景 |
 
 修改配色只需改 `slide/main.tex` 中 `\definecolor` 和 `\setbeamercolor` 块，不要散落到各 slide 文件。
 
@@ -65,11 +67,15 @@ code/             — 示例 C 代码
 ### 标准 frame 结构
 
 ```latex
-\begin{frame}{题号标题}{知识点}
+% --- 题目页 ---
+\begin{frame}{题号标题}{知识点 --- 题目}
     \begin{exampleblock}{题目}
         题目内容...
     \end{exampleblock}
-    \pause
+\end{frame}
+
+% --- 解析页 ---
+\begin{frame}{题号标题}{知识点 --- 解析}
     \begin{alertblock}{解析}
         解析内容...
         {\color{highlight}答案：X}
@@ -77,7 +83,7 @@ code/             — 示例 C 代码
 \end{frame}
 ```
 
-- `\pause` 分离题目/解析，逐页揭晓
+- 题目与解析已拆分为独立 frame，不再使用 `\pause`
 - 答案用 `{\color{highlight}...}` 突出
 - 代码块 `lstlisting` (language=C)
 
