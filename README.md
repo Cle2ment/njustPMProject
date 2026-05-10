@@ -15,8 +15,8 @@
 ├── slide/
 │   ├── main.tex              ← 入口：文档类 / 主题 / 配色 / \lstset / \input 所有章节
 │   ├── chapters/             ← 幻灯片片段文件（由 slide/main.tex \input 引入）
+│   ├── .latexmkrc            ← latexmk 编译配置（xelatex，输出到 build/）
 │   └── build/                ← 编译输出（PDF 等）
-├── .latexmkrc                ← latexmk 编译配置（xelatex，输出到 slide/build/）
 ├── .gitignore                ← 忽略构建产物（*.aux, *.log, build/, *.pdf, materials/）
 ├── AGENTS.md                 ← AI Agent 项目说明
 ├── README.md
@@ -33,12 +33,12 @@
 ├── scripts/                 ← 编译与辅助脚本
 │   ├── build.bat            ← Windows 批处理编译（带暂停）
 │   ├── build.ps1            ← PowerShell 编译
-│   ├── clean.bat            ← 清理 build/ 目录
+│   ├── clean.bat            ← 清理 slide/build/ 目录
 │   └── gen_note.py          ← 从 PDF 提取文本生成发言稿
 ├── materials/               ← 原始试卷 PDF（不纳入版本控制）
 ├── figures/                 ← 图片资源
 ├── code/                    ← 示例代码
-└── build/                   ← 编译产物目录（gitignore）
+└── note/                    ← 讲稿 LaTeX（待创建）
 ```
 
 ## 幻灯片内容索引
@@ -133,7 +133,7 @@
 
 ```bash
 # 方式一：latexmk（推荐）
-latexmk -xelatex slide/main.tex
+cd slide && latexmk -xelatex main.tex
 
 # 方式二：双击批处理
 scripts\build.bat
@@ -147,7 +147,7 @@ pwsh scripts\build.ps1
 ### 清理
 
 ```bash
-# 删除 build/ 目录
+# 删除 slide/build/ 目录
 scripts\clean.bat
 ```
 
