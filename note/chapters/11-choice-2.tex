@@ -10,18 +10,18 @@
 \textbf{核心讲解要点：}
 \begin{itemize}
     \item A 正确：形参可以是任何类型——整型、指针、结构体、数组（退化为指针）等都合法。让学生回忆见过的各种函数声明。
-    \item B 错误：\texttt{void} 函数完全可以有形参，例如 \texttt{void printf\_stars(int n);}。\texttt{void} 只是\"不返回值\"，与形参无关。
-    \item C 错误：形参名会\"屏蔽\"同名的全局变量。这是 C 语言的\textbf{名字遮蔽}机制——局部作用域优先。可以举例：在函数体内你无法访问被屏蔽的全局变量。
+    \item B 错误：\texttt{void} 函数完全可以有形参，例如 \texttt{void printf\_stars(int n);}。\texttt{void} 只是”不返回值”，与形参无关。
+    \item C 错误：形参名会”屏蔽”同名的全局变量。这是 C 语言的\textbf{名字遮蔽}机制——局部作用域优先。可以举例：在函数体内你无法访问被屏蔽的全局变量。
     \item D 错误：无形参函数示例——\texttt{int getch(void);}、\texttt{int rand(void);}。
 \end{itemize}
 
 \textbf{常见错误：}
 \begin{itemize}
-    \item 学生常以为 \texttt{void func()} 就是\"不能有参数\"，实际上 \texttt{void} 只修饰返回类型。
-    \item 混淆\"形参名遮蔽全局变量\"和\"不能同名\"——语法上允许同名，结果是屏蔽而非冲突。
+    \item 学生常以为 \texttt{void func()} 就是”不能有参数”，实际上 \texttt{void} 只修饰返回类型。
+    \item 混淆”形参名遮蔽全局变量”和”不能同名”——语法上允许同名，结果是屏蔽而非冲突。
 \end{itemize}
 
-\textbf{讲师提示：} \textit{此题为送分题，快速过。重点强调\"形参能屏蔽全局变量\"这个知识点，后面的阅读程序可能会遇到。}
+\textbf{讲师提示：} \textit{此题为送分题，快速过。重点强调”形参能屏蔽全局变量”这个知识点，后面的阅读程序可能会遇到。}
 
 {\color{highlight}答案：A}
 
@@ -46,7 +46,7 @@
 \noindent \textbf{第3步}：$3 + (3 \times 3) + 3 = 3 + 9 + 3 = \mathbf{15}$
 
 \bigskip
-\textbf{为什么不是 36？} 学生直觉往往会\"先算 \texttt{F(3)} 得 6，再 $6 \times 6 = 36$\"。但宏不先计算——它只做文本粘贴。要想得到 36，宏定义必须加括号：
+\textbf{为什么不是 36？} 学生直觉往往会”先算 \texttt{F(3)} 得 6，再 $6 \times 6 = 36$”。但宏不先计算——它只做文本粘贴。要想得到 36，宏定义必须加括号：
 
 \begin{lstlisting}[language=C]
 #define F(r) ((r)+(r))   // 安全的宏定义
@@ -56,7 +56,7 @@
 
 \textbf{常见错误：}
 \begin{itemize}
-    \item 把宏当函数用，以为会\"先求值再替换\"——这是最根本的错误。
+    \item 把宏当函数用，以为会”先求值再替换”——这是最根本的错误。
     \item 忘记宏的副作用：\texttt{F(i++)} 展开为 \texttt{i++ + i++}，i 自增两次，行为未定义！
     \item 不加括号导致的优先级问题不仅限于算术，逻辑运算符也一样（如 \texttt{\#define AND(a,b) a\&\&b} 写成 \texttt{AND(x, y)==1} 的歧义）。
 \end{itemize}
@@ -70,7 +70,7 @@
 
 \textbf{核心讲解要点：}
 \begin{itemize}
-    \item \textbf{定义不可嵌套}：C 语言中所有函数定义都是\"平等\"的，不允许在一个函数体内定义另一个函数。这与 Pascal、Python 等语言不同。C 没有\"内部函数\"的概念。
+    \item \textbf{定义不可嵌套}：C 语言中所有函数定义都是”平等”的，不允许在一个函数体内定义另一个函数。这与 Pascal、Python 等语言不同。C 没有”内部函数”的概念。
     \item \textbf{调用可以嵌套}：函数 A 调用函数 B，B 调用函数 C——这是标准的嵌套调用。递归更是一种特殊的嵌套：函数调用自身。
     \item 标准 C（C89/C99/C11）不支持嵌套函数定义。GCC 有扩展支持但\underline{不可移植}，考试中视为非法。
 \end{itemize}
@@ -78,7 +78,7 @@
 \textbf{常见错误：}
 \begin{itemize}
     \item 有 Python 基础的学生可能习惯在函数内定义辅助函数，会错误认为 C 也支持。
-    \item 混淆\"嵌套调用\"与\"递归调用\"——递归是调用的特例，\"嵌套调用\"更宽泛。
+    \item 混淆”嵌套调用”与”递归调用”——递归是调用的特例，”嵌套调用”更宽泛。
 \end{itemize}
 
 {\color{highlight}答案：B（定义不可嵌套，调用可嵌套）}
@@ -105,11 +105,11 @@
 
 \textbf{常见错误：}
 \begin{itemize}
-    \item 认为\"下标不能是负数\"——这是对数组下标的误解。下标只是偏移量。
-    \item 把 p[-3] 理解为\"从 p 往回数 3 个\"是对的，但计算具体是哪个元素时容易数错（\texttt{p} 指向 a[5]，p[-1] → a[4]，p[-2] → a[3]，p[-3] → a[2]）。
+    \item 认为”下标不能是负数”——这是对数组下标的误解。下标只是偏移量。
+    \item 把 p[-3] 理解为”从 p 往回数 3 个”是对的，但计算具体是哪个元素时容易数错（\texttt{p} 指向 a[5]，p[-1] → a[4]，p[-2] → a[3]，p[-3] → a[2]）。
 \end{itemize}
 
-\textbf{讲师提示：} \textit{花 30 秒画一个数组内存布局图，让学生直观感受 p-3 移动的位置。强调 \"下标就是偏移量\" 这个本质。}
+\textbf{讲师提示：} \textit{花 30 秒画一个数组内存布局图，让学生直观感受 p-3 移动的位置。强调 “下标就是偏移量” 这个本质。}
 
 {\color{highlight}答案：C（3）}
 
@@ -131,7 +131,7 @@
     \item 忽略内存对齐因素。实际上 union 在某些平台上也可能因对齐而稍大于最大成员，但本题的选项和常见计算机条件下答案就是 8。
 \end{itemize}
 
-\textbf{讲师提示：} \textit{可以用\"酒店房间\"类比：struct 是每人一间房，union 是所有客人共用一间最大的房。}
+\textbf{讲师提示：} \textit{可以用”酒店房间”类比：struct 是每人一间房，union 是所有客人共用一间最大的房。}
 
 {\color{highlight}答案：B（8）}
 
@@ -141,7 +141,7 @@
 \textbf{概念概要：} 结构体数组、结构体指针、成员访问运算符（\texttt{.} 与 \texttt{->}）的正确用法。
 
 \medskip
-\textbf{讲师提示：} \textit{此题考查细节，要让学生理解\"数组名\"和\"结构体变量\"的本质区别。}
+\textbf{讲师提示：} \textit{此题考查细节，要让学生理解”数组名”和”结构体变量”的本质区别。}
 
 \textbf{代码回顾：}
 \begin{lstlisting}[language=C]
@@ -192,8 +192,8 @@ for (j = 0, k = -1; k = 1; j++, k++)
 
 \textbf{常见错误：}
 \begin{itemize}
-    \item 把 \texttt{k = 1} 读成\"判断 k 是否等于 1\"——这是视觉上的条件反射错误。
-    \item 不清楚\"赋值表达式有值\"的概念——在 C 中，a = 5 这个表达式本身的值就是 5。
+    \item 把 \texttt{k = 1} 读成”判断 k 是否等于 1“——这是视觉上的条件反射错误。
+    \item 不清楚”赋值表达式有值”的概念——在 C 中，a = 5 这个表达式本身的值就是 5。
     \item 不知道 \texttt{j = 0, k = -1} 是逗号表达式：依次求值，最终值为 -1，但 for 的初始化部分只关心副作用（j=0, k=-1）。
 \end{itemize}
 
@@ -208,12 +208,12 @@ for (j = 0, k = -1; k = 1; j++, k++)
 
 \textbf{核心讲解要点：}
 \begin{itemize}
-    \item 题干关键词：\"\textbf{只允许本源文件所有函数使用}\"——这描述的是 static 修饰的全局变量。
+    \item 题干关键词：”\textbf{只允许本源文件所有函数使用}”——这描述的是 static 修饰的全局变量。
     \item static 修饰全局变量/函数 → \textbf{内部链接}（internal linkage）：仅在当前 .c 文件内可见，其他文件无法 extern 引用。
     \item 对比：不加 static 的全局变量默认是\textbf{外部链接}（external linkage），其他文件可通过 \texttt{extern} 声明后访问。
-    \item auto：局部变量默认存储类别，离开作用域即销毁——与\"全局\"矛盾。
-    \item register：建议编译器将变量放入寄存器（仅局部变量）——与\"全局\"矛盾。
-    \item extern：声明外部变量，意在跨文件使用——与\"只允许本源文件\"矛盾。
+    \item auto：局部变量默认存储类别，离开作用域即销毁——与”全局”矛盾。
+    \item register：建议编译器将变量放入寄存器（仅局部变量）——与”全局”矛盾。
+    \item extern：声明外部变量，意在跨文件使用——与”只允许本源文件”矛盾。
 \end{itemize}
 
 \textbf{记忆口诀：} static 的两个含义（根据位置不同）：
@@ -221,12 +221,12 @@ for (j = 0, k = -1; k = 1; j++, k++)
     \item 修饰\textbf{局部变量} → 延长生命周期（函数调用间保值）
     \item 修饰\textbf{全局变量/函数} → 限制可见性（仅本文件）
 \end{enumerate}
-二者本质相通：都是\"静态 + 私密\"。
+二者本质相通：都是”静态 + 私密”。
 
 \textbf{常见错误：}
 \begin{itemize}
     \item 混淆 static 修饰局部变量和全局变量的不同含义。
-    \item 认为 static 全局变量\"不能修改\"——实际上可以在本文件内任意修改，只是外部不可见。
+    \item 认为 static 全局变量”不能修改”——实际上可以在本文件内任意修改，只是外部不可见。
 \end{itemize}
 
 {\color{highlight}答案：C}
@@ -252,10 +252,10 @@ char s[][81] = {"Student","Teacher","Father","Mother"}, *ps = s[2];
 \textbf{常见错误：}
 \begin{itemize}
     \item 选 \texttt{char[81]}——没有理解数组退化为指针的规则。
-    \item 选 \texttt{char **}——s[2] 是一维数组退化为指针，不是\"指针的指针\"。\texttt{char **} 对应的是 \texttt{s} 在某些上下文中的退化（s 退化为 \texttt{char (*)[81]}，也不是 char **）。
+    \item 选 \texttt{char **}——s[2] 是一维数组退化为指针，不是”指针的指针”。\texttt{char **} 对应的是 \texttt{s} 在某些上下文中的退化（s 退化为 \texttt{char (*)[81]}，也不是 char **）。
 \end{itemize}
 
-\textbf{讲师提示：} \textit{强调\"数组名在表达式中退化为指向首元素的指针\"——这是 C 语言最核心的规则之一，贯穿整个指针体系。}
+\textbf{讲师提示：} \textit{强调”数组名在表达式中退化为指向首元素的指针”——这是 C 语言最核心的规则之一，贯穿整个指针体系。}
 
 {\color{highlight}答案：B（char *）}
 
@@ -283,8 +283,8 @@ printf("%c,%s,%c\n", *s[1], ps, *ps);
 
 \textbf{常见错误：}
 \begin{itemize}
-    \item 把 \texttt{*s[1]} 当成 \"Teacher\"——忘记 \texttt{*} 解引用取的是单个字符。
-    \item 把 \texttt{*ps} 当成 \"Father\"——同样的错误，\%c 输出的是字符而非字符串。
+    \item 把 \texttt{*s[1]} 当成 “Teacher“——忘记 \texttt{*} 解引用取的是单个字符。
+    \item 把 \texttt{*ps} 当成 “Father“——同样的错误，\%c 输出的是字符而非字符串。
     \item 混淆 \texttt{\%s} 和 \texttt{\%c} 对参数的要求：\%s 需要指针（地址），\%c 需要字符值。
 \end{itemize}
 
