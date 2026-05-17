@@ -1,10 +1,10 @@
 # C语言期末模拟卷讲评 — 朋辈学业导师讲座
 
-> 🎓 南京理工大学 C 语言期末模拟卷讲评幻灯片 — LaTeX Beamer (XeLaTeX)，96 页逐题精讲，覆盖选择题、填空题、阅读程序题、编程题，含 SCAN 电梯调度算法演示。
+> 🎓 南京理工大学 C 语言期末模拟卷讲评幻灯片 — LaTeX Beamer (XeLaTeX)，96 页逐题精讲（幻灯片 96 页 + 讲稿 47 页），覆盖选择题、填空题、阅读程序题、编程题，含 SCAN 电梯调度算法演示。
 
-**幻灯片数量**: 96 页（含逐页揭晓动画）  
+**幻灯片数量**: 96 页 | **讲稿页数**: 47 页  
 **编译引擎**: XeLaTeX  
-**主题**: Metropolis + 克莱因蓝 (IKB) 配色
+**主题**: Metropolis + 深蓝灰 + 亮蓝 accent + 暖琥珀色答案高亮
 
 ---
 
@@ -20,6 +20,7 @@
 ├── .gitignore                ← 忽略构建产物（*.aux, *.log, build/, *.pdf, materials/）
 ├── AGENTS.md                 ← AI Agent 项目说明
 ├── README.md
+├── slide/chapters/
 │   ├── 01-title.tex         ← 标题页
 │   ├── 02-outline.tex       ← 目录 / 讲座大纲
 │   ├── 10-choice-1.tex      ← 选择题 第 1—10 题
@@ -29,7 +30,7 @@
 │   ├── 31-reading-2.tex     ← 阅读程序填空题 第 6—10 题
 │   ├── 40-complete.tex      ← 程序完善题
 │   ├── 50-programming.tex   ← 编程题：电梯调度系统
-│   └── 99-end.tex           ← 结束页
+│   └── 99-end.tex           ← 结束页（含开源地址 + Agentic Coding）
 ├── scripts/                 ← 编译与辅助脚本
 │   ├── build.bat            ← Windows 批处理编译幻灯片
 │   ├── build.ps1            ← PowerShell 编译幻灯片
@@ -187,12 +188,18 @@ python scripts/gen_note.py
 
 ### 幻灯片编写约定
 
+题目与解析**拆分**为独立 frame，不使用 `\pause`：
+
 ```latex
-\begin{frame}{题号标题}{知识点}
+% --- 题目页 ---
+\begin{frame}{题号标题}{知识点 --- 题目}
     \begin{exampleblock}{题目}
         题目内容...
     \end{exampleblock}
-    \pause
+\end{frame}
+
+% --- 解析页 ---
+\begin{frame}{题号标题}{知识点 --- 解析}
     \begin{alertblock}{解析}
         解析内容...
         {\color{highlight}答案：X}
@@ -200,30 +207,30 @@ python scripts/gen_note.py
 \end{frame}
 ```
 
-- 使用 `\pause` 分离题目与解析，支持逐页揭晓
-- 答案用 `{\color{highlight}...}` 突出显示（电光蓝）
-- 代码块使用 `lstlisting` 环境（`language=C`）
+- 题目与解析分帧展示，标题加 `--- 题目` / `--- 解析` 后缀
+- 答案用 `{\color{highlight}...}` 突出显示（暖琥珀色）
+- 代码块使用 `lstlisting` 环境（`language=C`），所在 frame 须加 `[fragile]`
 
 ### 配色方案
 
-基于 **International Klein Blue (IKB, RGB 0,47,167)** 构建的全蓝色系：
+深蓝灰 + 亮蓝 accent + 暖琥珀色答案高亮：
 
 | 颜色 | 用途 | RGB |
 |------|------|-----|
-| primary | 框架标题、块标题、进度条 | (0, 38, 150) |
-| accent | 项目符号、结构元素、代码关键词 | (0, 55, 180) |
-| accentlight | 示例块背景、提示块背景 | (222, 234, 254) |
-| highlight | 答案高亮 | (0, 90, 210) |
-| bglight | 块体背景 | (244, 247, 254) |
-| bglighter | 代码背景 | (250, 251, 255) |
+| primary | 框架标题、块标题、进度条 | (30, 41, 59) |
+| accent | 项目符号、结构元素、代码关键词 | (59, 130, 246) |
+| highlight | 答案标注 | (217, 119, 6) |
+| accentlight | 块背景 | (219, 234, 254) |
+| bglight | 块体背景 | (241, 245, 249) |
+| bglighter | 代码背景 | (248, 250, 252) |
 
 ### 编译统计
 
 ```
-PDF 页数：96
-文件大小：~390 KB
+幻灯片：96 页  |  讲稿：47 页
 编译错误：0
 Overfull vbox 警告：35（均为 beamer 常见中间态溢出，不影响最终显示）
+Missing character 警告：若干（预存 Unicode 字符在 Latin Modern 字体中缺失，与内容无关）
 ```
 
 ---
