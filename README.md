@@ -229,8 +229,7 @@ python scripts/gen_note.py
 ```
 幻灯片：96 页  |  讲稿：47 页
 编译错误：0
-Overfull vbox 警告：35（均为 beamer 常见中间态溢出，不影响最终显示）
-Missing character 警告：若干（预存 Unicode 字符在 Latin Modern 字体中缺失，与内容无关）
+编译警告：0
 ```
 
 ---
