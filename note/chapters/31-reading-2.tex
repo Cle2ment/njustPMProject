@@ -164,7 +164,7 @@ int main() {
 \noindent 调用 func(2, 3)：
 
 \begin{itemize}
-    \item b = 3 ≠ 0，不进入 if
+    \item b = 3 $\neq$ 0，不进入 if
     \item result = a = \textbf{2}
     \item 循环：i 从 1 到 2（i < b，即 i < 3）
 \end{itemize}
@@ -300,8 +300,8 @@ printf("a = %d, b = %d\n", a, b);
     \item 更直观的理解：令 $A_0=5, B_0=3$
     \begin{itemize}
         \item $A_1 = A_0 \oplus B_0$（6）
-        \item $B_1 = A_1 \oplus B_0 = A_0 \oplus B_0 \oplus B_0 = A_0$（5）✓ 
-        \item $A_2 = A_1 \oplus B_1 = A_0 \oplus B_0 \oplus A_0 = B_0$（3）✓
+        \item $B_1 = A_1 \oplus B_0 = A_0 \oplus B_0 \oplus B_0 = A_0$（5）\checkmark 
+        \item $A_2 = A_1 \oplus B_1 = A_0 \oplus B_0 \oplus A_0 = B_0$（3）\checkmark
     \end{itemize}
 \end{itemize}
 

@@ -274,18 +274,18 @@ int find_smaller(int *arr, int cnt, int target) {
 int main() {
     int n, a, d;
     scanf("%d %d %d", &n, &a, &d);
-    if (n == 0) { printf("1\n"); return 0; }    // ① 无按钮→停1楼
+    if (n == 0) { printf("1\n"); return 0; }    // (1) 无按钮→停1楼
 
     int arr[100];
     for (int i = 0; i < n; i++) scanf("%d", &arr[i]);
-    my_sort(arr, n);                              // ② 排序按钮数组
+    my_sort(arr, n);                              // (2) 排序按钮数组
 
     int next_floor;
-    if (d == 1) {                                 // ③ 上行方向
+    if (d == 1) {                                 // (3) 上行方向
         next_floor = find_larger(arr, n, a);      //   找上方最近的
         if (next_floor == -1)                     //   上方无按钮
             next_floor = find_smaller(arr, n, a); //   折返：下方最近的
-    } else {                                      // ④ 下行方向
+    } else {                                      // (4) 下行方向
         next_floor = find_smaller(arr, n, a);     //   找下方最近的
         if (next_floor == -1)                     //   下方无按钮
             next_floor = find_larger(arr, n, a);  //   折返：上方最近的
@@ -301,7 +301,7 @@ int main() {
 再对照代码逐行讲解。避免对着代码「念」—— 先讲算法，再讲实现。
 
 \vspace{0.5em}
-\textbf{步骤①：边界情况处理（无按钮）}
+\textbf{步骤\textcircled{1}：边界情况处理（无按钮）}
 
 \begin{lstlisting}[language=C]
 if (n == 0) { printf("1\n"); return 0; }
@@ -314,7 +314,7 @@ if (n == 0) { printf("1\n"); return 0; }
 这种写法叫做「卫语句」(Guard Clause)，是编程中常用的模式。
 
 \vspace{0.5em}
-\textbf{步骤②：排序}
+\textbf{步骤\textcircled{2}：排序}
 
 \begin{lstlisting}[language=C]
 my_sort(arr, n);
@@ -332,7 +332,7 @@ my_sort(arr, n);
 可以提前 break 优化性能。更重要的是，排序后调试和推理都更直观。
 
 \vspace{0.5em}
-\textbf{步骤③：上行方向 (d == 1)}
+\textbf{步骤\textcircled{3}：上行方向 (d == 1)}
 
 \begin{lstlisting}[language=C]
 next_floor = find_larger(arr, n, a);      // 1) 先找上方最近的
@@ -344,7 +344,7 @@ if (next_floor == -1)                     // 2) 上方没有？
 说明所有按钮都在下方，电梯只能折返下行，去下方最近的楼层。
 
 \vspace{0.5em}
-\textbf{步骤④：下行方向 (d == -1)}
+\textbf{步骤\textcircled{4}：下行方向 (d == -1)}
 
 \begin{lstlisting}[language=C]
 next_floor = find_smaller(arr, n, a);     // 1) 先找下方最近的

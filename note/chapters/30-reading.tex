@@ -140,10 +140,10 @@ int main() {
 \begin{center}
 \begin{tabular}{c|c|c|c|c}
 \hline
-\textbf{i} & \textbf{交换对} & \textbf{a[i]} ↔ \textbf{a[n-1-i]} & \textbf{结果} \\
+\textbf{i} & \textbf{交换对} & \textbf{a[i]} $\leftrightarrow$ \textbf{a[n-1-i]} & \textbf{结果} \\
 \hline
-0 & a[0] ↔ a[3] & 5 ↔ 8 & [\textbf{8}, 6, 7, \textbf{5}] \\
-1 & a[1] ↔ a[2] & 6 ↔ 7 & [8, \textbf{7}, \textbf{6}, 5] \\
+0 & a[0] $\leftrightarrow$ a[3] & 5 $\leftrightarrow$ 8 & [\textbf{8}, 6, 7, \textbf{5}] \\
+1 & a[1] $\leftrightarrow$ a[2] & 6 $\leftrightarrow$ 7 & [8, \textbf{7}, \textbf{6}, 5] \\
 \hline
 \end{tabular}
 \end{center}
@@ -153,7 +153,7 @@ int main() {
 \textbf{关键教学要点：}
 \begin{itemize}
     \item 循环次数：n/2。如果 n 是奇数，中间元素不需要交换——让学生验证 n=5 的情况。
-    \item 对称下标：a[i] ↔ a[n-1-i]。
+    \item 对称下标：a[i] $\leftrightarrow$ a[n-1-i]。
     \item 传数组名给函数实际传递的是\underline{首元素地址}，因此函数内的修改会反映到 main 的数组。
     \item printf 没有加空格或换行，所以输出是连续的"8765"——阅读程序题要特别注意输出格式。
 \end{itemize}
@@ -195,9 +195,9 @@ c[i] = '\0'; puts(c);
 \hline
 \textbf{i} & \textbf{a[i]} & \textbf{b[i]} & \textbf{条件} & \textbf{取值} & \textbf{c[i] 计算} & \textbf{c[i] 字符} \\
 \hline
-0 & 'a' (97) & 'a' (97) & a[i] ≥ b[i] ✓ & a[i] & 97-32=65 & 'A' \\
-1 & 'b' (98) & 'c' (99) & a[i] ≥ b[i] ✗ & b[i] & 99-32=67 & 'C' \\
-2 & 't' (116) & 'i' (105) & a[i] ≥ b[i] ✓ & a[i] & 116-32=84 & 'T' \\
+0 & 'a' (97) & 'a' (97) & a[i] $\geq$ b[i] \checkmark & a[i] & 97-32=65 & 'A' \\
+1 & 'b' (98) & 'c' (99) & a[i] $\geq$ b[i] $\times$ & b[i] & 99-32=67 & 'C' \\
+2 & 't' (116) & 'i' (105) & a[i] $\geq$ b[i] \checkmark & a[i] & 116-32=84 & 'T' \\
 3 & '\textbackslash 0' & 'd' (100) & 循环条件不满足，退出 & — & — & — \\
 \hline
 \end{tabular}
@@ -250,9 +250,9 @@ int main() {
 
 \noindent 初始调用：\texttt{Fun(5, 4)}
 
-\noindent \textbf{第 1 层}：Fun(5, 4)，b=4 ≥ 1 → \texttt{p = Fun(4, 2) + 5*5 = Fun(4, 2) + 25}
+\noindent \textbf{第 1 层}：Fun(5, 4)，b=4 $\geq$ 1 → \texttt{p = Fun(4, 2) + 5*5 = Fun(4, 2) + 25}
 
-\noindent \textbf{第 2 层}：Fun(4, 2)，b=2 ≥ 1 → \texttt{p = Fun(3, 0) + 4*4 = Fun(3, 0) + 16}
+\noindent \textbf{第 2 层}：Fun(4, 2)，b=2 $\geq$ 1 → \texttt{p = Fun(3, 0) + 4*4 = Fun(3, 0) + 16}
 
 \noindent \textbf{第 3 层}：Fun(3, 0)，b=0 < 1 → \texttt{p = 0}（\textbf{递归终止！}）
 
@@ -276,6 +276,6 @@ int main() {
     \item 搞错递归层次——分不清哪一层的 a 是多少。
 \end{itemize}
 
-\textbf{延伸：} 可以让学生思考——如果把递归终止条件换成 b == 0，会有什么不同？（Fun(3,0)仍然触发，但 Fun(3,1) 也会继续递归直到 b≤0。）
+\textbf{延伸：} 可以让学生思考——如果把递归终止条件换成 b == 0，会有什么不同？（Fun(3,0)仍然触发，但 Fun(3,1) 也会继续递归直到 b$\leq$0。）
 
 {\color{highlight}输出：\texttt{41}}
